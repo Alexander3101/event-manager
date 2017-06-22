@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title
+      |Календарь событий
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"
+
+  body
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"
+            span.sr-only = t('layout.expand_menu')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand href=root_path Главная
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li class=("active" if controller_name == "events")
+              a href=events_path События
+            li class=("active" if controller_name == "rooms")
+              a href=rooms_path Комнаты
+    .container
+      = yield
