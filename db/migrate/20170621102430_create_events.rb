@@ -6,6 +6,9 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.datetime :end_datetime, null: false
       t.text :description
 
+      # пользователь, создавший событие
+      t.integer :user_id, null: false
+
       t.timestamps
     end
   end
