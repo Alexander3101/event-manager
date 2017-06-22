@@ -25,5 +25,11 @@ html
               a href=events_path События
             li class=("active" if controller_name == "rooms")
               a href=rooms_path Комнаты
+          ul.nav.navbar-nav.navbar-right
+            li class=("active")
+              a href="#" 
+                span.glyphicon.glyphicon-user
+                |Войти
+      
     .container
       = yield
