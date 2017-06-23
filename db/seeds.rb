@@ -40,7 +40,7 @@ rooms_number.times do |i|
   Room.create(
   title: "room_" + (i + rand(1..6)*10).to_s,
   begin_work_time: Time.new(2000, 01, 01, 9, 0, 0, '+03:00'),
-  end_work_time: Time.new(2000, 01, 01, 18, 0, 0 '+03:00'),
+  end_work_time: Time.new(2000, 01, 01, 18, 0, 0, '+03:00'),
   description: "this is a room"
   )
 end
