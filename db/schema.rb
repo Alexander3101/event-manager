@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20170622084335) do
 
   create_table "rooms", force: :cascade do |t|
     t.string "title", null: false
-    t.datetime "begin_work_time", null: false
-    t.datetime "end_work_time", null: false
+    t.time "begin_work_time", null: false
+    t.time "end_work_time", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
