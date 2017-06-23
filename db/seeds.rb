@@ -52,3 +52,14 @@ Event.all.each do |e|
     end
   end
 end
+
+# Брони
+Room.all.each do |r|
+  r.events.each_with_index do |e, i|
+    Order.create(
+    begin_datetime: Time.new(2000, 01, 01, 9, 0, 0, '+03:00') + i.hours,
+    end_datetime: Time.new(2000, 01, 01, 9, 0, 0, '+03:00') + (i+1).hours,
+    room_id: r[:id]
+    )
+  end
+end
