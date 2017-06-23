@@ -20,3 +20,13 @@ role: "admin"
 )
 
 # События
+10.times do
+  title_tmp = Faker::Book.title
+  Event.create(
+  title: title_tmp,
+  description: title_tmp + title_tmp + title_tmp,
+  begin_datetime: DateTime.now,
+  end_datetime: DateTime.now + 6000,
+  user_id: rand(1..9)
+  )
+end
