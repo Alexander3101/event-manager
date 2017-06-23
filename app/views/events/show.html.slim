@@ -1,0 +1,28 @@
+br
+	br
+h2
+  = @event.title
+p 
+  |Время проведения события события: 
+  = @event.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
+  = @event.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
+p 
+  |Комнаты, задействованные в мероприятии:
+  
+ul
+  - @event.rooms.each do |room|
+    li 
+      = link_to room.title, room_path(room)
+  
+  
+/ h2
+/ = @author.name
+/ 
+/ - if @author.photo.length > 0
+/ = image_tag @author.photo.url(:square)
+/ 
+/ h3 =t('author.author_books')+":"
+/ ul
+/ - @author.books.each do |book|
+/   li
+/     = link_to book.title, book_path(book)
