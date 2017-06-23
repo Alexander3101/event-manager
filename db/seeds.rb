@@ -59,7 +59,8 @@ Room.all.each do |r|
     Order.create(
     begin_datetime: Time.new(2000, 01, 01, 9, 0, 0, '+03:00') + i.hours,
     end_datetime: Time.new(2000, 01, 01, 9, 0, 0, '+03:00') + (i+1).hours,
-    room_id: r[:id]
+    room_id: r[:id],
+    event_id: e[:id]
     )
   end
 end
