@@ -4,7 +4,7 @@ rooms_number = 6
 
 # Пользователи
 users_number.times do
-  email_tmp = Faker::Internet.email
+  email_tmp = Faker::Internet.unique.email
   User.create(
   email: email_tmp,
   password: email_tmp[0,2] + "12345"
