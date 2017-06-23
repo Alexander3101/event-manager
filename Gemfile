@@ -40,3 +40,5 @@ gem 'will_paginate', '~> 3.1.0'
 
 gem 'devise'
 gem 'faker'
+
+gem 'rspec'
