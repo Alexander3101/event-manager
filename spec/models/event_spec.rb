@@ -78,6 +78,17 @@ RSpec.describe Event, type: :model do
           ).to be_valid
       end
     end
+  end
+
+  describe ".delete" do
+    context "if has dependent orders" do
+      it "then remove these orders" do
+        event = Event.first
+        orders = Order.select(:id).where(:event_id = event.id)
+        expect (event.destroy).to change { Order.count }
+      end
+    end
 
   end
+
 end
