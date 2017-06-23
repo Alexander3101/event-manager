@@ -1,0 +1,12 @@
+br
+	br
+		
+h2
+  |События:
+  
+ul
+  - @events.each do |event|
+    li
+      = link_to event.title, event_path(event)
+      br
+      = event.begin_datetime.strftime("Время начала события: %d.%m.%Y в %H:%M")
