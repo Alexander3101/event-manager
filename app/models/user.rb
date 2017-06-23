@@ -3,4 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable
   has_many :events
+
+  validates :email, :password, :role, presence: true
 end
