@@ -1,0 +1,24 @@
+br
+br
+h2 Бронировать
+
+= form_for :order, url: {action: "create"} do |f|
+  p
+    = f.label "Событие"
+    br
+    = f.collection_select(:event_id, @events, :id, :title)
+  
+  = f.hidden_field :room_id, value: @room_id, as: :hidden
+  = f.hidden_field :user_id, value: 8, as: :hidden
+  
+  p
+    = f.label "Время начала"
+    br
+    = f.datetime_local_field :begin_datetime
+  p
+    = f.label "Время окончания"
+    br
+    = f.datetime_local_field :end_datetime
+  p
+    = f.submit "Забронировать"
+end

@@ -1,0 +1,23 @@
+br
+br
+h2 Новое событие
+
+= form_for :event, url: {action: "create"} do |f|
+  p
+    = f.label "Название события"
+    br
+    = f.text_field :title
+  p
+    = f.label "Время начала события"
+    br
+    = f.datetime_local_field :begin_datetime
+  p
+    = f.label "Время окончания события"
+    br
+    = f.datetime_local_field :end_datetime
+  
+  = f.hidden_field :user_id, value: 8, as: :hidden
+  
+  p
+    = f.submit "Сохранить событие"
+end
