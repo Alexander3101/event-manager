@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable
   has_many :events
 
-  validates :email, :password, :role, presence: true
+  validates :email, :password, presence: true
 end
