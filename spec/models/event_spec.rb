@@ -53,6 +53,19 @@ RSpec.describe Event, type: :model do
       end
     end
 
+    context "if end_datetime is earlier than begin_datetime" do
+      it "is not valid" do
+        expect(
+         Event.new(
+           title: "Test_event",
+           begin_datetime: DateTime.now,
+           end_datetime: DateTime.now - 15.minutes,
+           description: "elementary test event",
+           user_id: 1)
+         ).not_to be_valid
+      end
+    end
+
     context "if nil user_id is set" do
       it "is not valid" do
         expect(
@@ -62,6 +75,20 @@ RSpec.describe Event, type: :model do
             end_datetime: DateTime.now + 15.minutes,
             description: "elementary test event",
             user_id: nil)
+          ).not_to be_valid
+      end
+    end
+
+    context "if missed user_id is set" do
+      it "is not valid" do
+        id = User.order(id: :desc).first[:id] + 1
+        expect(
+          Event.new(
+            title: "Test_event",
+            begin_datetime: DateTime.now,
+            end_datetime: DateTime.now + 15.minutes,
+            description: "elementary test event",
+            user_id: id)
           ).not_to be_valid
       end
     end
@@ -81,14 +108,13 @@ RSpec.describe Event, type: :model do
   end
 
   describe ".delete" do
-    context "if has dependent orders" do
-      it "then remove these orders" do
-        event = Event.first
-        orders = Order.select(:id).where(:event_id = event.id)
-        expect (event.destroy).to change { Order.count }
-      end
-    end
+    it "removes dependent orders" do
+      event = Event.first
+      orders = Order.where("event_id = #{event[:id]}")
+      event.destroy
 
+      expect(Order.all).not_to include {orders}
+    end
   end
 
 end
