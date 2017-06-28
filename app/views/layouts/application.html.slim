@@ -30,7 +30,7 @@ html
               span Здравствуйте, = current_user.email
               = link_to 'Выйти', destroy_user_session_path, :method => :delete
             -else 
-              a href="#sign_in_dialog" class="btn btn-primary" data-toggle="modal"
+              a href="#sign_in_dialog" class="btn btn-primary navbar-btn" data-toggle="modal"
                 span.glyphicon.glyphicon-user
                 |Войти
             end
