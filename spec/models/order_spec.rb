@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   let (:r_id) { Room.order(id: :desc).first[:id] }
-  let (:u_id) { Event.order(id: :desc).first[:id] }
+  let (:e_id) { Event.order(id: :desc).first[:id] }
   let(:order) do
-    Order.new (
+    Order.new(
       begin_datetime: DateTime.now,
       end_datetime: DateTime.now + 15.minutes,
       room_id: r_id,
@@ -20,43 +20,50 @@ RSpec.describe Order, type: :model do
 
     context "if nil begin_datetime is set" do
       it "is not valid" do
-        expect(order[:begin_datetime]=nil).not_to be_valid
+        order[:begin_datetime] = nil
+        expect(order).not_to be_valid
       end
     end
 
     context "if nil end_datetime is set" do
       it "is not valid" do
-        expect(order[:end_datetime]=nil).not_to be_valid
+        order[:end_datetime]=nil
+        expect(order).not_to be_valid
       end
     end
 
     context "if end_datetime is earlier than begin_datetime" do
       it "is not valid" do
-        expect(order[:end_datetime] = order[:begin_datetime]-15.minutes).not_to be_valid
+        order[:end_datetime] = order[:begin_datetime]-15.minutes
+        expect(order).not_to be_valid
       end
     end
 
     context "if nil room_id is set" do
       it "is not valid" do
-        expect(order[:room_id] = nil).not_to be_valid
+        order[:room_id] = nil
+        expect(order).not_to be_valid
       end
     end
 
     context "if missed room_id is set" do
       it "is not valid" do
-        expect(order[:room_id] = order[:room_id]+1).not_to be_valid
+        order[:room_id] = r_id + 1
+        expect(order).not_to be_valid
       end
     end
 
     context "if nil event_id is set" do
       it "is not valid" do
-        expect(order[:event_id] = nil).not_to be_valid
+        order[:event_id] = nil
+        expect(order).not_to be_valid
       end
     end
 
     context "if missed event_id is set" do
       it "is not valid" do
-        expect(order[:event_id] = order[:event_id]+1).not_to be_valid
+        order[:event_id] = e_id + 1
+        expect(order).not_to be_valid
       end
     end
   end
