@@ -1,123 +1,71 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
+  # it takes the biggest id, so (u_id+1) doesn't exist
   let(:u_id) do
     User.order(id: :desc).first[:id]
   end
+  let(:event) do
+    Event.new(
+      title: "Test_event",
+      begin_datetime: DateTime.now,
+      end_datetime: DateTime.now + 15.minutes,
+      description: "elementary test event",
+      user_id: u_id)
+  end
 
   describe ".new" do
-    
+
     it "is valid with valid attributes" do
-       expect(
-        Event.new(
-          title: "Test_event",
-          begin_datetime: DateTime.now,
-          end_datetime: DateTime.now + 15.minutes,
-          description: "elementary test event",
-          user_id: u_id)
-        ).to be_valid
+       expect(event).to be_valid
     end
 
     context "if nil title is set" do
       it "is not valid" do
-        expect(
-          Event.new(
-            title: nil,
-            begin_datetime: DateTime.now,
-            end_datetime: DateTime.now + 15.minutes,
-            description: "elementary test event",
-            user_id: u_id)
-          ).not_to be_valid
+        event.title = nil
+        expect(event).not_to be_valid
       end
     end
 
     context "if nil begin_datetime is set" do
       it "is not valid" do
-        expect(
-          Event.new(
-            title: "Test_event",
-            begin_datetime: nil,
-            end_datetime: DateTime.now + 15.minutes,
-            description: "elementary test event",
-            user_id: u_id)
-          ).not_to be_valid
+        event.begin_datetime = nil
+        expect(event).not_to be_valid
       end
     end
 
     context "if nil end_datetime is set" do
       it "is not valid" do
-        expect(
-          Event.new(
-            title: "Test_event",
-            begin_datetime: DateTime.now,
-            end_datetime: nil,
-            description: "elementary test event",
-            user_id: u_id)
-          ).not_to be_valid
+        event[:end_datetime] = nil
+        expect(event).not_to be_valid
       end
     end
 
     context "if end_datetime is earlier than begin_datetime" do
       it "is not valid" do
-        expect(
-         Event.new(
-           title: "Test_event",
-           begin_datetime: DateTime.now,
-           end_datetime: DateTime.now - 15.minutes,
-           description: "elementary test event",
-<<<<<<< HEAD
-           user_id: u_id)
-=======
-           user_id: 1)
->>>>>>> 16bf365d6bfe928ec120eb6a6be81868a2e5a67f
-         ).not_to be_valid
+        event[:end_datetime] = event[:begin_datetime] - 15.minutes
+        expect(event).not_to be_valid
       end
     end
 
     context "if nil user_id is set" do
       it "is not valid" do
-        expect(
-          Event.new(
-            title: "Test_event",
-            begin_datetime: DateTime.now,
-            end_datetime: DateTime.now + 15.minutes,
-            description: "elementary test event",
-            user_id: nil)
-          ).not_to be_valid
+        event[:user_id] = nil
+        expect(event).not_to be_valid
       end
     end
 
     context "if missed user_id is set" do
       it "is not valid" do
-<<<<<<< HEAD
-=======
-        id = User.order(id: :desc).first[:id] + 1
->>>>>>> 16bf365d6bfe928ec120eb6a6be81868a2e5a67f
-        expect(
-          Event.new(
-            title: "Test_event",
-            begin_datetime: DateTime.now,
-            end_datetime: DateTime.now + 15.minutes,
-            description: "elementary test event",
-<<<<<<< HEAD
-            user_id: u_id + 1)
-=======
-            user_id: id)
->>>>>>> 16bf365d6bfe928ec120eb6a6be81868a2e5a67f
-          ).not_to be_valid
+        event[:user_id] = u_id + 1
+        expect(event).not_to be_valid
       end
     end
 
     context "if nil description is set" do
       it "is valid" do
-        expect(
-          Event.new(
-            title: "Test_event",
-            begin_datetime: DateTime.now,
-            end_datetime: DateTime.now + 15.minutes,
-            description: nil,
-            user_id: u_id)
-          ).to be_valid
+        event[:description] = nil
+        expect(event).to be_valid
       end
     end
   end
