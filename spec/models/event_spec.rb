@@ -22,14 +22,14 @@ RSpec.describe Event, type: :model do
 
     context "if nil title is set" do
       it "is not valid" do
-        event.title = nil
+        event[:title] = nil
         expect(event).not_to be_valid
       end
     end
 
     context "if nil begin_datetime is set" do
       it "is not valid" do
-        event.begin_datetime = nil
+        event[:begin_datetime] = nil
         expect(event).not_to be_valid
       end
     end
