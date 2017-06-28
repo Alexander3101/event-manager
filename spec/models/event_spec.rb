@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
-  describe ".new" do
+  let(:u_id) do
+    User.order(id: :desc).first[:id]
+  end
 
+  describe ".new" do
+    
     it "is valid with valid attributes" do
        expect(
         Event.new(
@@ -10,7 +14,7 @@ RSpec.describe Event, type: :model do
           begin_datetime: DateTime.now,
           end_datetime: DateTime.now + 15.minutes,
           description: "elementary test event",
-          user_id: 1)
+          user_id: u_id)
         ).to be_valid
     end
 
@@ -22,7 +26,7 @@ RSpec.describe Event, type: :model do
             begin_datetime: DateTime.now,
             end_datetime: DateTime.now + 15.minutes,
             description: "elementary test event",
-            user_id: 1)
+            user_id: u_id)
           ).not_to be_valid
       end
     end
@@ -35,7 +39,7 @@ RSpec.describe Event, type: :model do
             begin_datetime: nil,
             end_datetime: DateTime.now + 15.minutes,
             description: "elementary test event",
-            user_id: 1)
+            user_id: u_id)
           ).not_to be_valid
       end
     end
@@ -48,8 +52,21 @@ RSpec.describe Event, type: :model do
             begin_datetime: DateTime.now,
             end_datetime: nil,
             description: "elementary test event",
-            user_id: 1)
+            user_id: u_id)
           ).not_to be_valid
+      end
+    end
+
+    context "if end_datetime is earlier than begin_datetime" do
+      it "is not valid" do
+        expect(
+         Event.new(
+           title: "Test_event",
+           begin_datetime: DateTime.now,
+           end_datetime: DateTime.now - 15.minutes,
+           description: "elementary test event",
+           user_id: u_id)
+         ).not_to be_valid
       end
     end
 
@@ -66,6 +83,19 @@ RSpec.describe Event, type: :model do
       end
     end
 
+    context "if missed user_id is set" do
+      it "is not valid" do
+        expect(
+          Event.new(
+            title: "Test_event",
+            begin_datetime: DateTime.now,
+            end_datetime: DateTime.now + 15.minutes,
+            description: "elementary test event",
+            user_id: u_id + 1)
+          ).not_to be_valid
+      end
+    end
+
     context "if nil description is set" do
       it "is valid" do
         expect(
@@ -74,21 +104,20 @@ RSpec.describe Event, type: :model do
             begin_datetime: DateTime.now,
             end_datetime: DateTime.now + 15.minutes,
             description: nil,
-            user_id: 1)
+            user_id: u_id)
           ).to be_valid
       end
     end
   end
 
   describe ".delete" do
-    context "if has dependent orders" do
-      it "then remove these orders" do
-        event = Event.first
-        orders = Order.select(:id).where(:event_id = event.id)
-        expect (event.destroy).to change { Order.count }
-      end
-    end
+    it "removes dependent orders" do
+      event = Event.first
+      orders = Order.where("event_id = #{event[:id]}")
+      event.destroy
 
+      expect(Order.all).not_to include {orders}
+    end
   end
 
 end
