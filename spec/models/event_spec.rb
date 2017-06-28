@@ -65,7 +65,11 @@ RSpec.describe Event, type: :model do
            begin_datetime: DateTime.now,
            end_datetime: DateTime.now - 15.minutes,
            description: "elementary test event",
+<<<<<<< HEAD
            user_id: u_id)
+=======
+           user_id: 1)
+>>>>>>> 16bf365d6bfe928ec120eb6a6be81868a2e5a67f
          ).not_to be_valid
       end
     end
@@ -85,13 +89,21 @@ RSpec.describe Event, type: :model do
 
     context "if missed user_id is set" do
       it "is not valid" do
+<<<<<<< HEAD
+=======
+        id = User.order(id: :desc).first[:id] + 1
+>>>>>>> 16bf365d6bfe928ec120eb6a6be81868a2e5a67f
         expect(
           Event.new(
             title: "Test_event",
             begin_datetime: DateTime.now,
             end_datetime: DateTime.now + 15.minutes,
             description: "elementary test event",
+<<<<<<< HEAD
             user_id: u_id + 1)
+=======
+            user_id: id)
+>>>>>>> 16bf365d6bfe928ec120eb6a6be81868a2e5a67f
           ).not_to be_valid
       end
     end

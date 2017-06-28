@@ -12,8 +12,8 @@ users_number.times do
 end
 
 User.create(
-email: "adminishe@admins.net",
-password: "admin1",
+email: "admin@example.com",
+password: "password",
 role: "admin"
 )
 

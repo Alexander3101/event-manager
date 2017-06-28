@@ -26,10 +26,13 @@ html
             li class=("active" if controller_name == "rooms")
               a href=rooms_path Комнаты
           ul.nav.navbar-nav.navbar-right
-            li class=("active")
-              a href="#" 
-                span.glyphicon.glyphicon-user
-                |Войти
+            -if user_signed_in?
+              = link_to 'Выйти', destroy_user_session_path, :method => :delete
+            -else
+              =form_for(:user, :url => session_path(:user)) do |f|
+                = f.text_field :email
+                = f.password_field :password
+                = f.submit 'Войти'
       
     .container
       = yield
