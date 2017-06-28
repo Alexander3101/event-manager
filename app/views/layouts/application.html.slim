@@ -24,15 +24,39 @@ html
             li class=("active" if controller_name == "events")
               a href=events_path События
             li class=("active" if controller_name == "rooms")
-              a href=rooms_path Комнаты
+              a href=rooms_path Комнаты       
           ul.nav.navbar-nav.navbar-right
             -if user_signed_in?
+              span Здравствуйте, = current_user.email
               = link_to 'Выйти', destroy_user_session_path, :method => :delete
-            -else
-              =form_for(:user, :url => session_path(:user)) do |f|
-                = f.text_field :email
-                = f.password_field :password
-                = f.submit 'Войти'
-      
+            -else 
+              a href="#sign_in_dialog" class="btn btn-primary" data-toggle="modal"
+                span.glyphicon.glyphicon-user
+                |Войти
+            end
+    div id="sign_in_dialog" class="modal fade"
+      div class="modal-dialog modal-sm"
+        div class="modal-content"
+          div class="modal-header"
+            button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+              |×
+            h4 class="modal-title"
+              |Вход:
+          div class="modal-body"
+            = form_for(:user, url: session_path(:user), remote: true) do |f|
+              div
+                = f.label :email
+                br
+                = f.email_field :email, autofocus: true
+              br
+                = f.label :password
+                br
+                = f.password_field :password, autocomplete: "off"
+              br
+              
+              div class="modal-footer"
+                = f.submit "Войти"
+            end
+
     .container
       = yield
