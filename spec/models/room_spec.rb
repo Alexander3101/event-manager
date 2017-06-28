@@ -6,8 +6,8 @@ RSpec.describe Room, type: :model do
     Room.new(
       title: "Test_room",
       begin_work_time: Time.now,
-      end_work_time: DateTime.now + 12.hours,
-      description: "elementary test event")
+      end_work_time: Time.now + 12.hours,
+      description: "elementary test room")
   end
 
   describe ".new" do
