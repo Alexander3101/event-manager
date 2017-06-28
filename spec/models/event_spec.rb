@@ -48,6 +48,13 @@ RSpec.describe Event, type: :model do
       end
     end
 
+    context "if event length is less than 15 minutes" do
+      it "is not valid" do
+        event[:end_datetime] = event[:begin_datetime] + 2.minutes
+        expect(event).not_to be_valid
+      end
+    end
+
     context "if nil user_id is set" do
       it "is not valid" do
         event[:user_id] = nil
