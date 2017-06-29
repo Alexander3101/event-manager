@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  include date_validators
+  include DateValidators
   include ActiveModel::Validations
 
   belongs_to :room, dependent: :destroy

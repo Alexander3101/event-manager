@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-  include date_validators
+  include DateValidators
   include ActiveModel::Validations
 
   has_and_belongs_to_many :rooms

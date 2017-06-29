@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
-  include date_validators
+  include DateValidators
   include ActiveModel::Validations
 
   has_many :orders
