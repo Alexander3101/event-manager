@@ -25,15 +25,17 @@ html
               a href=events_path События
             li class=("active" if controller_name == "rooms")
               a href=rooms_path Комнаты       
-          ul.nav.navbar-nav.navbar-right
-            -if user_signed_in?
-              span Здравствуйте, = current_user.email
-              = link_to 'Выйти', destroy_user_session_path, :method => :delete
-            -else 
-              a href="#sign_in_dialog" class="btn btn-primary navbar-btn" data-toggle="modal"
-                span.glyphicon.glyphicon-user
-                |Войти
-            end
+          -if user_signed_in?
+            = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-primary navbar-btn navbar-right"
+            .navbar-text.navbar-right
+              span.glyphicon.glyphicon-user
+              | Здравствуйте, 
+              = current_user.email 
+          -else 
+            a href="#sign_in_dialog" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal"
+              span.glyphicon.glyphicon-user
+              |Войти
+          end
     div id="sign_in_dialog" class="modal fade"
       div class="modal-dialog modal-sm"
         div class="modal-content"
