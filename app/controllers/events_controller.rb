@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.paginate(page: params[:page])
+    @events = Event.where('end_datetime > ?', DateTime.now).order(:begin_datetime).paginate(page: params[:page])
   end
 
   def show
