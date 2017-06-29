@@ -31,8 +31,8 @@ module DateValidators
         record.errors[:text] << 'Мимо события'
       end
 
-      if record.end_datetime.minute + 60*record.end_datetime.hour > record.room.end_work_time.minute + 60*record.room.end_work_time.hour or
-        record.begin_datetime.minute + 60*record.begin_datetime.hour < record.room.begin_work_time.minute + 60*record.room.begin_work_time.hour
+      if record.end_datetime.min + 60*record.end_datetime.hour > record.room.end_work_time.min + 60*record.room.end_work_time.hour or
+        record.begin_datetime.min + 60*record.begin_datetime.hour < record.room.begin_work_time.min + 60*record.room.begin_work_time.hour
 
         record.errors[:text] << 'Мимо комнаты'
       end
