@@ -2,17 +2,19 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @events = Event.all
+    @rooms = Room.all
     @room_id = params[:room_id]
+    @event_id = params[:event_id]
   end
 
   def create
     @order = Order.new(order_params)
     @order.event.rooms << @order.room
-    
+
     if @order.save
-      redirect_to room_path(@order.room_id)
+      redirect_to session.delete(:return_to)
     else
-      redirect_to '/rooms'
+      render 'new'
     end
   end
 

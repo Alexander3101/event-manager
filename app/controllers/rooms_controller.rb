@@ -5,6 +5,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+    session[:return_to] = request.original_url
   end
 
   def new

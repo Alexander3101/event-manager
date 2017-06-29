@@ -5,6 +5,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    session[:return_to] = request.original_url
   end
 
   def new
