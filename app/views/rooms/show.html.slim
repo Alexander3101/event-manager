@@ -4,8 +4,8 @@ h2
   = @room.title
 p 
   |Время работы комнаты: 
-  = @room.begin_work_time.strftime("c %d.%m.%Y, %H:%M")
-  = @room.end_work_time.strftime("  до  %d.%m.%Y, %H:%M")
+  = @room.begin_work_time.strftime("c %H:%M")
+  = @room.end_work_time.strftime("  до  %H:%M")
 	
 = link_to "Забронировать", new_order_path(:room_id => @room.id), class: "btn btn-primary", style: "float: right;"
 
