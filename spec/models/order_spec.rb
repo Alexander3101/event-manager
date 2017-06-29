@@ -2,16 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   let(:u_id) do
-    User.order(id: :desc).first[:id]
+    User.order(id: :desc).first
   end
-
   let(:event) do
-    Event.order(id: :desc).first[:id]
+    Event.order(id: :desc).first
   end
   let(:invalid_event_id) { event[:id] + 1 }
 
   let(:room) do
-    Room.order(id: :desc).first[:id]
+    Room.order(id: :desc).first
   end
   let(:invalid_room_id) { room[:id] + 1 }
 
@@ -27,7 +26,7 @@ RSpec.describe Order, type: :model do
   describe ".new" do
 
     it "is valid with valid attributes" do
-       expect(order).to be_valid
+      expect(order).to be_valid
     end
 
     context "if nil begin_datetime is set" do
@@ -58,22 +57,17 @@ RSpec.describe Order, type: :model do
       end
     end
 
-    context "if order length is less than event length" do
+    context "if order is longer than event" do
       it "is not valid" do
         order[:begin_datetime] = event[:begin_datetime]
-        order[:end_datetime] = event[:end_datetime] - 1.minute
+        order[:end_datetime] = event[:end_datetime] + 10.minute
         expect(order).not_to be_valid
       end
     end
 
-    # JUST STARTED
     context "if order time is beyond of the room work time" do
       it "is not valid" do
-        b_date = DateTime.now
-        b_date.hours = room.begin_work_time.hours
-
-        order[:begin_datetime] = event[:begin_datetime]
-        order[:end_datetime] = event[:end_datetime] - 1.minute
+        order[:end_datetime] = order[:end_datetime].change({hour: room[:end_work_time].hour + 1})
         expect(order).not_to be_valid
       end
     end
