@@ -2,13 +2,16 @@ br
 	br
 h2
   = @event.title
-p 
+h4 
   |Время проведения события события: 
   = @event.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
   = @event.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
 p 
+  = @event.description
+h4
   |Комнаты, задействованные в мероприятии:
   
+= link_to "Добавить комнату", new_order_path(:event_id => @event.id), class: "btn btn-primary", style: "float: right;"
 ul
   - @event.rooms.each do |room|
     li 

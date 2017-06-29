@@ -6,9 +6,13 @@ h2 Бронировать
   p
     = f.label "Событие"
     br
-    = f.collection_select(:event_id, @events, :id, :title)
+    = f.collection_select(:event_id, @events, :id, :title, selected: @event_id)
+  p
+    = f.label "Комната"
+    br
+    = f.collection_select(:room_id, @rooms, :id, :title, selected: @room_id)
   
-  = f.hidden_field :room_id, value: @room_id, as: :hidden
+  / = f.hidden_field :room_id, value: @room_id, as: :hidden
   = f.hidden_field :user_id, value: 8, as: :hidden
   
   p
