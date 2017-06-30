@@ -22,25 +22,25 @@ RSpec.describe Event, type: :model do
 
     # TITLE tsts
     context "TITLE tests" do
-    it "isn't valid if nil title is set" do
-      event[:title] = nil
-      expect(event).not_to be_valid
+      it "is invalid if nil title is set" do
+        event[:title] = nil
+        expect(event).not_to be_valid
+      end
     end
-  end
 
     # BEGIN_DATEIME tests
     context "BEGIN_DATEIME tests" do
-      it "isn't valid if nil begin_datetime is set" do
+      it "is invalid if nil begin_datetime is set" do
         event[:begin_datetime] = nil
         expect(event).not_to be_valid
       end
 
-      it "isn't valid if empty begin_datetime is set " do
+      it "is invalid if empty begin_datetime is set " do
         event[:begin_datetime] = ""
         expect(event).not_to be_valid
       end
 
-      it "isn't valid if wrong begin_datetime is set " do
+      it "is invalid if wrong begin_datetime is set " do
         event[:begin_datetime] = "0o0o0"
         expect(event).not_to be_valid
       end
@@ -48,17 +48,17 @@ RSpec.describe Event, type: :model do
 
     # END_DATEIME tests
     context "END_DATEIME tests" do
-      it "isn't valid if nil end_datetime is set" do
+      it "is invalid if nil end_datetime is set" do
         event[:end_datetime] = nil
         expect(event).not_to be_valid
       end
 
-      it "isn't valid if empty end_datetime is set" do
+      it "is invalid if empty end_datetime is set" do
         event[:end_datetime] = ""
         expect(event).not_to be_valid
       end
 
-      it "isn't valid if wrong end_datetime is set " do
+      it "is invalid if wrong end_datetime is set " do
         event[:end_datetime] = "0o0o0"
         expect(event).not_to be_valid
       end
@@ -66,12 +66,12 @@ RSpec.describe Event, type: :model do
 
     #DATETIME tests
     context "DATETIME tests" do
-      it "isn't valid if end_datetime is earlier than begin_datetime" do
+      it "is invalid if end_datetime is earlier than begin_datetime" do
         event[:end_datetime] = event[:begin_datetime] - 15.minutes
         expect(event).not_to be_valid
       end
 
-      it "isn't valid if event length is less than 15 minutes" do
+      it "is invalid if event length is less than 15 minutes" do
         event[:end_datetime] = event[:begin_datetime] + 2.minutes
         expect(event).not_to be_valid
       end
