@@ -38,6 +38,10 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+gem 'bootstrap_form'
+
 gem 'devise'
 gem 'faker'
 
