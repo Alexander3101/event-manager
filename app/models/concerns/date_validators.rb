@@ -6,6 +6,7 @@ module DateValidators
       begin
         if record.begin_datetime.to_datetime.blank? or record.end_datetime.to_datetime.blank?
           record.errors[:text] << 'Пустая дата'
+        end
       rescue ArgumentError
         record.errors[:text] << 'Неправильная дата'
       end
@@ -22,6 +23,7 @@ module DateValidators
       begin
         if record.begin_work_time.to_datetime.blank? or record.end_work_time.to_datetime.blank?
           record.errors[:text] << 'Пустая дата'
+        end
       rescue ArgumentError
         record.errors[:text] << 'Неправильная дата'
       end
@@ -41,6 +43,7 @@ module DateValidators
       begin
         if record.begin_datetime.to_datetime.blank? or record.end_datetime.to_datetime.blank?
           record.errors[:text] << 'Пустая дата'
+        end
       rescue ArgumentError
         record.errors[:text] << 'Неправильная дата'
       end
