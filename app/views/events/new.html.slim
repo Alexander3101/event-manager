@@ -6,18 +6,30 @@ h2 Новое событие
   p
     = f.label "Название события"
     br
-    = f.text_field :title
+    div class="row"
+      div class='col-sm-6'
+        = f.text_field :title, :class => "form-control"
   p
     = f.label "Время начала события"
     br
-    = f.datetime_local_field :begin_datetime
+    div class="row"
+      div class='col-sm-6'
+        = f.text_field :begin_datetime, :class => "form-control for_time", :id => 'datetimepicker1'
   p
     = f.label "Время окончания события"
     br
-    = f.datetime_local_field :end_datetime
-  
+    div class="row"
+      div class='col-sm-6'
+        = f.text_field :end_datetime, :class => "form-control for_time", :id => 'datetimepicker2'  
   = f.hidden_field :user_id, value: current_user.id, as: :hidden
-  
+  br
   p
-    = f.submit "Сохранить событие"
+    = f.submit "Сохранить событие", class: "btn btn-success"
 end
+
+javascript:
+  $(function () {
+    $('.for_time').datetimepicker({
+      locale: 'ru'
+    });
+  });
