@@ -14,13 +14,17 @@ h2 Изменить событие
     br
     div class="row"
       div class='col-sm-6'
-        = f.text_field :begin_datetime, :class => "form-control for_time", :id => 'datetimepicker1'
+        = f.text_field :begin_datetime, :class => "form-control for_time begin"
   p
     = f.label "Время окончания события"
     br
     div class="row"
       div class='col-sm-6'
-        = f.text_field :end_datetime, :class => "form-control for_time", :id => 'datetimepicker2'  
+        div class="form-group"
+          div class='input-group date'
+            = f.text_field :end_datetime, :class => "form-control for_time end"
+            span class="input-group-addon end"
+              span class="glyphicon glyphicon-calendar"
   = f.hidden_field :user_id, value: current_user.id, as: :hidden
   br
   p
@@ -29,7 +33,13 @@ h2 Изменить событие
 
 javascript:
   $(function () {
-    $('.for_time').datetimepicker({
+    $('.begin').datetimepicker({
+      defaultDate: "#{@event.begin_datetime.to_datetime.strftime('%d.%m.%Y %H:%M')}"
+      locale: 'ru'
+    });
+    $('.end').datetimepicker({
+      defaultDate: "#{@event.end_datetime}"
+      format: 'dd-mm-yyyy H:i'
       locale: 'ru'
     });
   });
