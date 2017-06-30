@@ -3,14 +3,29 @@ module DateValidators
 
   class Event_validator < ActiveModel::Validator
     def validate(record)
+      begin
+        if record.begin_datetime.to_datetime.blank? or record.end_datetime.to_datetime.blank?
+          record.errors[:text] << 'Пустая дата'
+      rescue ArgumentError
+        record.errors[:text] << 'Неправильная дата'
+      end
+
       if (record.end_datetime - record.begin_datetime).to_i/60 < 15
         record.errors[:text] << 'Длительность < 15 минут'
       end
+
     end
   end
 
   class Room_validator < ActiveModel::Validator
     def validate(record)
+      begin
+        if record.begin_work_time.to_datetime.blank? or record.end_work_time.to_datetime.blank?
+          record.errors[:text] << 'Пустая дата'
+      rescue ArgumentError
+        record.errors[:text] << 'Неправильная дата'
+      end
+
       if (record.end_work_time - record.begin_work_time).to_i/60 < 15
         record.errors[:text] << 'Длительность < 15 минут'
       end
@@ -23,6 +38,13 @@ module DateValidators
 
   class Order_validator < ActiveModel::Validator
     def validate(record)
+      begin
+        if record.begin_datetime.to_datetime.blank? or record.end_datetime.to_datetime.blank?
+          record.errors[:text] << 'Пустая дата'
+      rescue ArgumentError
+        record.errors[:text] << 'Неправильная дата'
+      end
+
       if (record.end_datetime - record.begin_datetime).to_i/60 < 15
         record.errors[:text] << 'Длительность < 15 минут'
       end
