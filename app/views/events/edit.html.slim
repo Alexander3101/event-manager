@@ -1,8 +1,8 @@
 br
 br
-h2 Новое событие
+h2 Изменить событие
 
-= form_for :event, url: {action: "create"} do |f|
+= form_for :event, url: event_path(@event), method: :patch do |f|
   p
     = f.label "Название события"
     br

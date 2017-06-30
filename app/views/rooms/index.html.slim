@@ -15,4 +15,5 @@ ul
       br
       = room.end_work_time.strftime("Время окончания работы комнаты:\t%H:%M")
       
-= link_to "Создать", new_room_path, class: "btn btn-primary", style: "float: right;"
+- if user_signed_in? and current_user.role == "admin"
+  = link_to "Создать", new_room_path, class: "btn btn-primary", style: "float: right;"

@@ -1,6 +1,6 @@
 br
-	br
-		
+br
+
 h2
   |События:
   
@@ -10,5 +10,10 @@ ul
       = link_to event.title, event_path(event)
       br
       = event.begin_datetime.strftime("Время начала события: %d.%m.%Y в %H:%M")
-
-= link_to "Создать событие", new_event_path, class: "btn btn-primary", style: "float: right;"
+      = current_user.id
+      = event.user_id
+      - if user_signed_in? and (event.user_id == current_user.id or current_user.role == "admin")
+        a.btn.btn-xs.btn-warning.btn-margins href=edit_event_path(event) Изменить
+        a.btn.btn-xs.btn-danger.btn-margins href=event_path(event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить
+- if user_signed_in?
+  = link_to "Создать событие", new_event_path, class: "btn btn-primary", style: "float: right;"
