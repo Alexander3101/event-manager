@@ -44,7 +44,7 @@ module DateValidators
         record.errors[:text] << 'Длительность < 15 минут'
       end
 
-      if record.room.blank?
+      if record.event.blank?
         record.errors[:text] << 'Нет события'
         return
       end
@@ -53,8 +53,9 @@ module DateValidators
         record.errors[:text] << 'Мимо события'
       end
 
-      if record.roon.blank?
+      if record.room.blank?
         record.errors[:text] << 'Нет комнаты'
+        return
       end
 
       if record.end_datetime.min + 60*record.end_datetime.hour > record.room.end_work_time.min + 60*record.room.end_work_time.hour or
