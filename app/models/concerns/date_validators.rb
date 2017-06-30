@@ -3,8 +3,9 @@ module DateValidators
 
   class Event_validator < ActiveModel::Validator
     def validate(record)
-      if record.begin_datetime.blank? or record.blank?
+      if record.begin_datetime.blank? or record.end.blank?
         record.errors[:text] << 'Неправильная дата'
+        return
       end
 
       if (record.end_datetime - record.begin_datetime).to_i/60 < 15
@@ -18,6 +19,7 @@ module DateValidators
     def validate(record)
       if record.begin_work_time.to_datetime.blank? or record.end_work_time.to_datetime.blank?
         record.errors[:text] << 'Неправильная дата'
+        return
       end
 
       if (record.end_work_time - record.begin_work_time).to_i/60 < 15
@@ -35,6 +37,7 @@ module DateValidators
     def validate(record)
       if record.begin_datetime.to_datetime.blank? or record.end_datetime.to_datetime.blank?
         record.errors[:text] << 'Неправильная дата'
+        return
       end
 
       if (record.end_datetime - record.begin_datetime).to_i/60 < 15
