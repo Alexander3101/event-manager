@@ -17,7 +17,7 @@ module DateValidators
 
   class Room_validator < ActiveModel::Validator
     def validate(record)
-      if record.begin_work_time.to_time.blank? or record.end_work_time.to_time.blank?
+      if record.begin_work_time.blank? or record.end_work_time.blank?
         record.errors[:text] << 'Неправильная дата'
         return
       end
@@ -35,7 +35,7 @@ module DateValidators
 
   class Order_validator < ActiveModel::Validator
     def validate(record)
-      if record.begin_datetime.to_datetime.blank? or record.end_datetime.to_datetime.blank?
+      if record.begin_datetime.blank? or record.end_datetime.blank?
         record.errors[:text] << 'Неправильная дата'
         return
       end
