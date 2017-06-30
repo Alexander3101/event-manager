@@ -3,7 +3,7 @@ module DateValidators
 
   class Event_validator < ActiveModel::Validator
     def validate(record)
-      if record.begin_datetime.blank? or record.end.blank?
+      if record.begin_datetime.blank? or record.end_datetime.blank?
         record.errors[:text] << 'Неправильная дата'
         return
       end
