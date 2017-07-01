@@ -6,12 +6,22 @@ p
   |Время работы комнаты: 
   = @room.begin_work_time.strftime("c %H:%M")
   = @room.end_work_time.strftime("  до  %H:%M")
-	
-= link_to "Забронировать", new_order_path(:room_id => @room.id), class: "btn btn-primary", style: "float: right;"
 
+= link_to "Забронировать", new_order_path(:room_id => @room.id), class: "btn btn-primary", style: "float: right;"
+br
+	br
+div#calendar
+br
 p 
   |Мероприятия, проводимые в этой комнате:
 ul
   - @room.events.each do |event|
     li 
       = link_to event.title, event_path(event)
+			
+javascript:
+	$('#calendar').fullCalendar({
+		locale: 'ru',
+		contentHeight: 600,
+		events: '#{@room.events.to_json}'
+	});
