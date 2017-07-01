@@ -22,5 +22,5 @@ javascript:
 	$('#calendar').fullCalendar({
 		locale: 'ru',
 		contentHeight: 600,
-		events: '#{@room.events.to_json}'
+		events: '/orders.json?room_id=#{@room.id}'
 	});

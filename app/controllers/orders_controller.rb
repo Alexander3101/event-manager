@@ -1,4 +1,8 @@
 class OrdersController < ApplicationController
+  def index
+    @orders = Order.where(room_id: params[:room_id])
+  end
+
   def new
     @order = Order.new
     @events = Event.all
