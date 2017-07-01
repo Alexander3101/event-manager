@@ -12,8 +12,7 @@ h2 Бронировать
     br
     = f.collection_select(:room_id, @rooms, :id, :title, selected: @room_id)
   
-  / = f.hidden_field :room_id, value: @room_id, as: :hidden
-  = f.hidden_field :user_id, value: 8, as: :hidden
+  = f.hidden_field :user_id, value: current_user.id, as: :hidden
   
   p
     = f.label "Время начала"
