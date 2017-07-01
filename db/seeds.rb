@@ -1,6 +1,7 @@
 users_number = 8
 events_number = 12
 rooms_number = 6
+datetime = DateTime.now.change(hour: 7)
 
 # Пользователи
 users_number.times do
@@ -23,38 +24,37 @@ User.create(
   role: 'admin'
 )
 
+puts "users created"
+
 # События
 events_number.times do |i|
   title_tmp = Faker::Book.title
   Event.create(
     title: title_tmp,
     description: title_tmp + title_tmp + title_tmp,
-    begin_datetime: DateTime.now + i.minutes,
-    end_datetime: DateTime.now + 10.days,
+    begin_datetime: datetime + i.minutes,
+    end_datetime: datetime + 10.days,
     user_id: rand(0..users_number - 1)
   )
 end
 Event.create(
   title: 'My_event',
   description: 'la - la - la',
-  begin_datetime: DateTime.now - 10.hours,
-  end_datetime: DateTime.now + 1.days,
+  begin_datetime: datetime - 10.hours,
+  end_datetime: datetime + 1.days,
   user_id: rand(0..users_number - 1)
 )
-Event.create(
-  title: 'My_event_2',
-  description: 'la - la - la',
-  begin_datetime: DateTime.now + 10.hours,
-  end_datetime: DateTime.now + 2.days,
-  user_id: rand(0..users_number - 1)
-)
+
 Event.create(
   title: 'My_event_3',
   description: 'la - la - la',
-  begin_datetime: DateTime.now - 2.days,
-  end_datetime: DateTime.now - 1.days,
+  begin_datetime: datetime - 2.days,
+  end_datetime: datetime - 1.days,
   user_id: rand(0..users_number - 1)
 )
+
+puts "events created"
+
 # Комнаты
 rooms_number.times do |i|
   Room.create(
@@ -71,14 +71,24 @@ Event.all.each do |e|
   end
 end
 
+puts "rooms created"
+
 # Брони
 Room.all.each do |r|
   r.events.each_with_index do |e, i|
-    Order.create(
-      begin_datetime: Time.new(2000, 01, 01, 9, 0, 0, '+03:00') + i.hours,
-      end_datetime: Time.new(2000, 01, 01, 9, 0, 0, '+03:00') + (i + 1).hours,
+    b = e.begin_datetime.change(hour: 9, min: 0)
+    o = Order.new(
+      begin_datetime: b + i.hours,
+      end_datetime: b + (i + 1).hours,
       room_id: r[:id],
       event_id: e[:id]
     )
+    # Если по какой-то причине бронь не состоялась, удаляем связь комнаты с событием
+    unless o.save
+      e.rooms.destroy(r)
+    end
   end
 end
+
+puts "orders created"
+puts "success"
