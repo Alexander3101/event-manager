@@ -1,25 +1,38 @@
-br
-br
 h2 Новая комната
 
 = form_for :room, url: {action: "create"} do |f|
   p
     = f.label "Название комнаты"
     br
-    = f.text_field :title
+    div class="row"
+      div class='col-sm-6'
+        = f.text_field :title, :class => "form-control"
   p
     = f.label "Описание комнаты"
     br
-    = f.text_area :description
+    div class="row"
+      div class='col-sm-6'
+        = f.text_area :description, :class => "form-control"
     
   p
     = f.label "Время начала работы комнаты"
     br
-    = f.time_field :begin_work_time
+    div class="row"
+      div class='col-sm-1'
+        = f.text_field :begin_work_time, :class => "form-control for_time"
   p
     = f.label "Время окончания работы комнаты"
     br
-    = f.time_field :end_work_time
+    div class="row"
+      div class='col-sm-1'
+        = f.text_field :end_work_time, :class => "form-control for_time"
   p
-    = f.submit "Сохранить"
+    = f.submit "Сохранить", class: "btn btn-success"
 end
+javascript:
+  $(function () {
+    $('.for_time').datetimepicker({
+      locale: 'ru',
+      format: 'HH:mm'
+    });
+  });

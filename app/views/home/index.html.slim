@@ -1,16 +1,13 @@
-/h2.jumbotron
-br
-	br
 h2
   |О сервисе
 p 
   |Данный сервис позволяет Вам просмотерть все события, проходящие в университете, а так же забронировать любую комнату для своего мероприятия.
 
-h2
+h3
   |Ближайшие события:
 ul
   - @events_top.each do |event|
-    li
+    li.my
       = link_to event.title, event_path(event)
       br
       = event.begin_datetime.strftime("Время начала события: %d.%m.%Y в %H:%M")

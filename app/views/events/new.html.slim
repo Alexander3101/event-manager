@@ -1,5 +1,3 @@
-br
-br
 h2 Новое событие
 
 = form_for :event, url: {action: "create"} do |f|
@@ -9,6 +7,12 @@ h2 Новое событие
     div class="row"
       div class='col-sm-6'
         = f.text_field :title, :class => "form-control"
+  p
+    = f.label "Описание"
+    br
+    div class="row"
+      div class='col-sm-6'
+        = f.text_area :description, :class => "form-control"
   p
     = f.label "Время начала события"
     br
@@ -30,6 +34,7 @@ end
 javascript:
   $(function () {
     $('.for_time').datetimepicker({
-      locale: 'ru'
+      locale: 'ru',
+      stepping: 15
     });
   });

@@ -1,12 +1,11 @@
-br
-	br
-		
+- if user_signed_in? and current_user.role == "admin"
+  = link_to "Создать", new_room_path, class: "btn btn-primary create", style: "float: right;"
+
 h2
   |Комнаты:
-  
 ul
   - @rooms.each do |room|
-    li
+    li.my
       = link_to room.title, room_path(room)
       br
       p
@@ -15,5 +14,3 @@ ul
       br
       = room.end_work_time.strftime("Время окончания работы комнаты:\t%H:%M")
       
-- if user_signed_in? and current_user.role == "admin"
-  = link_to "Создать", new_room_path, class: "btn btn-primary", style: "float: right;"

@@ -1,5 +1,3 @@
-br
-br
 h2 Изменить событие
 
 = form_for :event, url: event_path(@event), method: :patch do |f|
@@ -14,32 +12,27 @@ h2 Изменить событие
     br
     div class="row"
       div class='col-sm-6'
-        = f.text_field :begin_datetime, :class => "form-control for_time begin"
+        = f.text_field :begin_datetime, :class => "form-control for_time begin", :value => @event.begin_datetime
   p
     = f.label "Время окончания события"
     br
     div class="row"
       div class='col-sm-6'
-        div class="form-group"
-          div class='input-group date'
-            = f.text_field :end_datetime, :class => "form-control for_time end"
-            span class="input-group-addon end"
-              span class="glyphicon glyphicon-calendar"
+            = f.text_field :end_datetime, :class => "form-control for_time end", :value => @event.end_datetime
+            
   = f.hidden_field :user_id, value: current_user.id, as: :hidden
   br
   p
     = f.submit "Сохранить событие", class: "btn btn-success"
   end
 
-javascript:
-  $(function () {
-    $('.begin').datetimepicker({
-      defaultDate: "#{@event.begin_datetime.to_datetime.strftime('%d.%m.%Y %H:%M')}"
-      locale: 'ru'
-    });
-    $('.end').datetimepicker({
-      defaultDate: "#{@event.end_datetime}"
-      format: 'dd-mm-yyyy H:i'
-      locale: 'ru'
-    });
-  });
+/ javascript:
+/   $(function () {
+/     $('.begin').datetimepicker({
+/       locale: 'ru'
+/     });
+/     
+/     $('.end').datetimepicker({
+/       locale: 'ru'
+/     });
+/   });

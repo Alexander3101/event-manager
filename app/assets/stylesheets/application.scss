@@ -6,3 +6,35 @@
 @import 'bootstrap-datetimepicker';
 @import 'rails_bootstrap_forms';
 @import 'fullcalendar';
+
+.navbar-default {
+  background-color: rgb(246, 246, 246);
+}
+.navbar-right {
+  margin-left: 10px;
+}
+.glyphicon {
+  margin-right: 5px;
+}
+.btn-primary {
+  background-color: rgb(64, 121, 171);
+  border-color: rgb(229, 237, 244);
+}
+h2 {
+  margin-top: 80px;
+}
+.my {
+  margin-top: 12px;
+}
+.create {
+  margin-top: 80px;
+}
+.btn-xs {
+  margin-left: 15px;
+}
+.description {
+  margin: 20px;
+}
+#calendar {
+  width: 80%;
+}
