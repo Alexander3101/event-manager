@@ -27,6 +27,7 @@ html
               a href=rooms_path Комнаты       
           -if user_signed_in?
             = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-primary navbar-btn navbar-right"
+            = link_to 'Личный кабинет', user_path(current_user),  :class =>"btn btn-primary navbar-btn navbar-right"
             .navbar-text.navbar-right
               span.glyphicon.glyphicon-user
               | Здравствуйте, 
