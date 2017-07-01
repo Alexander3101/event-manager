@@ -2,7 +2,7 @@ class Room < ApplicationRecord
   include DateValidators
   include ActiveModel::Validations
 
-  has_many :orders
+  has_many :orders, dependent: :destroy
   has_and_belongs_to_many :events
 
   # проверка на присутствие

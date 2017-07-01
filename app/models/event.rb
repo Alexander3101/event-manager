@@ -3,8 +3,8 @@ class Event < ApplicationRecord
   include ActiveModel::Validations
 
   has_and_belongs_to_many :rooms
-  belongs_to :user, dependent: :destroy
-  has_many :orders
+  belongs_to :user
+  has_many :orders, dependent: :destroy
 
   # проверка на присутствие
   validates :title, :begin_datetime, :end_datetime, :user_id, presence: true

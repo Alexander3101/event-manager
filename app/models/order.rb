@@ -2,8 +2,8 @@ class Order < ApplicationRecord
   include DateValidators
   include ActiveModel::Validations
 
-  belongs_to :room, dependent: :destroy
-  belongs_to :event, dependent: :destroy
+  belongs_to :room
+  belongs_to :event
 
   # проверка на присутствие
   validates :begin_datetime, :end_datetime, :room_id, :event_id, presence: true

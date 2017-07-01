@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable
 
-  has_many :events
+  has_many :events, dependent: :destroy
 
   # проверка на присутствие
   validates :email, :password, presence: true
