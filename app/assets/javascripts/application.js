@@ -18,3 +18,6 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require moment/ru
+//= require fullcalendar
+
+$('#calendar').fullCalendar({});
