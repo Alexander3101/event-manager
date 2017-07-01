@@ -1,13 +1,13 @@
-br
-	br
-h1
+h2
   |Ваши события
 ul
   - @events.each do |event|
     - if event.user_id == current_user.id
-      li
+      li.my
         = link_to event.title, event_path(event)
         br
-        = event.begin_datetime.strftime("Время начала события: %d.%m.%Y в %H:%M")
+				|Время проведения события: 
+				= event.begin_datetime.strftime("с %d.%m.%Y, %H:%M")
+				= event.end_datetime.strftime(" до %d.%m.%Y, %H:%M")
         a.btn.btn-xs.btn-warning.btn-margins href=edit_event_path(event) Изменить
         a.btn.btn-xs.btn-danger.btn-margins href=event_path(event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить

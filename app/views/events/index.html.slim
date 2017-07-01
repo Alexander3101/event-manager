@@ -1,17 +1,15 @@
-br
-br
-
+- if user_signed_in?
+  = link_to "Создать событие", new_event_path, class: "btn btn-primary create", style: "float: right;"
 h2
   |События:
-  
 ul
   - @events.each do |event|
-    li
+    li.my
       = link_to event.title, event_path(event)
       br
-      = event.begin_datetime.strftime("Время начала события: %d.%m.%Y в %H:%M")
+      |Время проведения события события: 
+      = event.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
+      = event.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
       - if user_signed_in? and (event.user_id == current_user.id or current_user.role == "admin")
         a.btn.btn-xs.btn-warning.btn-margins href=edit_event_path(event) Изменить
         a.btn.btn-xs.btn-danger.btn-margins href=event_path(event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить
-- if user_signed_in?
-  = link_to "Создать событие", new_event_path, class: "btn btn-primary", style: "float: right;"
