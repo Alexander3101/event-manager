@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
   end
-  
+
   def create
     @event = Event.new(event_params)
     if @event.save
@@ -43,6 +43,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :begin_datetime, :end_datetime, :user_id)
+    params.require(:event).permit(:title, :description, :begin_datetime, :end_datetime, :user_id)
   end
 end
