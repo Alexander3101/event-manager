@@ -1,0 +1,5 @@
+h2 Бронировать
+
+= form_for :order, url: order_path(@order), method: :patch do |f|
+
+  = render partial: 'orders/form', locals: { f: f } 

@@ -30,10 +30,14 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])
+    @events = if current_user.role == "admin" then Event.all else current_user.events end
+    @rooms = Room.all
   end
 
   def update
     @order = Order.find(params[:id])
+    @events = if current_user.role == "admin" then Event.all else current_user.events end
+    @rooms = Room.all
 
     if @order.update(order_params)
       redirect_to @order

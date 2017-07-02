@@ -1,11 +1,11 @@
 h2 
-  = @order.event.title
+  = link_to @order.event.title, event_path(@order.event) 
 hr
 p.description
   = @order.event.description
 h4 
   |Комната - 
-  = @order.room.title
+  = link_to @order.room.title, room_path(@order.room)
 h4
   |Время: 
   = @order.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
