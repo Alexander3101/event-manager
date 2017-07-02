@@ -67,7 +67,7 @@ module DateValidators
       record.room.orders.each do |order|
         if (record.begin_datetime < order.begin_datetime and record.end_datetime > order.begin_datetime) or
           (record.begin_datetime < order.end_datetime and record.end_datetime > order.end_datetime) or
-          (record.begin_datetime > order.begin_datetime and record.end_datetime < order.end_datetime)
+          (record.begin_datetime >= order.begin_datetime and record.end_datetime <= order.end_datetime)
 
           record.errors[:text] << 'Пересечение событий'
         end
