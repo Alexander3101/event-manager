@@ -1,0 +1,51 @@
+p
+  = f.label "Название комнаты"
+  br
+  div class="row"
+    div class='col-sm-6'
+      = f.text_field :title, :class => "form-control"
+p
+  = f.label "Описание комнаты"
+  br
+  div class="row"
+    div class='col-sm-6'
+      = f.text_area :description, :class => "form-control"
+  
+p
+  = f.label "Время начала работы комнаты"
+  br
+  div class="row"
+    div class='col-sm-1'
+      = f.hidden_field :begin_work_time, :class => "form-control for_time", id: "picker1"
+p
+  = f.label "Время окончания работы комнаты"
+  br
+  div class="row"
+    div class='col-sm-1'
+      = f.hidden_field :end_work_time, :class => "form-control for_time", id: "picker2"
+p
+  = f.submit "Сохранить", class: "btn btn-success"
+
+javascript:
+  $(function () {
+    $('.for_time').datetimepicker({
+      locale: 'ru',
+      format: 'HH:mm',
+      stepping: 15,
+      inline: true,
+      keepOpen: true
+    });
+    
+    $("#picker1").on("dp.change", function () {
+      $('#picker1').data("DateTimePicker").maxDate($('#picker2').val());
+      $('#picker2').data("DateTimePicker").minDate($('#picker1').val());
+    });
+    $("#picker1").on("dp.show", function () {
+      $('#picker1').data("DateTimePicker").maxDate($('#picker2').val());
+      $('#picker2').data("DateTimePicker").minDate($('#picker1').val());
+    });
+    $('#picker2').on("dp.change", function() {
+      $('#picker1').data("DateTimePicker").maxDate($('#picker2').val());
+      $('#picker2').data("DateTimePicker").minDate($('#picker1').val());
+    });
+  });
