@@ -24,6 +24,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+
+    redirect_to home_path
+  end
+
   def order_params
     params.require(:order).permit(:room_id, :begin_datetime, :end_datetime, :event_id)
   end
