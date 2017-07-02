@@ -1,12 +1,12 @@
 h2 Бронировать
 
-= form_for :order, url: {action: "create"} do |f|
+= form_for :order, url: {action: "create"} do |f|  
   p
     = f.label "Событие"
     br
     div class="row"
       div class='col-sm-6'
-        = f.collection_select :event_id, @events, :id, :title, selected: @event_id, :class => "form-control"
+        = f.collection_select :event_id, current_user.events, :id, :title, selected: @event_id, :class => "form-control"
   p
     = f.label "Комната"
     br
@@ -15,7 +15,6 @@ h2 Бронировать
         = f.collection_select :room_id, @rooms, :id, :title, selected: @room_id, :class => "form-control"
   
   = f.hidden_field :user_id, value: current_user.id, as: :hidden
-  
   p
     = f.label "Время начала"
     br
