@@ -28,7 +28,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
 
-    if @event.update(author_params)
+    if @event.update(event_params)
       redirect_to @event
     else
       render 'edit'

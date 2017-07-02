@@ -1,38 +1,5 @@
 h2 Изменить событие
 
 = form_for :event, url: event_path(@event), method: :patch do |f|
-  p
-    = f.label "Название события"
-    br
-    div class="row"
-      div class='col-sm-6'
-        = f.text_field :title, :class => "form-control"
-  p
-    = f.label "Время начала события"
-    br
-    div class="row"
-      div class='col-sm-6'
-        = f.text_field :begin_datetime, :class => "form-control for_time begin", :value => @event.begin_datetime
-  p
-    = f.label "Время окончания события"
-    br
-    div class="row"
-      div class='col-sm-6'
-            = f.text_field :end_datetime, :class => "form-control for_time end", :value => @event.end_datetime
-            
-  = f.hidden_field :user_id, value: current_user.id, as: :hidden
-  br
-  p
-    = f.submit "Сохранить событие", class: "btn btn-success"
-  end
-
-/ javascript:
-/   $(function () {
-/     $('.begin').datetimepicker({
-/       locale: 'ru'
-/     });
-/     
-/     $('.end').datetimepicker({
-/       locale: 'ru'
-/     });
-/   });
+  
+  = render partial: 'events/form', locals: { f: f }

@@ -1,40 +1,5 @@
 h2 Новое событие
 
 = form_for :event, url: {action: "create"} do |f|
-  p
-    = f.label "Название события"
-    br
-    div class="row"
-      div class='col-sm-6'
-        = f.text_field :title, :class => "form-control"
-  p
-    = f.label "Описание"
-    br
-    div class="row"
-      div class='col-sm-6'
-        = f.text_area :description, :class => "form-control"
-  p
-    = f.label "Время начала события"
-    br
-    div class="row"
-      div class='col-sm-6'
-        = f.text_field :begin_datetime, :class => "form-control for_time", :id => 'datetimepicker1'
-  p
-    = f.label "Время окончания события"
-    br
-    div class="row"
-      div class='col-sm-6'
-        = f.text_field :end_datetime, :class => "form-control for_time", :id => 'datetimepicker2'  
-  = f.hidden_field :user_id, value: current_user.id, as: :hidden
-  br
-  p
-    = f.submit "Сохранить событие", class: "btn btn-success"
-end
 
-javascript:
-  $(function () {
-    $('.for_time').datetimepicker({
-      locale: 'ru',
-      stepping: 15
-    });
-  });
+  = render partial: 'events/form', locals: {f: f}

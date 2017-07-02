@@ -1,0 +1,44 @@
+p
+  = f.label "Название события"
+  br
+  div class="row"
+    div class='col-sm-6'
+      = f.text_field :title, :class => "form-control"
+      
+p
+  = f.label "Описание"
+  br
+  div class="row"
+    div class='col-sm-6'
+      = f.text_area :description, :class => "form-control"
+      
+p
+  = f.label "Время начала события"
+  br
+  div class="row"
+    div class='col-sm-6'
+      = f.text_field :begin_datetime, :class => "form-control for_time", :id => 'datetimepicker1'
+      
+p
+  = f.label "Время окончания события"
+  br
+  div class="row"
+    div class='col-sm-6'
+      = f.text_field :end_datetime, :class => "form-control for_time", :id => 'datetimepicker2'
+
+- u_i = @event.user_id if @event.user_id? else current_user.id
+= f.hidden_field :user_id, value: u_i, as: :hidden
+
+br
+p
+  = f.submit "Сохранить событие", class: "btn btn-success"
+
+
+javascript:
+  $(function () {
+    $('.for_time').datetimepicker({
+      locale: 'ru',
+      format: 'YYYY-MM-DD HH:mm',
+      stepping: 15
+    });
+  });
