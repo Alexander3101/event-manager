@@ -3,7 +3,7 @@
 h2
   = @room.title
 hr
-p 
+h4 
   |Время работы комнаты: 
   = @room.begin_work_time.strftime("c %H:%M")
   = @room.end_work_time.strftime("  до  %H:%M")
@@ -11,7 +11,7 @@ p
 br
 div#calendar
 br
-p 
+h4
   |Мероприятия, проводимые в этой комнате:
 ul
   - @room.events.each do |event|
@@ -22,5 +22,23 @@ javascript:
 	$('#calendar').fullCalendar({
 		locale: 'ru',
 		contentHeight: 600,
-		events: '/orders.json?room_id=#{@room.id}'
+    header: {
+      left: 'month,agendaWeek,agendaDay'
+    },
+    views: {
+      month: {
+        buttonText: 'месяц'
+      },
+      agendaWeek: {
+        type: 'agenda',
+        duration: { days: 7 },
+        buttonText: 'неделя'
+      },
+      agendaDay: {
+         type: 'agenda',
+         duration: { days: 1 },
+         buttonText: 'сегодня'
+       }
+    },
+		events: '/orders.json?room_id=#{@room.id}',
 	});
