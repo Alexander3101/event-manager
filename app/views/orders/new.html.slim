@@ -21,13 +21,13 @@ h2 Бронировать
     br
     div class="row"
       div class='col-sm-6'
-        = f.text_field :begin_datetime, :class => "form-control"
+        = f.text_field :begin_datetime, :class => "form-control for_time"
   p
     = f.label "Время окончания"
     br
     div class="row"
       div class='col-sm-6'
-        = f.text_field :end_datetime, :class => "form-control"
+        = f.text_field :end_datetime, :class => "form-control for_time"
   p
     = f.submit "Забронировать", class: "btn btn-success"
 end
