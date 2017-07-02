@@ -17,7 +17,7 @@ class RoomsController < ApplicationController
     if @room.save
       redirect_to @room
     else
-      redirect_to rooms_path
+      render 'new'
     end
   end
 
