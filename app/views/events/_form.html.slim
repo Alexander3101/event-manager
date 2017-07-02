@@ -39,6 +39,19 @@ javascript:
     $('.for_time').datetimepicker({
       locale: 'ru',
       format: 'YYYY-MM-DD HH:mm',
-      stepping: 15
+      stepping: 15,
+      useCurrent: false,
+    });
+    $("#datetimepicker1").on("dp.change", function () {
+      $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
+      $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
+    });
+    $("#datetimepicker1").on("dp.show", function () {
+      $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
+      $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
+    });
+    $('#datetimepicker2').on("dp.change", function() {
+      $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
+      $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
     });
   });
