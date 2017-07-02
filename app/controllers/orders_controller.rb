@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.destroy
 
-    redirect_to home_path
+    redirect_to session.delete(:return_to)
   end
 
   def order_params

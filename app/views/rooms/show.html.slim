@@ -1,8 +1,15 @@
-= link_to "Забронировать", new_order_path(:room_id => @room.id), class: "btn btn-primary create", style: "float: right;"
+- if user_signed_in?
+  = link_to "Забронировать", new_order_path(:room_id => @room.id), class: "btn btn-primary create", style: "float: right;"
 
 h2
   = @room.title
 hr
+- if user_signed_in? and current_user.role == "admin"
+  a.btn.btn-xs.btn-warning.btn-margins.in_show href=edit_room_path(@room) Изменить
+  a.btn.btn-xs.btn-danger.btn-margins.in_show href=room_path(@room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!" Удалить
+
+p.description
+  = @room.description
 h4 
   |Время работы комнаты: 
   = @room.begin_work_time.strftime("c %H:%M")
@@ -20,10 +27,11 @@ ul
 			
 javascript:
 	$('#calendar').fullCalendar({
-		locale: 'ru',
+		locale: 'ru',    
 		contentHeight: 600,
     header: {
-      left: 'month,agendaWeek,agendaDay'
+      left: 'month,agendaWeek,agendaDay',
+      center: 'title'
     },
     views: {
       month: {
@@ -35,10 +43,12 @@ javascript:
         buttonText: 'неделя'
       },
       agendaDay: {
-         type: 'agenda',
-         duration: { days: 1 },
-         buttonText: 'сегодня'
+        type: 'agenda',
+        duration: { days: 1 },
+        buttonText: 'сегодня'
        }
     },
+    
 		events: '/orders.json?room_id=#{@room.id}',
+    timeFormat: 'HH:mm'
 	});

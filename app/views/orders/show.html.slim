@@ -1,5 +1,6 @@
 h2 
   = @order.event.title
+hr
 p.description
   = @order.event.description
 h4 
@@ -9,3 +10,7 @@ h4
   |Время: 
   = @order.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
   = @order.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
+br
+- if user_signed_in? and (@order.event.user_id == current_user.id or current_user.role == "admin")
+  a.btn.btn-xs.btn-warning.btn-margins.in_show href=edit_order_path(@order) Изменить
+  a.btn.btn-xs.btn-danger.btn-margins.in_show href=order_path(@order) data-method="delete" data-confirm="Внимание! Вы удаляете бронь!" Удалить
