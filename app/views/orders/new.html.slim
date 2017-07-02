@@ -6,7 +6,7 @@ h2 Бронировать
     br
     div class="row"
       div class='col-sm-6'
-        = f.collection_select :event_id, current_user.events, :id, :title, selected: @event_id, :class => "form-control"
+        = f.collection_select :event_id, @events, :id, :title, selected: @event_id, :class => "form-control"
   p
     = f.label "Комната"
     br

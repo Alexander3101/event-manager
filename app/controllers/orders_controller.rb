@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @events = Event.all
+    @events = if current_user.role == "admin" then Event.all else current_user.events end
     @rooms = Room.all
     @room_id = params[:room_id]
     @event_id = params[:event_id]
