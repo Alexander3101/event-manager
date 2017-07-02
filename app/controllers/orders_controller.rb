@@ -17,9 +17,11 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @order.event.rooms << @order.room
 
     if @order.save
+      unless @order.event.rooms.exists?(@order.room.id)
+        @order.event.rooms << @order.room
+      end
       redirect_to session.delete(:return_to)
     else
       render 'new'
@@ -42,7 +44,14 @@ class OrdersController < ApplicationController
 
   def destroy
     @order = Order.find(params[:id])
+    room_id = @order.room_id
+    event_id = @order.event_id
+
     @order.destroy
+
+    if Order.where(room_id: room_id, event_id: event_id).empty?
+      Room.find(room_id).events.destroy(event_id)
+    end
 
     redirect_to session.delete(:return_to)
   end
