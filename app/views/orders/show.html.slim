@@ -1,0 +1,11 @@
+h2 
+  = @order.event.title
+p.description
+  = @order.event.description
+h4 
+  |Комната - 
+  = @order.room.title
+h4
+  |Время: 
+  = @order.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
+  = @order.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
