@@ -8,7 +8,7 @@ hr
   a.btn.btn-xs.btn-danger.btn-margins.in_show href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить
 
 h4 
-  |Время проведения события события: 
+  |Время проведения события: 
   = @event.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
   = @event.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
 p.description
