@@ -26,7 +26,7 @@ p
     div class='col-sm-6'
       = f.text_field :end_datetime, :class => "form-control for_time", :id => 'datetimepicker2'
 
-- u_i = @event.user_id if @event.user_id? else current_user.id
+- u_i = if @event.user_id? then @event.user_id else current_user.id end
 = f.hidden_field :user_id, value: u_i, as: :hidden
 
 br
@@ -39,8 +39,7 @@ javascript:
     $('.for_time').datetimepicker({
       locale: 'ru',
       format: 'YYYY-MM-DD HH:mm',
-      stepping: 15,
-      useCurrent: false
+      stepping: 15
     });
     $("#datetimepicker1").on("dp.change", function () {
       $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
