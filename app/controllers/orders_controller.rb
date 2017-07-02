@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
       end
       redirect_to session.delete(:return_to)
     else
-      render 'new'
+      redirect_to action: 'new', room_id: @order.room_id, event_id: @order.event_id
     end
   end
 
