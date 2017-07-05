@@ -17,7 +17,7 @@ h4
 
 br
 
-#calendar
+#calendar data-room-id="#{@room.id}"
 
 br
 h4
@@ -26,33 +26,3 @@ ul
   - @room.events.each do |event|
     li 
       = link_to event.title, event_path(event)
-
-= javascript_include_tag 'rooms'
-		
-/ javascript:
-/ 	$('#calendar').fullCalendar({
-/ 		locale: 'ru',    
-/ 		contentHeight: 600,
-/     header: {
-/       left: 'month,agendaWeek,agendaDay',
-/       center: 'title'
-/     },
-/     views: {
-/       month: {
-/         buttonText: 'месяц'
-/       },
-/       agendaWeek: {
-/         type: 'agenda',
-/         duration: { days: 7 },
-/         buttonText: 'неделя'
-/       },
-/       agendaDay: {
-/         type: 'agenda',
-/         duration: { days: 1 },
-/         buttonText: 'сегодня'
-/        }
-/     },
-/     
-/ 		events: '/orders.json?room_id=#{@room.id}',
-/     timeFormat: 'HH:mm'
-/ 	});
