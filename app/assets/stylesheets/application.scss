@@ -39,20 +39,24 @@ h2 {
 .in_show {
   float: right;
 }
-// .notice {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   display: none;
-//   width: 100%;
-//   height: 100%;
-//   background: rgba(0, 0, 0, 0.65);
-//   z-index: 999;
-//   -webkit-animation: fade .6s;
-//   -moz-animation: fade .6s;
-//   animation: fade .6s;
-//   overflow: auto;
-// }
+.notice {
+  background-color: rgba(247, 177, 177, 0.73);
+  width: 100%;
+  height: 5%;
+  text-align: center;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // display: none;
+  // width: 100%;
+  // height: 100%;
+  // background: rgba(0, 0, 0, 0.65);
+  // z-index: 999;
+  // -webkit-animation: fade .6s;
+  // -moz-animation: fade .6s;
+  // animation: fade .6s;
+  // overflow: auto;
+}
 #calendar {
-  width: 80%;
+  width: 100%;
 }

@@ -21,8 +21,11 @@ class OrdersController < ApplicationController
       unless @order.event.rooms.exists?(@order.room.id)
         @order.event.rooms << @order.room
       end
+      redirect_to session.delete(:return_to)
     else
       flash[:notice] = @order.errors['text'].last
+      puts(flash[:notice])
+
       redirect_to action: 'new', room_id: @order.room_id, event_id: @order.event_id
     end
   end
