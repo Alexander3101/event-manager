@@ -1,4 +1,5 @@
 require 'rails_helper'
+include LoginHelper
 Capybara.default_driver = :selenium
 
 RSpec.describe "LOGIN/LOGOUT MODAL WINDOW tests", :type => :feature do
@@ -13,17 +14,6 @@ RSpec.describe "LOGIN/LOGOUT MODAL WINDOW tests", :type => :feature do
       page.should have_xpath(".//input[@id='user_password']")
 
       page.should have_xpath(".//input[@type='submit']")
-    end
-  end
-
-  def login!(login, password)
-    click_on("Войти")
-
-    within(".modal-content") do
-      fill_in 'user_email', with: login
-      fill_in 'user_password', with: password
-      page.find(:xpath, '//input[@type="submit"]').click
-
     end
   end
 
