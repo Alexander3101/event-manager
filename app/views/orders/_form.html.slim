@@ -53,7 +53,7 @@ javascript:
   });
   
   function assist(){
-    var url = "/order_assistent?event_id="+$('#order_event_id').val()+
+    var url = "/order/assist?event_id="+$('#order_event_id').val()+
               "&room_id="+$('#order_room_id').val()
     $.get(url, function(data){
       $('#help').html(data)
@@ -62,4 +62,5 @@ javascript:
   
   $('#order_event_id').change(assist)
   $('#order_room_id').change(assist)
+  $(document).on("turbolinks:load", assist)
   
