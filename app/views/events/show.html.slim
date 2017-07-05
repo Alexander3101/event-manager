@@ -1,4 +1,5 @@
-= link_to "Добавить комнату", new_order_path(:event_id => @event.id), class: "btn btn-primary create", style: "float: right;"
+- if user_signed_in? and (@event.user_id == current_user.id or current_user.role == "admin")
+  = link_to "Добавить комнату", new_order_path(:event_id => @event.id), class: "btn btn-primary create", style: "float: right;"
 
 h2
   = @event.title
@@ -11,6 +12,9 @@ h4
   |Время проведения события: 
   = @event.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
   = @event.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
+p
+  |Создатель события:  
+  = @event.user.email
 p.description
   = @event.description
 h4
