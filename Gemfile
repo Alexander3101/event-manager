@@ -48,3 +48,4 @@ gem "dynamic_form"
 gem 'fullcalendar-rails'
 gem 'devise'
 gem 'faker'
+gem 'rubocop', require: false

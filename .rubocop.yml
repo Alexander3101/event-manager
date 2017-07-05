@@ -1,0 +1,29 @@
+AllCops:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'Gemfile'
+    - 'config/**/*'
+    - 'db/schema.rb'
+    - 'bin/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/GuardClause:
+  Exclude:
+    - 'app/models/concerns/date_validators.rb'
+
+Style/Next:
+  Exclude:
+    - 'app/models/concerns/date_validators.rb'
+
+Lint/UnusedMethodArgument:
+  Exclude:
+    - 'app/controllers/application_controller.rb'

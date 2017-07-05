@@ -24,7 +24,7 @@ User.create(
   role: 'admin'
 )
 
-puts "users created"
+puts 'users created'
 
 # События
 events_number.times do |i|
@@ -53,25 +53,25 @@ Event.create(
   user_id: rand(0..users_number - 1)
 )
 
-puts "events created"
+puts 'events created'
 
 # Комнаты
 rooms_number.times do |i|
   Room.create(
     title: 'room_' + (i + rand(1..6) * 10).to_s,
-    begin_work_time: Time.new(2000, 01, 01, 11, 0, 0, '+03:00'),
-    end_work_time: Time.new(2000, 01, 01, 21, 0, 0, '+03:00'),
+    begin_work_time: Time.new(2000, 1, 1, 11, 0, 0, '+03:00'),
+    end_work_time: Time.new(2000, 1, 1, 21, 0, 0, '+03:00'),
     description: 'this is a room'
   )
 end
 
 Event.all.each do |e|
   Room.all.each do |r|
-    e.rooms << r if rand(0..4) == 0
+    e.rooms << r if rand(0..4).sero?
   end
 end
 
-puts "rooms created"
+puts 'rooms created'
 
 # Брони
 Room.all.each do |r|
@@ -84,11 +84,9 @@ Room.all.each do |r|
       event_id: e[:id]
     )
     # Если по какой-то причине бронь не состоялась, удаляем связь комнаты с событием
-    unless o.save
-      e.rooms.destroy(r)
-    end
+    e.rooms.destroy(r) unless o.save
   end
 end
 
-puts "orders created"
-puts "success"
+puts 'orders created'
+puts 'success'
