@@ -1,0 +1,14 @@
+
+p Часы работы комнаты: 
+  #{room.begin_work_time.strftime("%H:%M")} - 
+  #{room.end_work_time.strftime("%H:%M")}
+  
+p Событие проходит с 
+  #{event.begin_datetime.strftime("%d.%m.%Y, %H:%M")} до 
+  #{event.end_datetime.strftime("%d.%m.%Y, %H:%M")}
+  
+p События забронированные в этой комнате:
+- Order.where(room_id: room.id).each do |order|
+  p 
+    = order.event.title
+    |: c #{order.begin_datetime.strftime("%d.%m.%Y, %H:%M")} до #{order.end_datetime.strftime("%d.%m.%Y, %H:%M")}

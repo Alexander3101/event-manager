@@ -62,4 +62,12 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:room_id, :begin_datetime, :end_datetime, :event_id)
   end
+
+  def assist
+    respond_to do |format|
+      format.html { render partial: 'orders/assist',
+                    locals:{ room: Room.find(params[:room_id]),
+                             event: Event.find(params[:event_id]) } }
+    end
+  end
 end

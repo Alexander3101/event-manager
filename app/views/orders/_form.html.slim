@@ -3,34 +3,30 @@
     = flash[:notice]
 br
 
-p
-  = f.label "Событие"
-  br
-  div class="row"
-    div class='col-sm-6'
+.row
+  .col-sm-6
+    p
+      = f.label "Событие"
+      br
       = f.collection_select :event_id, @events, :id, :title, selected: @event_id, :class => "form-control", :disabled => "disabled"
-p
-  = f.label "Комната"
-  br
-  div class="row"
-    div class='col-sm-6'
+    p
+      = f.label "Комната"
+      br
       = f.collection_select :room_id, @rooms, :id, :title, selected: @room_id, :class => "form-control"
 
-= f.hidden_field :user_id, value: current_user.id, as: :hidden
-p
-  = f.label "Время начала"
-  br
-  div class="row"
-    div class='col-sm-6'
+    = f.hidden_field :user_id, value: current_user.id, as: :hidden
+    p
+      = f.label "Время начала"
+      br
       = f.hidden_field :begin_datetime, :class => "form-control for_time", id: "datetimepicker1"
-p
-  = f.label "Время окончания"
-  br
-  div class="row"
-    div class='col-sm-6'
+    p
+      = f.label "Время окончания"
+      br
       = f.hidden_field :end_datetime, :class => "form-control for_time", id: "datetimepicker2"
-p
-  = f.submit "Забронировать", class: "btn btn-success"
+    p
+      = f.submit "Забронировать", class: "btn btn-success"
+
+  #help.col-sm-6
 
 javascript:
   $(function () {
@@ -55,3 +51,15 @@ javascript:
       $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
     });
   });
+  
+  function assist(){
+    var url = "/order_assistent?event_id="+$('#order_event_id').val()+
+              "&room_id="+$('#order_room_id').val()
+    $.get(url, function(data){
+      $('#help').html(data)
+    })
+  }
+  
+  $('#order_event_id').change(assist)
+  $('#order_room_id').change(assist)
+  
