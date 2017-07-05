@@ -67,7 +67,7 @@ end
 
 Event.all.each do |e|
   Room.all.each do |r|
-    e.rooms << r if rand(0..4).sero?
+    e.rooms << r if rand(0..4).zero?
   end
 end
 
