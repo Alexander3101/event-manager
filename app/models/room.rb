@@ -8,5 +8,5 @@ class Room < ApplicationRecord
   # проверка на присутствие
   validates :title, :begin_work_time, :end_work_time, presence: true
 
-  validates_with Room_validator
+  validates_with RoomValidator
 end
