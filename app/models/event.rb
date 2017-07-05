@@ -11,5 +11,5 @@ class Event < ApplicationRecord
   # проверка на integer и not_null
   validates :user_id, numericality: { only_integer: true }
 
-  validates_with Event_validator
+  validates_with EventValidator
 end

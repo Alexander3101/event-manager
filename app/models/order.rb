@@ -10,5 +10,5 @@ class Order < ApplicationRecord
   # проверка на integer и not_null
   validates :event_id, :room_id, numericality: { only_integer: true }
 
-  validates_with Order_validator
+  validates_with OrderValidator
 end
