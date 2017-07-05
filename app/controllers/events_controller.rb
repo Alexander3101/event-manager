@@ -17,6 +17,7 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to @event
     else
+      flash[:notice] = @event.errors['text'].last
       render 'new'
     end
   end
