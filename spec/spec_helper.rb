@@ -13,6 +13,20 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+module LoginHelper
+  def login!(login, password)
+    click_on("Войти")
+
+    within(".modal-content") do
+      fill_in 'user_email', with: login
+      fill_in 'user_password', with: password
+      page.find(:xpath, '//input[@type="submit"]').click
+
+    end
+  end
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
