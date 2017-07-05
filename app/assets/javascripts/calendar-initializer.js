@@ -1,6 +1,6 @@
 function eventCalendar() {
+  var parameter = $('#calendar').attr('data-room-id');
   return $('#calendar').fullCalendar({
-
     locale: 'ru',
     contentHeight: 600,
     header: {
@@ -26,9 +26,7 @@ function eventCalendar() {
         buttonText: 'сегодня'
       }
     },
-
-    // вот тут нужно брать id кмнаты из data-атрибута блока #calendar
-    events: '/orders.json?room_id=2',
+    events: '/orders.json?room_id='+parameter,
     timeFormat: 'HH:mm'
 
   });
