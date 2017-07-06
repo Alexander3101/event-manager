@@ -68,9 +68,13 @@ class OrdersController < ApplicationController
 
   def assist
     respond_to do |format|
-      format.html { render partial: 'orders/assist',
-                    locals:{ room: Room.find(params[:room_id]),
-                             event: Event.find(params[:event_id]) } }
+      format.html do
+        render partial: 'orders/assist',
+               locals: {
+                 room: Room.find(params[:room_id]),
+                 event: Event.find(params[:event_id])
+               }
+      end
     end
   end
 end
