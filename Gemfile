@@ -31,8 +31,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 # Custom gems
 gem 'slim-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -49,3 +47,10 @@ gem 'fullcalendar-rails'
 gem 'devise'
 gem 'faker'
 gem 'rubocop', require: false
+
+group :deploy do
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-db-tasks', github: 'sgruhier/capistrano-db-tasks', require: false
+end
