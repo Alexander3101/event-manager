@@ -4,6 +4,7 @@ html
     title
       |Календарь событий
     = csrf_meta_tags
+    meta name="viewport" content="width=device-width, initial-scale=1"
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -24,15 +25,15 @@ html
             li class=("active" if controller_name == "events")
               a href=events_path События
             li class=("active" if controller_name == "rooms")
-              a href=rooms_path Комнаты       
+              a href=rooms_path Комнаты
           -if user_signed_in?
             = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-primary navbar-btn navbar-right"
             = link_to 'Личный кабинет', user_path(current_user),  :class =>"btn btn-primary navbar-btn navbar-right"
             .navbar-text.navbar-right
               span.glyphicon.glyphicon-user
-              | Здравствуйте, 
-              = current_user.email 
-          -else 
+              | Здравствуйте,
+              = current_user.email
+          -else
             a href="#sign_in_dialog" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal"
               span.glyphicon.glyphicon-user
               |Войти
@@ -41,7 +42,7 @@ html
       div class="modal-dialog modal-sm"
         div class="modal-content"
           div class="modal-header"
-            button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            button type="button" class="close" data-dismiss="modal" aria-hidden="true"
               |×
             h4 class="modal-title"
               |Вход:
@@ -56,7 +57,7 @@ html
                 br
                 = f.password_field :password, autocomplete: "off"
               br
-              
+
               div class="modal-footer"
                 = f.submit "Войти"
             end
