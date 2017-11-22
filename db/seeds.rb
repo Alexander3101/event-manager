@@ -1,6 +1,7 @@
 users_number = 8
-events_number = 12
 rooms_number = 6
+organizers_number = 5
+executors_number = 5
 datetime = DateTime.now.change(hour: 9)
 
 # Пользователи
@@ -26,34 +27,21 @@ User.create(
 
 puts 'users created'
 
-# События
-events_number.times do |i|
-  title_tmp = Faker::Book.title
-  Event.create(
-    title: title_tmp,
-    description: title_tmp + title_tmp + title_tmp,
-    begin_datetime: datetime + i.minutes,
-    end_datetime: datetime + 10.days,
-    user_id: rand(0..users_number - 1)
+organizers_number.times do
+  Organizer.create(
+    name: Faker::Name.job_titles
   )
 end
-Event.create(
-  title: 'My_event',
-  description: 'la - la - la',
-  begin_datetime: datetime - 10.hours,
-  end_datetime: datetime + 1.days,
-  user_id: rand(0..users_number - 1)
-)
 
-Event.create(
-  title: 'My_event_3',
-  description: 'la - la - la',
-  begin_datetime: datetime - 2.days,
-  end_datetime: datetime - 1.days,
-  user_id: rand(0..users_number - 1)
-)
+puts 'organizers created'
 
-puts 'events created'
+executors_number.times do
+  Executor.create(
+    name: Faker::Name.first_name
+  )
+end
+
+puts 'executors created'
 
 # Комнаты
 rooms_number.times do |i|
@@ -65,28 +53,23 @@ rooms_number.times do |i|
   )
 end
 
-Event.all.each do |e|
-  Room.all.each do |r|
-    e.rooms << r if rand(0..4).zero?
-  end
-end
-
 puts 'rooms created'
 
 # Брони
 Room.all.each do |r|
-  r.events.each_with_index do |e, i|
-    b = e.begin_datetime.change(hour: 9, min: 0)
-    o = Order.new(
+  for i in 0..rand(1..5)
+    Event.create(
+      title: "My_#{r[:title]}_event #{i}",
+      description: "event number #{i} in room #{r[:title]}",
       begin_datetime: b + i.hours,
       end_datetime: b + (i + 1).hours,
       room_id: r[:id],
-      event_id: e[:id]
+      user_id: rand(0..users_number - 1)
+      organizer_id: rand(0..organizers_number - 1)
+      executor_id: rand(0..executors_number - 1)
     )
-    # Если по какой-то причине бронь не состоялась, удаляем связь комнаты с событием
-    e.rooms.destroy(r) unless o.save
   end
 end
 
-puts 'orders created'
+puts 'events created'
 puts 'success'

@@ -8,6 +8,12 @@ class CreateEvents < ActiveRecord::Migration[5.1]
 
       # пользователь, создавший событие
       t.integer :user_id, null: false
+      # организатор
+      t.integer :organizer_id, null: false
+      # тот, кто проведёт
+      t.integer :executor_id, null: false
+      # где проведут
+      t.integer :room_id, null: false
 
       t.timestamps
     end
