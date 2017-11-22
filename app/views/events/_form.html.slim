@@ -2,42 +2,57 @@
   .notice
     -if flash[:notice] == 'Длительность < 15 минут'
       |Время начала должно отличаться от времени окончания не менее чем на 15 минут. Пожалуйста, повторите попытку
+    -if flash[:notice] == 'Мимо комнаты'
+      |Время брони должно укладываться в часы работы комнаты. Пожалуйста, повторите попытку
+    -if flash[:notice] == 'Пересечение событий'
+      |К сожалению, на выбранное время комната уже занята. Пожалуйста, повторите попытку
 br
 
-p
-  = f.label "Название события"
-  br
-  div class="row"
-    div class='col-sm-6'
+.row
+  .col-sm-6
+    p
+      = f.label "Название события"
+      br
       = f.text_field :title, :class => "form-control"
-      
-p
-  = f.label "Описание"
-  br
-  div class="row"
-    div class='col-sm-6'
+
+    p
+      = f.label "Описание"
+      br
       = f.text_area :description, :class => "form-control"
-      
-p
-  = f.label "Время начала события"
-  br
-  div class="row"
-    div class='col-sm-6'
+
+    p
+      = f.label "Комната"
+      br
+      = f.collection_select :room_id, Room.all, :id, :title
+
+    p
+      = f.label "Время начала события"
+      br
       = f.hidden_field :begin_datetime, :class => "form-control for_time", :id => 'datetimepicker1'
-      
-p
-  = f.label "Время окончания события"
-  br
-  div class="row"
-    div class='col-sm-6'
+
+    p
+      = f.label "Время окончания события"
+      br
       = f.hidden_field :end_datetime, :class => "form-control for_time", :id => 'datetimepicker2'
 
-- u_i = if @event.user_id? then @event.user_id else current_user.id end
-= f.hidden_field :user_id, value: u_i, as: :hidden
+    p
+      = f.label "Организатор"
+      br
+      = f.collection_select :organizer_id, Organizer.all, :id, :name
 
-br
-p
-  = f.submit "Сохранить событие", class: "btn btn-success"
+    p
+      = f.label "Проведёт"
+      br
+      = f.collection_select :lector_id, Lector.all, :id, :name
+
+    - u_i = if @event.user_id? then @event.user_id else current_user.id end
+    = f.hidden_field :user_id, value: u_i, as: :hidden
+
+    br
+    p
+      = f.submit "Сохранить событие", class: "btn btn-success"
+
+  #help.col-sm-6
 
 
 javascript:
@@ -63,3 +78,13 @@ javascript:
       $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
     });
   });
+
+  function assist(){
+    var url = "/event/assist?room_id="+$('#event_room_id').val()
+    $.get(url, function(data){
+      $('#help').html(data)
+    })
+  }
+
+  $('#event_room_id').change(assist)
+  $(document).on("turbolinks:load", assist)

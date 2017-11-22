@@ -26,7 +26,7 @@ function eventCalendar() {
         buttonText: 'сегодня'
       }
     },
-    events: '/orders.json?room_id='+parameter,
+    events: '/events.json?room_id=' + parameter,
     timeFormat: 'HH:mm'
 
   });

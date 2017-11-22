@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.where('end_datetime > ?', DateTime.now).order(:begin_datetime).paginate(page: params[:page])
+    #@events = Event.where('end_datetime > ?', DateTime.now).order(:begin_datetime).paginate(page: params[:page])
+    @events = Event.where(room_id: params[:room_id]).order(:begin_datetime).paginate(page: params[:page])
   end
 
   def show
@@ -15,10 +16,10 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to @event
+      redirect_to @event.room
     else
       flash[:notice] = @event.errors['text'].last
-      render 'new'
+      render 'new', room_id: @event.room_id
     end
   end
 
@@ -30,9 +31,10 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update(event_params)
-      redirect_to @event
+      redirect_to @event.room
     else
-      render 'edit'
+      flash[:notice] = @event.errors['text'].last
+      render 'edit', room_id: @event.room_id
     end
   end
 
@@ -44,6 +46,15 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :begin_datetime, :end_datetime, :user_id)
+    params.require(:event).permit(:title, :description, :begin_datetime, :end_datetime, :room_id, :organizer_id, :lector_id, :user_id)
   end
+
+  def assist
+    respond_to do |format|
+      format.html do
+        render partial: 'events/assist', locals: { room: Room.find(params[:room_id]) }
+      end
+    end
+  end
+
 end
