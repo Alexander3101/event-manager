@@ -11,7 +11,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       # организатор
       t.integer :organizer_id, null: false
       # тот, кто проведёт
-      t.integer :executor_id, null: false
+      t.integer :lector_id, null: false
       # где проведут
       t.integer :room_id, null: false
 

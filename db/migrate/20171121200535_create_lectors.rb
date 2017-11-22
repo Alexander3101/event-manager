@@ -1,6 +1,6 @@
-class DeviseExecutors < ActiveRecord::Migration[5.1]
+class CreateLectors < ActiveRecord::Migration[5.1]
   def change
-    create_table :executors do |t|
+    create_table :lectors do |t|
       t.string :name, null: false
 
       t.timestamps null: false

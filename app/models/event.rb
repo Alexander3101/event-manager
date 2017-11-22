@@ -5,12 +5,12 @@ class Event < ApplicationRecord
   belongs_to :room
   belongs_to :user
   belongs_to :organizer
-  belongs_to :executor
+  belongs_to :lector
 
   # проверка на присутствие
-  validates :title, :begin_datetime, :end_datetime, :user_id, :organizer_id, :executor_id, :room_id presence: true
+  validates :title, :begin_datetime, :end_datetime, :user_id, :organizer_id, :lector_id, :room_id presence: true
   # проверка на integer и not_null
-  validates :user_id, :organizer_id, :executor_id, :room_id, numericality: { only_integer: true }
+  validates :user_id, :organizer_id, :lector_id, :room_id, numericality: { only_integer: true }
 
   validates_with EventValidator
 end

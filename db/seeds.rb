@@ -1,7 +1,7 @@
 users_number = 8
 rooms_number = 6
 organizers_number = 5
-executors_number = 5
+lectors_number = 5
 datetime = DateTime.now.change(hour: 9)
 
 # Пользователи
@@ -35,13 +35,13 @@ end
 
 puts 'organizers created'
 
-executors_number.times do
-  Executor.create(
+lectors_number.times do
+  Lector.create(
     name: Faker::Name.first_name
   )
 end
 
-puts 'executors created'
+puts 'lectors created'
 
 # Комнаты
 rooms_number.times do |i|
@@ -66,7 +66,7 @@ Room.all.each do |r|
       room_id: r[:id],
       user_id: rand(0..users_number - 1)
       organizer_id: rand(0..organizers_number - 1)
-      executor_id: rand(0..executors_number - 1)
+      lector_id: rand(0..lectors_number - 1)
     )
   end
 end
