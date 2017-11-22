@@ -28,17 +28,13 @@ User.create(
 puts 'users created'
 
 organizers_number.times do
-  Organizer.create(
-    name: Faker::Name.job_titles
-  )
+  Organizer.create( name: Faker::Name.title )
 end
 
 puts 'organizers created'
 
 lectors_number.times do
-  Lector.create(
-    name: Faker::Name.first_name
-  )
+  Lector.create( name: Faker::Name.first_name )
 end
 
 puts 'lectors created'
@@ -61,11 +57,11 @@ Room.all.each do |r|
     Event.create(
       title: "My_#{r[:title]}_event #{i}",
       description: "event number #{i} in room #{r[:title]}",
-      begin_datetime: b + i.hours,
-      end_datetime: b + (i + 1).hours,
+      begin_datetime: datetime + i.hours,
+      end_datetime: datetime + (i + 1).hours,
       room_id: r[:id],
-      user_id: rand(0..users_number - 1)
-      organizer_id: rand(0..organizers_number - 1)
+      user_id: rand(0..users_number - 1),
+      organizer_id: rand(0..organizers_number - 1),
       lector_id: rand(0..lectors_number - 1)
     )
   end

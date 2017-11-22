@@ -30,8 +30,9 @@ module DateValidators
            (record.begin_datetime < event.end_datetime && record.end_datetime > event.end_datetime) ||
            (record.begin_datetime >= event.begin_datetime && record.end_datetime <= event.end_datetime)
 
-          record.errors[:text] << 'Пересечение событий'event
+          record.errors[:text] << 'Пересечение событий'
         end
+      end
     end
   end
 

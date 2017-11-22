@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623103449) do
+ActiveRecord::Schema.define(version: 20171121202230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,24 +21,23 @@ ActiveRecord::Schema.define(version: 20170623103449) do
     t.datetime "end_datetime", null: false
     t.text "description"
     t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "events_rooms", id: false, force: :cascade do |t|
-    t.bigint "room_id", null: false
-    t.bigint "event_id", null: false
-    t.index ["event_id"], name: "index_events_rooms_on_event_id"
-    t.index ["room_id"], name: "index_events_rooms_on_room_id"
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.datetime "begin_datetime", null: false
-    t.datetime "end_datetime", null: false
+    t.integer "organizer_id", null: false
+    t.integer "lector_id", null: false
     t.integer "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "event_id"
+  end
+
+  create_table "lectors", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "organizers", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rooms", force: :cascade do |t|
