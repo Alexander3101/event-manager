@@ -9,26 +9,28 @@ function eventCalendar() {
     },
     views: {
       month: {
-        buttonText: 'месяц'
+        buttonText: 'Месяц'
       },
       agendaWeek: {
         type: 'agenda',
         duration: {
           days: 7
         },
-        buttonText: 'неделя'
+        buttonText: 'Неделя'
       },
       agendaDay: {
         type: 'agenda',
         duration: {
           days: 1
         },
-        buttonText: 'сегодня'
+        buttonText: 'День'
       }
+    },
+    buttonText: {
+      today: 'Сегодня'
     },
     events: '/events.json?room_id=' + parameter,
     timeFormat: 'HH:mm'
-
   });
 };
 
