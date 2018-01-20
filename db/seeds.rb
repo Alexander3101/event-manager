@@ -53,7 +53,8 @@ puts 'rooms created'
 
 # Брони
 Room.all.each do |r|
-  for i in 0..rand(1..5)
+  n = rand(1..5)
+  for i in 0..n
     Event.create(
       title: "My_#{r[:title]}_event #{i}",
       description: "event number #{i} in room #{r[:title]}",
