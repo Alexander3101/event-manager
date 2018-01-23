@@ -57,6 +57,20 @@ h2 {
   // animation: fade .6s;
   // overflow: auto;
 }
+.fc-sat, .fc-sun {
+  background-color: rgba(#da4300, 0.1);
+}
 #calendar {
   width: 100%;
+  margin-bottom: 50px;
+}
+.fc-past {
+  background-color: #c2c7d2;
+  opacity: 0.5;
+}
+.fc-day-header {
+  background-color: white;
+}
+.fc-unthemed th, .fc-unthemed td{
+  border-color: #cecbcb;
 }
