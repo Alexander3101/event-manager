@@ -31,6 +31,14 @@ function eventCalendar() {
     },
     events: '/events.json?room_id=' + parameter,
     timeFormat: 'HH:mm'
+    timeFormat: 'HH:mm',
+    displayEventEnd: true,
+    dayClick: function(date, jsEvent, view, resourceObj) {
+      var d = new Date();
+      d.setHours(0, 0, 0);
+      if (date >= d)
+        location.href = '/events/new?room_id=' + parameter;
+    }
   });
 };
 
