@@ -10,6 +10,9 @@ ul
       |Время проведения события события: 
       = event.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
       = event.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
+      br
+      |Организатор:
+      = event.organizer.name
       - if user_signed_in? and (event.user_id == current_user.id or current_user.role == "admin")
         a.btn.btn-xs.btn-warning.btn-margins href=edit_event_path(event) Изменить
         a.btn.btn-xs.btn-danger.btn-margins href=event_path(event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить

@@ -7,20 +7,21 @@ hr
 
 h4
   |Время проведения события:
-  = @event.begin_datetime.strftime("c %d.%m.%Y, %H:%M")
-  = @event.end_datetime.strftime("  до  %d.%m.%Y, %H:%M")
-  
+  = @event.begin_datetime.strftime(" %d.%m.%Y")
+  = @event.begin_datetime.strftime(" c %H:%M")
+  = @event.end_datetime.strftime(" до %H:%M")
+hr
 p
   |Создатель события:
   = @event.user.email
-
-p.description
-  = @event.description
-
+br
 p
   |Организатор:
   = @event.organizer.name
-
+br
 p
   |Проведёт:
   = @event.lector.name
+hr
+p.description
+  = @event.description

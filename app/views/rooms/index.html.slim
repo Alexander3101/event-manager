@@ -8,12 +8,13 @@ ul
     li.my
       = link_to room.title, room_path(room)
       br
-      p
-        = room.description
-      = room.begin_work_time.strftime("Время начала работы комнаты:\t%H:%M")
-      br
-      = room.end_work_time.strftime("Время окончания работы комнаты:\t%H:%M")
+      |Время работы комнаты: 
+      = room.begin_work_time.strftime("с \t%H:%M")
+      = room.end_work_time.strftime(" до \t%H:%M")
+
       - if user_signed_in? and current_user.role == "admin"
         a.btn.btn-xs.btn-warning.btn-margins href=edit_room_path(room) Изменить
         a.btn.btn-xs.btn-danger.btn-margins href=room_path(room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!" Удалить
-      
+      br
+      p
+        = room.description

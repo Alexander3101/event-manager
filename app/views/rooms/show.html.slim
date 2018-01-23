@@ -8,12 +8,12 @@ hr
   a.btn.btn-xs.btn-warning.btn-margins.in_show href=edit_room_path(@room) Изменить
   a.btn.btn-xs.btn-danger.btn-margins.in_show href=room_path(@room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!" Удалить
 
+|Время работы комнаты:
+= @room.begin_work_time.strftime("c %H:%M")
+= @room.end_work_time.strftime("  до  %H:%M")
+h4
 p.description
   = @room.description
-h4
-  |Время работы комнаты:
-  = @room.begin_work_time.strftime("c %H:%M")
-  = @room.end_work_time.strftime("  до  %H:%M")
 
 br
 
