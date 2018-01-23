@@ -38,6 +38,14 @@ function eventCalendar() {
       d.setHours(0, 0, 0);
       if (date >= d)
         location.href = '/events/new?room_id=' + parameter;
+    },
+    eventRender: function(event, element) {
+      // $(element).popover({title: event.title, content: event.description, event.organizer.name, trigger: 'hover', placement: 'auto right', delay: {"hide": 300 }});
+      $(element).popover({
+        title: event.title,
+        content: event.description,
+        trigger: 'hover', placement: 'auto right', delay: {"hide": 300 }
+      })
     }
   });
 };
