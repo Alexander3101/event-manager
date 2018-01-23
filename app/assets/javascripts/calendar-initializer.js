@@ -40,11 +40,18 @@ function eventCalendar() {
         location.href = '/events/new?room_id=' + parameter;
     },
     eventRender: function(event, element) {
-      // $(element).popover({title: event.title, content: event.description, event.organizer.name, trigger: 'hover', placement: 'auto right', delay: {"hide": 300 }});
       $(element).popover({
+        html : true,
         title: event.title,
-        content: event.description,
-        trigger: 'hover', placement: 'auto right', delay: {"hide": 300 }
+        content: function(){
+          var c = "Время проведение: " + event.start.format("hh.mm") + " - " + event.end.format("hh.mm");
+          c += "<br>" + "Организатор: " + event.organizer.name + "<br>" + "Проводит: " + event.lector.name;
+          c += "<hr>" + event.description;
+          return c;
+        },
+        trigger: 'hover',
+        placement: 'auto right',
+        // delay: {"hide": 300 }
       })
     }
   });
