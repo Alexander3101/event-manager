@@ -30,7 +30,6 @@ function eventCalendar() {
       today: 'Сегодня'
     },
     events: '/events.json?room_id=' + parameter,
-    timeFormat: 'HH:mm'
     timeFormat: 'HH:mm',
     displayEventEnd: true,
     dayClick: function(date, jsEvent, view, resourceObj) {
