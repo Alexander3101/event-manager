@@ -26,11 +26,13 @@ module DateValidators
       end
 
       record.room.events.each do |event|
-        if (record.begin_datetime < event.begin_datetime && record.end_datetime > event.begin_datetime) ||
-           (record.begin_datetime < event.end_datetime && record.end_datetime > event.end_datetime) ||
-           (record.begin_datetime >= event.begin_datetime && record.end_datetime <= event.end_datetime)
+        if event.id != record.id
+          if (record.begin_datetime < event.begin_datetime && record.end_datetime > event.begin_datetime) ||
+             (record.begin_datetime < event.end_datetime && record.end_datetime > event.end_datetime) ||
+             (record.begin_datetime >= event.begin_datetime && record.end_datetime <= event.end_datetime)
 
-          record.errors[:text] << 'Пересечение событий'
+            record.errors[:text] << 'Пересечение событий'
+          end
         end
       end
     end
