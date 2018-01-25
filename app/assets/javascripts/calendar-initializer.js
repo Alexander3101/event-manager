@@ -36,7 +36,10 @@ function eventCalendar() {
       var d = new Date();
       d.setHours(0, 0, 0);
       if (date >= d)
+      {
+        location.href="#new_event";
         assist();
+      }
     },
     eventRender: function(event, element) {
       $(element).popover({
@@ -55,6 +58,10 @@ function eventCalendar() {
     }
   });
 };
+
+$('#calendar').on('click', ".fc-day", function(){
+  $(".fc-day").attr('data-toggle', 'modal');
+});
 
 function clearCalendar() {
   $('#calendar').fullCalendar('delete');

@@ -16,4 +16,13 @@ br
 
 #calendar data-room-id="#{@room.id}"
 
-#new_event 
+
+#new_event.modal.fade
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+          |×
+        h4.modal-title
+          |Новое событие:
+      .modal-body
