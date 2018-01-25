@@ -36,15 +36,7 @@ function eventCalendar() {
       var d = new Date();
       d.setHours(0, 0, 0);
       if (date >= d)
-        // location.href = '/events/new?room_id=' + parameter;
-        {
-          var url = "/events/new?room_id=" + parameter;
-          console.log(url);
-          $.get(url, function(data){
-            $("#new_event").html(data)
-          })
-        }
-      // console.log(parameter);
+        assist();
     },
     eventRender: function(event, element) {
       $(element).popover({
@@ -68,13 +60,16 @@ function clearCalendar() {
   $('#calendar').fullCalendar('delete');
   $('#calendar').html('');
 };
-// function assist(){
-//   var url = "/events/new?room_id="+$('#calendar').attr('data-room-id');
-//   console.log(url);
-//   $.get(url, function(data){
-//     $('#new_event').html(data)
-//   })
-// }
+
+function assist(){
+  var url = "/events/new?room_id="+$('#calendar').attr('data-room-id');
+  console.log(url);
+  $.get(url, function(data){
+    $('#new_event').html(data)
+  })
+}
 
 $(document).on('turbolinks:load', eventCalendar);
 $(document).on('turbolinks:before-cache', clearCalendar);
+
+$('#event_room_id').change(assist);
