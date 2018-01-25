@@ -21,6 +21,28 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
+
+      if params.permit(:repeatly).has_key? :repeatly
+        begin_datetime = DateTime.parse(event_params[:begin_datetime]) + 1.day
+        end_datetime = DateTime.parse(event_params[:end_datetime]) + 1.day
+        max_date = DateTime.parse(params.permit(:max_date)[:max_date])
+        max_date.change(hour: 23)
+        while begin_datetime <= max_date
+          Event.create(
+            title: event_params[:title],
+            description: event_params[:description],
+            begin_datetime: begin_datetime,
+            end_datetime: end_datetime,
+            room_id: event_params[:room_id],
+            organizer_id: event_params[:organizer_id],
+            lector_id: event_params[:lector_id],
+            user_id: event_params[:user_id]
+          )
+          begin_datetime += 1.day
+          end_datetime += 1.day
+        end
+      end
+
       redirect_to @event.room
     else
       flash[:notice] = @event.errors['text'].last
