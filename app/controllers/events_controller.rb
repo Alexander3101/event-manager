@@ -11,6 +11,11 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    respond_to do |format|
+      format.html do
+        render 'new', room_id: params[:room_id]
+      end
+    end
   end
 
   def create
