@@ -37,7 +37,7 @@ function eventCalendar() {
       d.setHours(0, 0, 0);
       if (date >= d)
       {
-        location.href="#new_event";
+        $("#new_event").modal('toggle');
         assist();
       }
     },
@@ -59,10 +59,6 @@ function eventCalendar() {
   });
 };
 
-$('#calendar').on('click', ".fc-day", function(){
-  $(".fc-day").attr('data-toggle', 'modal');
-});
-
 function clearCalendar() {
   $('#calendar').fullCalendar('delete');
   $('#calendar').html('');
@@ -76,7 +72,9 @@ function assist(){
   })
 }
 
+$("body").on('click', '.modal-backdrop.fade.in', function(){
+  $("#new_event").modal().onhide();
+});
+
 $(document).on('turbolinks:load', eventCalendar);
 $(document).on('turbolinks:before-cache', clearCalendar);
-
-$('#event_room_id').change(assist);

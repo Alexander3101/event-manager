@@ -86,15 +86,15 @@ javascript:
     $('.hideble').hide();
   });
 
-  function assist(){
-    var url = "/event/assist?room_id="+$('#event_room_id').val()
-    $.get(url, function(data){
-      $('#help').html(data)
-    })
-  }
+  //function assist(){
+  //  var url = "/event/assist?room_id="+$('#event_room_id').val()
+  //  $.get(url, function(data){
+  //    $('#help').html(data);
+  //  })
+  //};
 
-  $('#event_room_id').change(assist)
-  $(document).on("turbolinks:load", assist)
+  //$('#event_room_id').change(assist);
+  //$(document).on("turbolinks:load", assist);
 
   $('#repeatly').click(function(){
     $('.hideble').toggle();
