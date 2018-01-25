@@ -48,6 +48,12 @@ br
     - u_i = if @event.user_id? then @event.user_id else current_user.id end
     = f.hidden_field :user_id, value: u_i, as: :hidden
 
+    = check_box_tag :repeatly
+    = label_tag :repeatly, "Повторять?"
+    .hideble
+      br
+      = hidden_field_tag :max_date, "2001-01-01 23:39", :class => "form-control for_time", :id => 'datetimepicker3'
+
     br
     p
       = f.submit "Сохранить событие", class: "btn btn-success"
@@ -77,6 +83,7 @@ javascript:
       $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
       $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
     });
+    $('.hideble').hide();
   });
 
   function assist(){
@@ -88,3 +95,7 @@ javascript:
 
   $('#event_room_id').change(assist)
   $(document).on("turbolinks:load", assist)
+
+  $('#repeatly').click(function(){
+    $('.hideble').toggle();
+  });
