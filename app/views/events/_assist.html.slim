@@ -7,4 +7,4 @@ p События забронированные в этой комнате:
 - Event.where(room_id: room.id).each do |event|
   p
     = event.title
-    |: c #{event.begin_datetime.strftime("%d.%m.%Y, %H:%M")} до #{event.end_datetime.strftime("%d.%m.%Y, %H:%M")}
+    |: c #{event.begin_time.strftime("%d.%m.%Y, %H:%M")} до #{event.end_time.strftime("%d.%m.%Y, %H:%M")}

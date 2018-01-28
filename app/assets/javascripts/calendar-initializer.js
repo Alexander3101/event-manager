@@ -36,22 +36,19 @@ function eventCalendar() {
       var d = new Date();
       d.setHours(0, 0, 0);
       if (date >= d)
-      {
-        $("#new_event").modal('toggle');
-        assist();
-      }
+        showForm(date);
     },
     eventRender: function(event, element) {
       $(element).popover({
         html : true,
         title: event.title,
         content: function(){
-          var c = "Время проведение: " + event.start.format("hh.mm") + " - " + event.end.format("hh.mm");
+          var c = "Время проведения: " + event.start.format("HH.mm") + " - " + event.end.format("HH.mm");
           c += "<br>" + "Организатор: " + event.organizer.name + "<br>" + "Проводит: " + event.lector.name;
           c += "<hr>" + event.description;
           return c;
         },
-        trigger: 'hover',
+        trigger: 'hover'
         // placement: 'right'
         // delay: {"hide": 300 }
       })
@@ -64,16 +61,16 @@ function clearCalendar() {
   $('#calendar').html('');
 };
 
-function assist(){
-  var url = "/events/new?room_id="+$('#calendar').attr('data-room-id');
-  console.log(url);
+function showForm(date){
+  var url = "/events/new?room_id="+$('#calendar').attr('data-room-id')+"&date="+date.format("DD-MM-YYYY");
   $.get(url, function(data){
-    $('#new_event').html(data)
-  })
+    $("#new_event").modal('toggle');
+    $('#new_event').html(data);
+  });
 }
 
-$("body").on('click', '.modal-backdrop.fade.in', function(){
-  $("#new_event").modal().onhide();
+$("body").on('click', '.modal-backdrop', function(){
+  $("#new_event").modal("hide");
 });
 
 $(document).on('turbolinks:load', eventCalendar);

@@ -2,7 +2,7 @@ users_number = 8
 rooms_number = 6
 organizers_number = 5
 lectors_number = 5
-datetime = DateTime.now.change(hour: 9)
+time = Time.new(2000, 1, 1, 11, 0, 0, '+03:00')
 
 # Пользователи
 users_number.times do
@@ -58,8 +58,9 @@ Room.all.each do |r|
     Event.create(
       title: "My_#{r[:title]}_event #{i}",
       description: "event number #{i} in room #{r[:title]}",
-      begin_datetime: datetime + i.hours,
-      end_datetime: datetime + (i + 1).hours,
+      date: DateTime.now().change(hour: 0, minute: 0),
+      begin_time: time + i.hours,
+      end_time: time + (i + 1).hours,
       room_id: r[:id],
       user_id: rand(0..users_number - 1),
       organizer_id: rand(0..organizers_number - 1),
