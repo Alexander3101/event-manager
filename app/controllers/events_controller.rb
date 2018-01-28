@@ -14,6 +14,7 @@ class EventsController < ApplicationController
     @rooms = Room.all
     @room_id = params[:room_id]
     @date = params[:date]
+    flash[:notice] = ""
     respond_to do |format|
       format.html do
         render partial: 'new', room_id: params[:room_id], date: params[:date]

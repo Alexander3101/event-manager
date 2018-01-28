@@ -90,7 +90,7 @@ javascript:
       $('.hideble').hide();
     });
 
-    document.body.addEventListener('ajax:success', function(answer) {
+    document.body.addEventListener('ajax:complete', function(answer) {
       $('#new_event').html(answer.detail[0].response)
     })
 
