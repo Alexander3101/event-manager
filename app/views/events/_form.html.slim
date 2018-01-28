@@ -23,24 +23,22 @@ br
     p
       = f.label "Комната"
       br
-      = f.collection_select :room_id, Room.all, :id, :title
+      = f.collection_select :room_id, @rooms, :id, :title, selected: @room_id
 
     p
       = f.label "Дата начала события"
       br
-      = f.hidden_field :begin_datetime, :class => "form-control for_date", :id => 'datetimepicker1'
-    
+      = f.text_field :date, value: @date, :class => "form-control for_date", :id => 'datetimepicker1'
+
     p
       = f.label "Время начала события"
       br
-      = f.hidden_field :begin_datetime, :class => "form-control for_time", :id => 'datetimepicker2' 
-      /, :style => 'float: left;'
+      = f.hidden_field :begin_time, value: "12:00", :class => "form-control for_time", :id => 'datetimepicker2'
 
     p
       = f.label "Время окончания события"
       br
-      = f.hidden_field :end_datetime, :class => "form-control for_time", :id => 'datetimepicker3'
-      /, :style => 'float: left;'
+      = f.hidden_field :end_time, value: "12:30", :class => "form-control for_time", :id => 'datetimepicker3'
 
     p
       = f.label "Организатор"
@@ -54,58 +52,47 @@ br
 
     - u_i = if @event.user_id? then @event.user_id else current_user.id end
     = f.hidden_field :user_id, value: u_i, as: :hidden
-    
+
     hr
     = check_box_tag :repeatly
     = label_tag :repeatly, "Повторять?"
     .hideble
       br
       p
-        = f.label "Повторять событие до:"
+        = label_tag "Повторять событие до:"
         br
-        = f.hidden_field :begin_datetime, :class => "form-control for_date", :id => 'datetimepicker4'
-
-      / = hidden_field_tag :max_date, "2001-01-01 23:39", :class => "form-control for_time", :id => 'datetimepicker5'
+        = text_field_tag :max_date, @date, :class => "form-control for_date", :id => 'datetimepicker4'
 
     br
     p
-      = f.submit "Сохранить событие", class: "btn btn-success"
+      = f.submit "Сохранить событие", class: "btn btn-success", data: { "disable-with": "Сохраняю..." }
 
   #help.col-sm-6
 
 
 javascript:
-  $(function () {
-  $('.for_date').datetimepicker({
-    locale: 'ru',
-    format: 'DD-MM-YYYY',
-    inline: true,
-    keepOpen: true,
-    sideBySide: true
-  });
-    $('.for_time').datetimepicker({
-      locale: 'ru',
-      format: 'HH:mm',
-      stepping: 15,
-      inline: true,
-      keepOpen: true,
-      sideBySide: true
+    $(function () {
+      $('.for_date').datetimepicker({
+        locale: 'ru',
+        format: 'DD-MM-YYYY',
+        inline: true,
+        keepOpen: false,
+        sideBySide: true
+      });
+      $('.for_time').datetimepicker({
+        locale: 'ru',
+        format: 'HH:mm',
+        stepping: 15,
+        inline: true,
+        keepOpen: true,
+        sideBySide: true
+      });
+      $('.hideble').hide();
     });
-    // $("#datetimepicker1").on("dp.change", function () {
-    //   $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
-    //   $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
-    //   $('#datetimepicker3').data("DateTimePicker").minDate($('#datetimepicker1').val());
-    // });
-    // $("#datetimepicker1").on("dp.show", function () {
-    //   $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
-    //   $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
-    // });
-    // $('#datetimepicker2').on("dp.change", function() {
-    //   $('#datetimepicker1').data("DateTimePicker").maxDate($('#datetimepicker2').val());
-    //   $('#datetimepicker2').data("DateTimePicker").minDate($('#datetimepicker1').val());
-    // });
-    $('.hideble').hide();
-  });
+
+    document.body.addEventListener('ajax:success', function(answer) {
+      $('#new_event').html(answer.detail[0].response)
+    })
 
   //function assist(){
   //  var url = "/event/assist?room_id="+$('#event_room_id').val()

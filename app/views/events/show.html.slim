@@ -7,9 +7,9 @@ hr
 
 h4
   |Время проведения события:
-  = @event.begin_datetime.strftime(" %d.%m.%Y")
-  = @event.begin_datetime.strftime(" c %H:%M")
-  = @event.end_datetime.strftime(" до %H:%M")
+  = @event.date.strftime(" %d.%m.%Y")
+  = @event.begin_time.strftime(" c %H:%M")
+  = @event.end_time.strftime(" до %H:%M")
 hr
 p
   |Создатель события:

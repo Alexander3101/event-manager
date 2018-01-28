@@ -8,9 +8,10 @@ class Event < ApplicationRecord
   belongs_to :lector
 
   # проверка на присутствие
-  validates :title, :begin_datetime, :end_datetime, :user_id, :organizer_id, :lector_id, :room_id, presence: true
+  validates :title,  :date, :begin_time, :end_time, :user_id, :organizer_id, :lector_id, :room_id, presence: true
   # проверка на integer и not_null
   validates :user_id, :organizer_id, :lector_id, :room_id, numericality: { only_integer: true }
 
   validates_with EventValidator
+
 end

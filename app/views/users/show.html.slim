@@ -7,7 +7,7 @@ ul
       = link_to event.title, event_path(event)
       br
 			|Время проведения события: 
-			= event.begin_datetime.strftime("с %d.%m.%Y, %H:%M")
-			= event.end_datetime.strftime(" до %d.%m.%Y, %H:%M")
+			= event.begin_time.strftime("с %d.%m.%Y, %H:%M")
+			= event.end_time.strftime(" до %d.%m.%Y, %H:%M")
       a.btn.btn-xs.btn-warning.btn-margins href=edit_event_path(event) Изменить
       a.btn.btn-xs.btn-danger.btn-margins href=event_path(event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить

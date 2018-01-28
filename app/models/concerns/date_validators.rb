@@ -5,12 +5,12 @@ module DateValidators
 
   class EventValidator < ActiveModel::Validator
     def validate(record)
-      if record.begin_datetime.blank? || record.end_datetime.blank?
+      if record.date.blank? || record.begin_time.blank? || record.end_time.blank?
         record.errors[:text] << 'Неправильная дата'
         return
       end
 
-      if (record.end_datetime - record.begin_datetime).to_i / 60 < 15
+      if (record.end_time - record.begin_time).to_i / 60 < 15
         record.errors[:text] << 'Длительность < 15 минут'
       end
 
@@ -19,19 +19,21 @@ module DateValidators
         return
       end
 
-      if record.end_datetime.min + 60 * record.end_datetime.hour > record.room.end_work_time.min + 60 * record.room.end_work_time.hour ||
-         record.begin_datetime.min + 60 * record.begin_datetime.hour < record.room.begin_work_time.min + 60 * record.room.begin_work_time.hour
+      if record.end_time.min + 60 * record.end_time.hour > record.room.end_work_time.min + 60 * record.room.end_work_time.hour ||
+         record.begin_time.min + 60 * record.begin_time.hour < record.room.begin_work_time.min + 60 * record.room.begin_work_time.hour
 
         record.errors[:text] << 'Мимо комнаты'
       end
 
       record.room.events.each do |event|
         if event.id != record.id
-          if (record.begin_datetime < event.begin_datetime && record.end_datetime > event.begin_datetime) ||
-             (record.begin_datetime < event.end_datetime && record.end_datetime > event.end_datetime) ||
-             (record.begin_datetime >= event.begin_datetime && record.end_datetime <= event.end_datetime)
+          if event.date == record.date
+            if (record.begin_time < event.begin_time && record.end_time > event.begin_time) ||
+               (record.begin_time < event.end_time && record.end_time > event.end_time) ||
+               (record.begin_time >= event.begin_time && record.end_time <= event.end_time)
 
-            record.errors[:text] << 'Пересечение событий'
+              record.errors[:text] << 'Пересечение событий'
+            end
           end
         end
       end
