@@ -27,6 +27,14 @@ class EventsController < ApplicationController
     @rooms = Room.all
     flash[:notice] = ""
     respond_to do |format|
+      if @event.lector_id == 0
+        @event.lector_id = Lector.find_or_create_by(name: params.permit(:new_lector)[:new_lector]).id
+      end
+
+      if @event.organizer_id == 0
+        @event.organizer_id = Organizer.find_or_create_by(name: params.permit(:new_organizer)[:new_organizer]).id
+      end
+
       if @event.save
         if params.permit(:repeatly).has_key? :repeatly
           create_repeatly_events
