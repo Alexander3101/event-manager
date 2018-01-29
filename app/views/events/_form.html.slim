@@ -57,7 +57,8 @@ br
     = check_box_tag :repeatly
     = label_tag :repeatly, "Повторять?"
     .hideble
-      br
+      p
+        = select_tag :period, options_for_select(["Каждый день", "Каждую неделю", "Каждый месяц"])
       p
         = label_tag "Повторять событие до:"
         br

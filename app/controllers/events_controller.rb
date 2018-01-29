@@ -28,27 +28,8 @@ class EventsController < ApplicationController
     flash[:notice] = ""
     respond_to do |format|
       if @event.save
-
         if params.permit(:repeatly).has_key? :repeatly
-          date = Date.parse(event_params[:date]) + 1.day
-          begin_time = Time.parse(event_params[:begin_time])
-          end_time = Time.parse(event_params[:end_time])
-          max_date = Date.parse(params.permit(:max_date)[:max_date])
-          max_date.change(hour: 23)
-          while date <= max_date
-            Event.create(
-              title: event_params[:title],
-              description: event_params[:description],
-              date: date,
-              begin_time: begin_time,
-              end_time: end_time,
-              room_id: event_params[:room_id],
-              organizer_id: event_params[:organizer_id],
-              lector_id: event_params[:lector_id],
-              user_id: event_params[:user_id]
-            )
-            date += 1.day
-          end
+          create_repeatly_events
         end
 
         format.html { redirect_to @event.room }
@@ -85,6 +66,36 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:title, :description, :date, :begin_time, :end_time, :room_id, :organizer_id, :lector_id, :user_id)
+  end
+
+  def create_repeatly_events
+    case params.permit(:period)[:period]
+    when "Каждый день"
+      period = 1.day
+    when "Каждую неделю"
+      period = 7.days
+    when "Каждый месяц"
+      period = 1.month
+    end
+    date = DateTime.parse(event_params[:date]) + period
+    begin_time = Time.parse(event_params[:begin_time])
+    end_time = Time.parse(event_params[:end_time])
+    max_date = Date.parse(params.permit(:max_date)[:max_date])
+    max_date.change(hour: 23)
+    while date <= max_date
+      Event.create(
+        title: event_params[:title],
+        description: event_params[:description],
+        date: date,
+        begin_time: begin_time,
+        end_time: end_time,
+        room_id: event_params[:room_id],
+        organizer_id: event_params[:organizer_id],
+        lector_id: event_params[:lector_id],
+        user_id: event_params[:user_id]
+      )
+      date += period
+    end
   end
 
   def assist
