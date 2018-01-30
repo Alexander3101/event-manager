@@ -8,47 +8,53 @@
       |К сожалению, на выбранное время комната уже занята. Пожалуйста, повторите попытку
 br
 
-p
-  = f.label "Название события"
-  br
-  = f.text_field :title, :class => "form-control"
+.row
+  p.col-sm-6
+    = f.label "Название события"
+    br
+    = f.text_field :title, :class => "form-control"
+
+  p.col-sm-6
+    = f.label "Комната"
+    br
+    = f.collection_select :room_id, @rooms, :id, :title, {}, class: "form-control"
+br
 
 p
   = f.label "Описание"
   br
   = f.text_area :description, :class => "form-control"
+br
 
-p
-  = f.label "Комната"
-  br
-  = f.collection_select :room_id, @rooms, :id, :title, {}, class: "form-control"
+.row
+  p.col-sm-4
+    = f.label "Дата начала события"
+    br
+    = f.text_field :date, value: @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", id: "datetimepicker1"
 
-p
-  = f.label "Дата начала события"
-  br
-  = f.text_field :date, value: @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", id: "datetimepicker1"
+  p.col-sm-4
+    = f.label "Время начала события"
+    br
+    = f.text_field :begin_time, value: @event.begin_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker2'
 
-p
-  = f.label "Время начала события"
-  br
-  = f.text_field :begin_time, value: @event.begin_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker2'
+  p.col-sm-4
+    = f.label "Время окончания события"
+    br
+    = f.text_field :end_time, value: @event.end_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker3'
+br
 
-p
-  = f.label "Время окончания события"
-  br
-  = f.text_field :end_time, value: @event.end_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker3'
+.row
+  p.col-sm-6
+    = f.label "Организатор"
+    br
+    = f.select :organizer_id, options_for_select(Organizer.all.map{ |organizer| [organizer.name, organizer.id] }.push(["добавить", 0]), @event.organizer_id), {}, class: "form-control"
+    = text_field_tag :new_organizer, "", :class => "form-control hideble organizer"
 
-p
-  = f.label "Организатор"
-  br
-  = f.select :organizer_id, options_for_select(Organizer.all.map{ |organizer| [organizer.name, organizer.id] }.push(["добавить", 0]), @event.organizer_id), {}, class: "form-control"
-  = text_field_tag :new_organizer, "", :class => "form-control hideble organizer"
-
-p
-  = f.label "Проведёт"
-  br
-  = f.select :lector_id, options_for_select(Lector.all.map{ |lector| [lector.name, lector.id] }.push(["добавить", 0]), @event.lector_id), {}, class: "form-control"
-  = text_field_tag :new_lector, "", :class => "form-control hideble lector"
+  p.col-sm-6
+    = f.label "Проведёт"
+    br
+    = f.select :lector_id, options_for_select(Lector.all.map{ |lector| [lector.name, lector.id] }.push(["добавить", 0]), @event.lector_id), {}, class: "form-control"
+    = text_field_tag :new_lector, "", :class => "form-control hideble lector"
 
 - u_i = if @event.user_id? then @event.user_id else current_user.id end
 = f.hidden_field :user_id, value: u_i, as: :hidden
