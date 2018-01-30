@@ -60,8 +60,13 @@ br
 = f.hidden_field :user_id, value: u_i, as: :hidden
 
 hr
-= check_box_tag :repeatly
-= label_tag :repeatly, "Повторять?"
+
+label
+  = check_box_tag :repeatly
+  |Повторять
+
+/ = check_box_tag :repeatly
+/ = label_tag :repeatly, "Повторять"
 
 .hideble.repeat
   p
@@ -112,9 +117,13 @@ javascript:
   //$('#event_room_id').change(assist);
   //$(document).on("turbolinks:load", assist);
 
-  $('#repeatly').click(function(){
+  $('label #repeatly').click(function(){
     $('.hideble.repeat').toggle();
   });
+  
+  // $('#repeatly').click(function(){
+  //   $('.hideble.repeat').toggle();
+  // });
 
   $('#event_organizer_id').change(function(){
     if ($('#event_organizer_id option:selected').val() == "0")
