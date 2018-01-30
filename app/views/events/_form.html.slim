@@ -95,7 +95,7 @@ javascript:
     });
 
     document.body.addEventListener('ajax:complete', function(answer) {
-      $('#new_event').html(answer.detail[0].response);
+      $(".modal-body").html(answer.detail[0].response);
     })
 
   //function assist(){

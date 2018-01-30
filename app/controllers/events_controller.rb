@@ -61,15 +61,16 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
-
-    if @event.update(event_params)
-      if params.permit(:repeatly).has_key? :repeatly
-        create_repeatly_events
+    respond_to do |format|
+      if @event.update(event_params)
+        if params.permit(:repeatly).has_key? :repeatly
+          create_repeatly_events
+        end
+        format.html { redirect_to @event.room }
+      else
+        flash[:notice] = @event.errors['text'].last
+        format.html { render partial: 'edit' }
       end
-      format.html { redirect_to @event.room }
-    else
-      flash[:notice] = @event.errors['text'].last
-      format.html { render partial: 'edit' }
     end
   end
 
