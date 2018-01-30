@@ -61,6 +61,7 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
+    @rooms = Room.all
     respond_to do |format|
       if @event.update(event_params)
         if params.permit(:repeatly).has_key? :repeatly
