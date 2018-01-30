@@ -71,7 +71,6 @@ function showFormNew(date){
   var url = "/events/new?room_id="+$('#calendar').attr('data-room-id')+"&date="+date.format("DD-MM-YYYY");
   $.get(url, function(data){
     $("#new_event").modal();
-    // $('#new_event').append(data);
     $(".modal-title").html("Новое событие");
     $(".modal-body").html(data);
   });
@@ -81,8 +80,9 @@ function showFormEdit(event){
   console.log(event);
   var url = "/events/"+event.id+"/edit";
   $.get(url, function(data){
-    $("#new_event").modal('toggle');
-    $('#new_event').html(data);
+    $("#new_event").modal();
+    $(".modal-title").html("Изменить событие");
+    $(".modal-body").html(data);
   });
 }
 
