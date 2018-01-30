@@ -66,17 +66,20 @@ h2.in_modal {
 .fc-unthemed th, .fc-unthemed td{
   border-color: #cecbcb;
 }
-#new_event {
-  background-color: white;
-  margin: 20px auto;
-  max-width: 400px;
-  padding: 20px 40px;
-  border: 2px solid #c2c7d2;
-  border-radius: 10px;
-}
 .form-control {
   width: 300px;
+  margin: 20px 0;
+}
+.modal-dialog {
+  width: 340px;
 }
 p {
   min-width: 200px;
+}
+.fc-title {
+  display: none;
+}
+.popover {
+  position: fixed;
+  overflow: visible;
 }

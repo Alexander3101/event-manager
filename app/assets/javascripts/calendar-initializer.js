@@ -32,7 +32,7 @@ function eventCalendar() {
     events: '/events.json?room_id=' + parameter,
     timeFormat: 'HH:mm',
     displayEventEnd: true,
-    eventTitle: false,
+    eventLimit: true,
     dayClick: function(date, jsEvent, view, resourceObj) {
       var d = new Date();
       d.setHours(0, 0, 0);
@@ -49,8 +49,8 @@ function eventCalendar() {
           c += "<hr>" + event.description;
           return c;
         },
-        trigger: 'hover'
-        // placement: 'right'
+        trigger: 'hover',
+        placement: 'top'
         // delay: {"hide": 300 }
       });
       $(element).click(function(){
@@ -70,8 +70,10 @@ function clearCalendar() {
 function showFormNew(date){
   var url = "/events/new?room_id="+$('#calendar').attr('data-room-id')+"&date="+date.format("DD-MM-YYYY");
   $.get(url, function(data){
-    $("#new_event").modal('toggle');
-    $('#new_event').html(data);
+    $("#new_event").modal();
+    // $('#new_event').append(data);
+    $(".modal-title").html("Новое событие");
+    $(".modal-body").html(data);
   });
 }
 

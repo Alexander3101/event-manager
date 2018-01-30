@@ -17,4 +17,12 @@ br
 #calendar data-room-id="#{@room.id}"
 
 
-#new_event.modal.fade
+#new_event.modal.fade role="dialog"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" &times;
+        h4 class="modal-title"
+      .modal-body
+      .modal-footer
+        button type="button" class="btn btn-default" data-dismiss="modal" Отмена
