@@ -93,17 +93,14 @@ class EventsController < ApplicationController
       period = 1.month
     end
     date = DateTime.parse(event_params[:date]) + period
-    begin_time = Time.parse(event_params[:begin_time])
-    end_time = Time.parse(event_params[:end_time])
     max_date = Date.parse(params.permit(:max_date)[:max_date])
-    max_date.change(hour: 23)
     while date <= max_date
       Event.create(
         title: event_params[:title],
         description: event_params[:description],
         date: date,
-        begin_time: begin_time,
-        end_time: end_time,
+        begin_time: event_params[:begin_time],
+        end_time: event_params[:end_time],
         room_id: event_params[:room_id],
         organizer_id: event_params[:organizer_id],
         lector_id: event_params[:lector_id],
