@@ -56,6 +56,7 @@ function eventCalendar() {
       $(element).click(function(){
         // alert(event.start.format("hh-mm"));
         // alert(new Date(2000, 1, 1, 11, 0, 0, '+03:00'))
+        // $("#choice").modal();
         showFormEdit(event);
       })
     }
@@ -81,7 +82,7 @@ function showFormEdit(event){
   var url = "/events/"+event.id+"/edit";
   $.get(url, function(data){
     $("#new_event").modal();
-    $(".modal-title").html("Изменить событие");
+    $(".modal-title").html("Событие");
     $(".modal-body").html(data);
   });
 }

@@ -1,5 +1,15 @@
-a.btn.btn-xs.btn-danger.btn-margins.in_show href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить
-
 = form_for :event, url: event_path(@event), method: :patch, remote: true do |f|
-  
+  p
+    = f.label "Удалить"
+    .btn-group
+      a.btn.btn-xs.btn-warning href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Бронь
+      a.btn.btn-xs.btn-info href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь прошедших событий!" Все прошлые
+      a.btn.btn-xs.btn-danger href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь грядущих событий!" Все будущие
+  hr
+  p
+    = f.label "Изменить"
+    .btn-group
+      a.btn.btn-xs.btn-warning href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете событие!" Бронь
+      a.btn.btn-xs.btn-danger href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете цепь событий!" Все будущие
+  hr
   = render partial: 'events/form', locals: { f: f }
