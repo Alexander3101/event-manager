@@ -7,8 +7,10 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @rooms = Room.all
-    @room_id = params[:room_id]
-    @date = params[:date]
+    @event.room_id = params[:room_id]
+    @event.date = params[:date]
+    @event.begin_time = Time.parse("15:00")
+    @event.end_time = Time.parse("15:30")
     flash[:notice] = ""
     respond_to do |format|
       format.html do
@@ -46,17 +48,13 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     @rooms = Room.all
-    @room_id = params[:room_id]
-    @date = params[:date]
-    @begin_time = params[:begin_time]
-    @end_time = params[:end_time]
-    @organizer_id = params[:organizer_id]
-    @lector_id = params[:lector_id]
-    @user_id = params[:user_id]
+    @date = @event.date.strftime("dd-mm-yyyy")
+    @room_id = @event.room_id
+
     flash[:notice] = ""
     respond_to do |format|
       format.html do
-        render partial: 'edit', room_id: params[:room_id], date: params[:date], begin_time: params[:begin_time], end_time: params[:end_time], organizer_id: params[:organizer_id], lector_id: params[:lector_id], user_id: params[:user_id]
+        render partial: 'edit'
       end
     end
   end
@@ -71,7 +69,7 @@ class EventsController < ApplicationController
       format.html { redirect_to @event.room }
     else
       flash[:notice] = @event.errors['text'].last
-      format.html { render partial: 'edit', room_id: @event.room_id, date: @event.date, begin_time: @event.begin_time, end_time: @event.end_time, organizer_id: @event.organizer_id, lector_id: @event.lector_id, user_id: @event.user_id }
+      format.html { render partial: 'edit' }
     end
   end
 

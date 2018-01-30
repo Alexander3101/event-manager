@@ -23,33 +23,33 @@ br
     p
       = f.label "Комната"
       br
-      = f.collection_select :room_id, @rooms, :id, :title, {selected: @room_id}, class: "form-control"
+      = f.collection_select :room_id, @rooms, :id, :title, {}, class: "form-control"
 
     p
       = f.label "Дата начала события"
       br
-      = f.text_field :date, value: @date, :class => "form-control for_date", :id => 'datetimepicker1'
+      = f.text_field :date, value: @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", :id => 'datetimepicker1'
 
     p
       = f.label "Время начала события"
       br
-      = f.hidden_field :begin_time, value: "12:00", :class => "form-control for_time", :id => 'datetimepicker2'
+      = f.hidden_field :begin_time, value: @event.begin_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker2'
 
     p
       = f.label "Время окончания события"
       br
-      = f.hidden_field :end_time, value: "12:30", :class => "form-control for_time", :id => 'datetimepicker3'
+      = f.hidden_field :end_time, value: @event.end_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker3'
 
     p
       = f.label "Организатор"
       br
-      = f.select :organizer_id, options_for_select(Organizer.all.map{ |organizer| [organizer.name, organizer.id] }.push(["добавить", 0])), {}, class: "form-control"
+      = f.select :organizer_id, options_for_select(Organizer.all.map{ |organizer| [organizer.name, organizer.id] }.push(["добавить", 0]), @event.organizer_id), {}, class: "form-control"
       = text_field_tag :new_organizer, "", :class => "form-control hideble organizer"
 
     p
       = f.label "Проведёт"
       br
-      = f.select :lector_id, options_for_select(Lector.all.map{ |lector| [lector.name, lector.id] }.push(["добавить", 0])), {}, class: "form-control"
+      = f.select :lector_id, options_for_select(Lector.all.map{ |lector| [lector.name, lector.id] }.push(["добавить", 0]), @event.lector_id), {}, class: "form-control"
       = text_field_tag :new_lector, "", :class => "form-control hideble lector"
 
     - u_i = if @event.user_id? then @event.user_id else current_user.id end
@@ -65,7 +65,7 @@ br
       p
         = label_tag "Повторять событие до:"
         br
-        = text_field_tag :max_date, @date, :class => "form-control for_date", :id => 'datetimepicker4'
+        = text_field_tag :max_date, @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", :id => 'datetimepicker4'
 
     br
     p

@@ -79,9 +79,7 @@ function showFormNew(date){
 
 function showFormEdit(event){
   console.log(event);
-  var url = "/events/"+event.id+"/edit?room_id="+$('#calendar').attr('data-room-id');
-  url += "&date="+event.start.format("DD-MM-YYYY")+"&begin_time="+event.start.format("YYYY-MM-DDTHH:mm:ss.SSSSZ")+"&end_time="+event.end.format("YYYY-MM-DDTHH:mm:ss.SSSSZ");
-  url += "&organizer_id="+event.organizer.id+"&lector_id="+event.lector.id+"&user_id="+event.user.id;
+  var url = "/events/"+event.id+"/edit";
   $.get(url, function(data){
     $("#new_event").modal('toggle');
     $('#new_event').html(data);
