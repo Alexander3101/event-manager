@@ -9,7 +9,7 @@
   hr
   p
     = label_tag "Изменить (для событий с одинаковым именем)"
-    .btn-group-vertical data-toggle="buttons"
+    .btn-group data-toggle="buttons"
       =label_tag :change_this, class: "btn btn-primary active"
         = radio_button_tag :change, "this"
         |Только это событие
