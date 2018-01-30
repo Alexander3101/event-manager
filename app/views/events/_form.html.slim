@@ -26,17 +26,17 @@ p
 p
   = f.label "Дата начала события"
   br
-  = f.text_field :date, value: @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", :id => 'datetimepicker1'
+  = f.text_field :date, value: @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", id: "datetimepicker1"
 
 p
   = f.label "Время начала события"
   br
-  = f.hidden_field :begin_time, value: @event.begin_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker2'
+  = f.text_field :begin_time, value: @event.begin_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker2'
 
 p
   = f.label "Время окончания события"
   br
-  = f.hidden_field :end_time, value: @event.end_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker3'
+  = f.text_field :end_time, value: @event.end_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker3'
 
 p
   = f.label "Организатор"
@@ -76,16 +76,16 @@ javascript:
     $(function () {
       $('.for_date').datetimepicker({
         locale: 'ru',
-        format: 'DD-MM-YYYY',
-        inline: true,
-        keepOpen: false,
-        sideBySide: true
+        format: 'DD-MM-YYYY'
+        // inline: true
+        // keepOpen: false
+        // sideBySide: true
       });
       $('.for_time').datetimepicker({
         locale: 'ru',
         format: 'HH:mm',
         stepping: 15,
-        inline: true,
+        // inline: true,
         keepOpen: true,
         sideBySide: true
       });

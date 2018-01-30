@@ -13,5 +13,4 @@
         input type="radio" autocomplete="off" checked="true" href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете событие!" Бронь
       label class="btn btn-primary"
         input type="radio" autocomplete="off" href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете цепь событий!" Все будущие
-  hr
   = render partial: 'events/form', locals: { f: f }
