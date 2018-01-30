@@ -1,20 +1,17 @@
 class EventsController < ApplicationController
   def index
-    #@events = Event.where('end_time > ?', DateTime.now).order(:begin_time).paginate(page: params[:page])
     @events = Event.where(room_id: params[:room_id]).order(:begin_time).paginate(page: params[:page])
   end
 
   def new
     @event = Event.new
+    @event.update(room_id: params[:room_id], date: params[:date], begin_time: Time.parse("15:00"), end_time: Time.parse("15:30"))
     @rooms = Room.all
-    @event.room_id = params[:room_id]
-    @event.date = params[:date]
-    @event.begin_time = Time.parse("15:00")
-    @event.end_time = Time.parse("15:30")
     flash[:notice] = ""
+
     respond_to do |format|
       format.html do
-        render partial: 'new', room_id: params[:room_id], date: params[:date]
+        render partial: 'new'
       end
     end
   end
@@ -22,25 +19,16 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @rooms = Room.all
-    flash[:notice] = ""
     respond_to do |format|
-      if @event.lector_id == 0
-        @event.lector_id = Lector.find_or_create_by(name: params.permit(:new_lector)[:new_lector]).id
-      end
-
-      if @event.organizer_id == 0
-        @event.organizer_id = Organizer.find_or_create_by(name: params.permit(:new_organizer)[:new_organizer]).id
-      end
+      add_new_organizers_and_lectors
 
       if @event.save
-        if params.permit(:repeatly).has_key? :repeatly
-          create_repeatly_events
-        end
+        create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
 
         format.html { redirect_to @event.room }
       else
         flash[:notice] = @event.errors['text'].last
-        format.html { render partial: 'new', room_id: @event.room_id, date: @event.date }
+        format.html { render partial: 'new' }
       end
     end
   end
@@ -48,10 +36,8 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     @rooms = Room.all
-    @date = @event.date.strftime("dd-mm-yyyy")
-    @room_id = @event.room_id
-
     flash[:notice] = ""
+
     respond_to do |format|
       format.html do
         render partial: 'edit'
@@ -62,11 +48,15 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @rooms = Room.all
+
     respond_to do |format|
+      add_new_organizers_and_lectors
+      old_title = @event.title
+
       if @event.update(event_params)
-        if params.permit(:repeatly).has_key? :repeatly
-          create_repeatly_events
-        end
+        edit_repeatly_events(old_title) if params.permit(:change)[:change] == "future"
+        create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
+
         format.html { redirect_to @event.room }
       else
         flash[:notice] = @event.errors['text'].last
@@ -76,16 +66,38 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event = Event.find(params[:id])
-    @event.destroy
-    redirect_to @event.room
+    deleting_event = Event.find(params[:id])
+
+    case params.permit(:value)[:value]
+    when "future"
+      deleting = Event.where("title = ? and room_id = ? and date >= ?", deleting_event.title, deleting_event.room_id, deleting_event.date)
+    when "all"
+      deleting = Event.where("title = ? and room_id = ?", deleting_event.title, deleting_event.room_id)
+    end
+
+    deleting_event.destroy
+    deleting.each do |event|
+      event.destroy
+    end
+
+    redirect_to deleting_event.room
   end
 
-  def event_params
+  private def event_params
     params.require(:event).permit(:title, :description, :date, :begin_time, :end_time, :room_id, :organizer_id, :lector_id, :user_id)
   end
 
-  def create_repeatly_events
+  private def add_new_organizers_and_lectors
+    if @event.lector_id == 0
+      @event.lector_id = Lector.find_or_create_by(name: params.permit(:new_lector)[:new_lector]).id
+    end
+
+    if @event.organizer_id == 0
+      @event.organizer_id = Organizer.find_or_create_by(name: params.permit(:new_organizer)[:new_organizer]).id
+    end
+  end
+
+  private def create_repeatly_events
     case params.permit(:period)[:period]
     when "Каждый день"
       period = 1.day
@@ -94,25 +106,25 @@ class EventsController < ApplicationController
     when "Каждый месяц"
       period = 1.month
     end
+
     date = DateTime.parse(event_params[:date]) + period
     max_date = Date.parse(params.permit(:max_date)[:max_date])
+
     while date <= max_date
-      Event.create(
-        title: event_params[:title],
-        description: event_params[:description],
-        date: date,
-        begin_time: event_params[:begin_time],
-        end_time: event_params[:end_time],
-        room_id: event_params[:room_id],
-        organizer_id: event_params[:organizer_id],
-        lector_id: event_params[:lector_id],
-        user_id: event_params[:user_id]
-      )
+      e = Event.new(event_params)
+      e.date = date
+      e.save
       date += period
     end
   end
 
-  def assist
+  private def edit_repeatly_events (old_title)
+    Event.where("title = ? and room_id = ? and date > ?", old_title, @event.room_id, @event.date).each do |editable_event|
+      editable_event.update(@event.attributes.except("id", "date"))
+    end
+  end
+
+  private def assist
     respond_to do |format|
       format.html do
         render partial: 'events/assist', locals: { room: Room.find(params[:room_id]) }

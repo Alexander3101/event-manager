@@ -1,16 +1,20 @@
 = form_for :event, url: event_path(@event), method: :patch, remote: true do |f|
   p
-    = f.label "Удалить"
+    = label_tag "Удалить (для событий с одинаковым именем)"
     .btn-group
-      a.btn.btn-info href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь прошедших событий!" Все прошлые
-      a.btn.btn-warning href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Бронь
-      a.btn.btn-danger href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь грядущих событий!" Все будущие
+      = link_to "Все события", event_path(id: @event.id, value:"all"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger"
+      = link_to "Только это событие", event_path(id: @event.id, value:"this"), method: :delete, data: { confirm: "Внимание! Вы удаляете событиe!" }, class: "btn btn-danger"
+      = link_to "Это и все следущие", event_path(id: @event.id, value:"future"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger"
+
   hr
   p
-    = f.label "Изменить"
-    .btn-group data-toggle="buttons"
-      label class="btn btn-primary active"
-        input type="radio" autocomplete="off" checked="true" href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете событие!" Бронь
-      label class="btn btn-primary"
-        input type="radio" autocomplete="off" href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете цепь событий!" Все будущие
+    = label_tag "Изменить (для событий с одинаковым именем)"
+    .btn-group-vertical data-toggle="buttons"
+      =label_tag :change_this, class: "btn btn-primary active"
+        = radio_button_tag :change, "this"
+        |Только это событие
+      =label_tag :change_future, class: "btn btn-primary"
+        = radio_button_tag :change, "future"
+        |Это и все следующие
+  hr
   = render partial: 'events/form', locals: { f: f }
