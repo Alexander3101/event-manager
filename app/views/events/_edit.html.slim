@@ -2,14 +2,16 @@
   p
     = f.label "Удалить"
     .btn-group
-      a.btn.btn-xs.btn-warning href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Бронь
-      a.btn.btn-xs.btn-info href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь прошедших событий!" Все прошлые
-      a.btn.btn-xs.btn-danger href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь грядущих событий!" Все будущие
+      a.btn.btn-info href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь прошедших событий!" Все прошлые
+      a.btn.btn-warning href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Бронь
+      a.btn.btn-danger href=event_path(@event) data-method="delete" data-confirm="Внимание! Вы удаляете цепь грядущих событий!" Все будущие
   hr
   p
     = f.label "Изменить"
-    .btn-group
-      a.btn.btn-xs.btn-warning href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете событие!" Бронь
-      a.btn.btn-xs.btn-danger href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете цепь событий!" Все будущие
+    .btn-group data-toggle="buttons"
+      label class="btn btn-primary active"
+        input type="radio" autocomplete="off" checked="true" href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете событие!" Бронь
+      label class="btn btn-primary"
+        input type="radio" autocomplete="off" href=edit_event_path(@event) data-method="delete" data-confirm="Внимание! Вы меняете цепь событий!" Все будущие
   hr
   = render partial: 'events/form', locals: { f: f }
