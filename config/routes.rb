@@ -3,10 +3,9 @@ Rails.application.routes.draw do
 
   get '/home', to: 'home#index', as: :home
   get 'users/:id' => 'users#show'
-  get '/event/assist' => 'events#assist'
+  # get '/events/:id' => 'events#edit'
   resources :events, except: [:show]
   resources :rooms
-  resources :orders
   resources :users
 
   root to: 'rooms#index'
