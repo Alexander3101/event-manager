@@ -9,52 +9,44 @@
 br
 
 .row
-  p.col-sm-6
-    = f.label "Название события"
-    br
+  div.col-sm-6
+    = f.label :title, "Название события"
     = f.text_field :title, :class => "form-control"
 
-  p.col-sm-6
-    = f.label "Комната"
-    br
+  div.col-sm-6
+    = f.label :room_id, "Комната"
     = f.collection_select :room_id, @rooms, :id, :title, {}, class: "form-control"
 br
 
-p
-  = f.label "Описание"
-  br
+div
+  = f.label :description, "Описание"
   = f.text_area :description, :class => "form-control"
 br
 
 .row
-  p.col-sm-4
-    = f.label "Дата начала события"
-    br
+  div.col-sm-4
+    = f.label :date, "Дата начала события"
     = f.text_field :date, value: @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", id: "datetimepicker1"
 
-  p.col-sm-4
-    = f.label "Время начала события"
-    br
+  div.col-sm-4
+    = f.label :begin_time, "Время начала события"
     = f.text_field :begin_time, value: @event.begin_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker2'
 
-  p.col-sm-4
-    = f.label "Время окончания события"
-    br
+  div.col-sm-4
+    = f.label :end_time, "Время окончания события"
     = f.text_field :end_time, value: @event.end_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker3'
 br
 
 .row
-  p.col-sm-6
-    = f.label "Организатор"
-    br
+  div.col-sm-6
+    = f.label :organizer_id, "Организатор"
     = f.select :organizer_id, options_for_select(Organizer.all.map{ |organizer| [organizer.name, organizer.id] }.push(["добавить", 0]), @event.organizer_id), {}, class: "form-control"
-    = text_field_tag :new_organizer, "", :class => "form-control hideble organizer"
+    = text_field_tag :new_organizer, "", :class => "form-control hideble"
 
-  p.col-sm-6
-    = f.label "Проведёт"
-    br
+  div.col-sm-6
+    = f.label :lector_id, "Проведёт"
     = f.select :lector_id, options_for_select(Lector.all.map{ |lector| [lector.name, lector.id] }.push(["добавить", 0]), @event.lector_id), {}, class: "form-control"
-    = text_field_tag :new_lector, "", :class => "form-control hideble lector"
+    = text_field_tag :new_lector, "", :class => "form-control hideble"
 
 - u_i = if @event.user_id? then @event.user_id else current_user.id end
 = f.hidden_field :user_id, value: u_i, as: :hidden
@@ -65,23 +57,19 @@ label
   = check_box_tag :repeatly
   |Повторять
 
-/ = check_box_tag :repeatly
-/ = label_tag :repeatly, "Повторять"
-
 .hideble.repeat
-  p
+  div
     = select_tag :period, options_for_select(["Каждый день", "Каждую неделю", "Каждый месяц"]), class: "form-control"
-  p
-    = label_tag "Повторять событие до:"
-    br
+  br
+  div
+    = label_tag :max_date, "Повторять событие до:"
     = text_field_tag :max_date, @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", :id => 'datetimepicker4'
 
 br
-p
+div
   = f.submit "Сохранить событие", class: "btn btn-success", data: { "disable-with": "Сохраняю..." }
 
 #help.col-sm-6
-
 
 javascript:
     $(function () {
@@ -104,8 +92,8 @@ javascript:
     });
 
     document.body.addEventListener('ajax:complete', function(answer) {
-      $(".modal-body").html(answer.detail[0].response);
-    })
+      $("#event_form .modal-body").html(answer.detail[0].response);
+    });
 
   //function assist(){
   //  var url = "/event/assist?room_id="+$('#event_room_id').val()
@@ -120,21 +108,18 @@ javascript:
   $('label #repeatly').click(function(){
     $('.hideble.repeat').toggle();
   });
-  
-  // $('#repeatly').click(function(){
-  //   $('.hideble.repeat').toggle();
-  // });
 
   $('#event_organizer_id').change(function(){
+
     if ($('#event_organizer_id option:selected').val() == "0")
-      $('.hideble.organizer').show();
+      $('#new_organizer').show();
     else
-      $('.hideble.organizer').hide();
+      $('#new_organizer').hide();
   });
 
   $('#event_lector_id').change(function(){
     if ($('#event_lector_id option:selected').val() == "0")
-      $('.hideble.lector').show();
+      $('#new_lector').show();
     else
-      $('.hideble.lector').hide();
+      $('#new_lector').hide();
   });

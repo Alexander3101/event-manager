@@ -5,7 +5,10 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @event.update(room_id: params[:room_id], date: params[:date], begin_time: Time.parse("15:00"), end_time: Time.parse("15:30"))
+    @event.room_id = params[:room_id]
+    @event.date = params[:date]
+    @event.begin_time = Time.parse("15:00")
+    @event.end_time = Time.parse("15:30")
     @rooms = Room.all
     flash[:notice] = ""
 

@@ -71,9 +71,9 @@ function clearCalendar() {
 function showFormNew(date){
   var url = "/events/new?room_id="+$('#calendar').attr('data-room-id')+"&date="+date.format("DD-MM-YYYY");
   $.get(url, function(data){
-    $("#new_event").modal();
-    $(".modal-title").html("Новое событие");
-    $(".modal-body").html(data);
+    $("#event_form").modal();
+    $("#event_form .modal-title").html("Новое событие");
+    $("#event_form .modal-body").html(data);
   });
 }
 
@@ -81,14 +81,14 @@ function showFormEdit(event){
   console.log(event);
   var url = "/events/"+event.id+"/edit";
   $.get(url, function(data){
-    $("#new_event").modal();
-    $(".modal-title").html("Событие");
-    $(".modal-body").html(data);
+    $("#event_form").modal();
+    $("#event_form .modal-title").html("Событие");
+    $("#event_form .modal-body").html(data);
   });
 }
 
 $("body").on('click', '.modal-backdrop', function(){
-  $("#new_event").modal("hide");
+  $("#event_form").modal("hide");
 });
 
 $(document).on('turbolinks:load', eventCalendar);
