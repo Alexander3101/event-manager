@@ -1,5 +1,8 @@
 function eventCalendar() {
   var parameter = $('#calendar').attr('data-room-id');
+  var current_user = $('#calendar').attr('current_user');
+  if ($('#calendar').attr('current_user') == "undefiner")
+    current_user = 0;
   return $('#calendar').fullCalendar({
     locale: 'ru',
     contentHeight: 600,
@@ -40,6 +43,8 @@ function eventCalendar() {
         showFormNew(date);
     },
     eventRender: function(event, element) {
+      if (event.user.id == current_user)
+        $(element).css("background-color", "#378006");
       $(element).popover({
         html : true,
         title: event.title,
@@ -51,16 +56,17 @@ function eventCalendar() {
         },
         trigger: 'hover',
         placement: 'top'
-        // delay: {"hide": 300 }
       });
       $(element).click(function(){
-        // alert(event.start.format("hh-mm"));
-        // alert(new Date(2000, 1, 1, 11, 0, 0, '+03:00'))
-        // $("#choice").modal();
         showFormEdit(event);
       })
     }
   });
+  //
+  // if ($(".userfield").attr('actual_user') == $(".userfield").val()) {
+  // }
+  // else {
+  // };
 };
 
 function clearCalendar() {
