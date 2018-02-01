@@ -72,18 +72,22 @@ class EventsController < ApplicationController
     deleting_event = Event.find(params[:id])
 
     case params.permit(:value)[:value]
+    when "this"
+      deleting_event.destroy
     when "future"
       deleting = Event.where("title = ? and room_id = ? and date >= ?", deleting_event.title, deleting_event.room_id, deleting_event.date)
     when "all"
       deleting = Event.where("title = ? and room_id = ?", deleting_event.title, deleting_event.room_id)
     end
 
-    deleting_event.destroy
-    deleting.each do |event|
-      event.destroy
+    if deleting
+      deleting.each do |event|
+        event.destroy
+      end
     end
-
-    redirect_to deleting_event.room
+    respond_to do |format|
+      format.html { redirect_to deleting_event.room }
+    end
   end
 
   private def event_params
