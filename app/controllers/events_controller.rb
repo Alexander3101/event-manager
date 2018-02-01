@@ -39,6 +39,10 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     @rooms = Room.all
+    @repeatly = false
+    if Event.where("title = ? and id != ?", @event.title, @event.id).length != 0
+      @repeatly = true
+    end
     flash[:notice] = ""
 
     respond_to do |format|

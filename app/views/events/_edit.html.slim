@@ -1,20 +1,27 @@
 = form_for :event, url: event_path(@event), method: :patch, remote: true do |f|
-  p
-    = label_tag "Удалить (для событий с одинаковым именем)"
-    .btn-group
-      = link_to "Все события", event_path(id: @event.id, value:"all"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger removing"
-      = link_to "Только это событие", event_path(id: @event.id, value:"this"), method: :delete, data: { confirm: "Внимание! Вы удаляете событиe!" }, class: "btn btn-danger removing"
-      = link_to "Это и все следущие", event_path(id: @event.id, value:"future"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger removing"
-
-  hr
-  p
-    = label_tag "Изменить (для событий с одинаковым именем)"
-    .btn-group data-toggle="buttons"
-      =label_tag :change_this, class: "btn btn-primary active"
-        = radio_button_tag :change, "this"
-        |Только это событие
-      =label_tag :change_future, class: "btn btn-primary"
-        = radio_button_tag :change, "future"
-        |Это и все следующие
+  -if @repeatly
+    p
+      = label_tag "Удалить (для событий с одинаковым именем)"
+      .btn-group
+        = link_to "Все события", event_path(id: @event.id, value:"all"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger removing"
+        = link_to "Только это событие", event_path(id: @event.id, value:"this"), method: :delete, data: { confirm: "Внимание! Вы удаляете событиe!" }, class: "btn btn-danger removing"
+        = link_to "Это и все следущие", event_path(id: @event.id, value:"future"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger removing"
+    hr
+    p
+      = label_tag "Изменить (для событий с одинаковым именем)"
+      .btn-group data-toggle="buttons"
+        =label_tag :change_this, class: "btn btn-primary active"
+          = radio_button_tag :change, "this"
+          |Только это событие
+        =label_tag :change_future, class: "btn btn-primary"
+          = radio_button_tag :change, "future"
+          |Это и все следующие
+  -else
+    p
+      .btn-group
+        = link_to "Удалить", event_path(id: @event.id, value:"this"), method: :delete, data: { confirm: "Внимание! Вы удаляете событиe!" }, class: "btn btn-danger removing"
   hr
   = render partial: 'events/form', locals: { f: f, repeat_label: "Добавить повторение" }
+
+javascript:
+  console.log("#{@repeatly}");
