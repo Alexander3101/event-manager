@@ -1,8 +1,9 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :check_user, only: [:edit, :update, :destroy]
 
   def index
-    @events = Event.where(room_id: params[:room_id]).order(:begin_time).paginate(page: params[:page])
+    @events = Event.where(room_id: params[:room_id], archive: "false").order(:begin_time).paginate(page: params[:page])
   end
 
   def new
@@ -40,75 +41,76 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
-    if current_user.role == "admin" || current_user.id == @event.user_id
-      @rooms = Room.all
-      flash[:notice] = ""
-      @repeatly = false
-      if Event.where("title = ? and id != ?", @event.title, @event.id).length != 0
-        @repeatly = true
-      end
-
-      respond_to do |format|
-        format.html do
-          render partial: 'edit'
-        end
-      end
+    @rooms = Room.all
+    flash[:notice] = ""
+    if Event.where("title = ? and id != ?", @event.title, @event.id).length != 0
+      @repeatly = true
     else
-      redirect_to "users/sign_in", :status => 401
+      @repeatly = false
+    end
+
+    respond_to do |format|
+      format.html do
+        render partial: 'edit'
+      end
     end
   end
 
   def update
     @event = Event.find(params[:id])
-    if current_user.role == "admin" || current_user.id == @event.user_id
-      @rooms = Room.all
-
-      respond_to do |format|
-        add_new_organizers_and_lectors
-        old_title = @event.title
-
-        if @event.update(event_params)
-          edit_repeatly_events(old_title) if params.permit(:change)[:change] == "future"
-          create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
-
-          format.html { redirect_to @event.room }
-        else
-          flash[:notice] = @event.errors['text'].last
-          format.html { render partial: 'edit' }
-        end
-      end
+    @rooms = Room.all
+    if Event.where("title = ? and id != ?", @event.title, @event.id).length != 0
+      @repeatly = true
     else
-      redirect_to "users/sign_in", :status => 401
+      @repeatly = false
+    end
+
+    add_new_organizers_and_lectors
+
+    old_title = @event.title
+    respond_to do |format|
+      if @event.update(event_params)
+        edit_repeatly_events(old_title) if params.permit(:change)[:change] == "future"
+        create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
+
+        format.html { redirect_to @event.room }
+      else
+        flash[:notice] = @event.errors['text'].last
+        format.html { render partial: 'edit' }
+      end
     end
   end
 
   def destroy
     deleting_event = Event.find(params[:id])
-    if current_user.role == "admin" || current_user.id == @event.user_id
-      case params.permit(:value)[:value]
-      when "this"
-        deleting_event.destroy
-      when "future"
-        deleting = Event.where("title = ? and room_id = ? and date >= ?", deleting_event.title, deleting_event.room_id, deleting_event.date)
-      when "all"
-        deleting = Event.where("title = ? and room_id = ?", deleting_event.title, deleting_event.room_id)
-      end
+    case params.permit(:value)[:value]
+    when "this"
+      deleting_event.update(archive: true)
+    when "future"
+      deleting = Event.where("title = ? and room_id = ? and archive = ? and date >= ?", deleting_event.title, deleting_event.room_id, false, deleting_event.date)
+    when "all"
+      deleting = Event.where("title = ? and room_id = ? and archive = ?", deleting_event.title, deleting_event.room_id, false)
+    end
 
-      if deleting
-        deleting.each do |event|
-          event.destroy
-        end
+    if deleting
+      deleting.each do |event|
+        event.update(archive: true)
       end
-      respond_to do |format|
-        format.html { redirect_to deleting_event.room }
-      end
-    else
-      redirect_to "users/sign_in", :status => 401
+    end
+
+    respond_to do |format|
+      format.html { redirect_to deleting_event.room }
     end
   end
 
   private def event_params
     params.require(:event).permit(:title, :description, :date, :begin_time, :end_time, :room_id, :organizer_id, :lector_id, :user_id)
+  end
+
+  private def check_user
+    unless current_user.role == "admin" || current_user.id == Event.find(params[:id]).user_id
+      redirect_to "users/sign_in", :status => 401
+    end
   end
 
   private def add_new_organizers_and_lectors
