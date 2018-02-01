@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   before_action :check_user, only: [:edit, :update, :destroy]
 
   def index
-    @events = Event.where(room_id: params[:room_id], archive: "false").order(:begin_time).paginate(page: params[:page])
+    @events = Event.where(room_id: params[:room_id], archive: false).order(:begin_time).paginate(page: params[:page])
   end
 
   def new

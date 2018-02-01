@@ -25,7 +25,7 @@ module DateValidators
         record.errors[:text] << 'Мимо комнаты'
       end
 
-      record.room.events.each do |event|
+      record.room.events.where(archive: false).each do |event|
         if event.id != record.id
           if event.date == record.date
             if (record.begin_time < event.begin_time && record.end_time > event.begin_time) ||
