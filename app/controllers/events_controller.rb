@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+
   def index
     @events = Event.where(room_id: params[:room_id]).order(:begin_time).paginate(page: params[:page])
   end
@@ -38,59 +40,70 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
-    @rooms = Room.all
+    if current_user.role == "admin" || current_user.id == @event.user_id
+      @rooms = Room.all
+      flash[:notice] = ""
     @repeatly = false
     if Event.where("title = ? and id != ?", @event.title, @event.id).length != 0
       @repeatly = true
     end
-    flash[:notice] = ""
 
-    respond_to do |format|
-      format.html do
-        render partial: 'edit'
+      respond_to do |format|
+        format.html do
+          render partial: 'edit'
+        end
       end
+    else
+      redirect_to "users/sign_in", :status => 401
     end
   end
 
   def update
     @event = Event.find(params[:id])
-    @rooms = Room.all
+    if current_user.role == "admin" || current_user.id == @event.user_id
+      @rooms = Room.all
 
-    respond_to do |format|
-      add_new_organizers_and_lectors
-      old_title = @event.title
+      respond_to do |format|
+        add_new_organizers_and_lectors
+        old_title = @event.title
 
-      if @event.update(event_params)
-        edit_repeatly_events(old_title) if params.permit(:change)[:change] == "future"
-        create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
+        if @event.update(event_params)
+          edit_repeatly_events(old_title) if params.permit(:change)[:change] == "future"
+          create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
 
-        format.html { redirect_to @event.room }
-      else
-        flash[:notice] = @event.errors['text'].last
-        format.html { render partial: 'edit' }
+          format.html { redirect_to @event.room }
+        else
+          flash[:notice] = @event.errors['text'].last
+          format.html { render partial: 'edit' }
+        end
       end
+    else
+      redirect_to "users/sign_in", :status => 401
     end
   end
 
   def destroy
     deleting_event = Event.find(params[:id])
-
-    case params.permit(:value)[:value]
-    when "this"
-      deleting_event.destroy
-    when "future"
-      deleting = Event.where("title = ? and room_id = ? and date >= ?", deleting_event.title, deleting_event.room_id, deleting_event.date)
-    when "all"
-      deleting = Event.where("title = ? and room_id = ?", deleting_event.title, deleting_event.room_id)
-    end
-
-    if deleting
-      deleting.each do |event|
-        event.destroy
+    if current_user.role == "admin" || current_user.id == @event.user_id
+      case params.permit(:value)[:value]
+      when "this"
+        deleting_event.destroy
+      when "future"
+        deleting = Event.where("title = ? and room_id = ? and date >= ?", deleting_event.title, deleting_event.room_id, deleting_event.date)
+      when "all"
+        deleting = Event.where("title = ? and room_id = ?", deleting_event.title, deleting_event.room_id)
       end
-    end
-    respond_to do |format|
-      format.html { redirect_to deleting_event.room }
+
+      if deleting
+        deleting.each do |event|
+          event.destroy
+        end
+      end
+      respond_to do |format|
+        format.html { redirect_to deleting_event.room }
+      end
+    else
+      redirect_to "users/sign_in", :status => 401
     end
   end
 
