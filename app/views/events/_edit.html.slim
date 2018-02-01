@@ -2,9 +2,9 @@
   p
     = label_tag "Удалить (для событий с одинаковым именем)"
     .btn-group
-      = link_to "Все события", event_path(id: @event.id, value:"all"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger"
-      = link_to "Только это событие", event_path(id: @event.id, value:"this"), method: :delete, data: { confirm: "Внимание! Вы удаляете событиe!" }, class: "btn btn-danger"
-      = link_to "Это и все следущие", event_path(id: @event.id, value:"future"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger"
+      = link_to "Все события", event_path(id: @event.id, value:"all"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger removing"
+      = link_to "Только это событие", event_path(id: @event.id, value:"this"), method: :delete, data: { confirm: "Внимание! Вы удаляете событиe!" }, class: "btn btn-danger removing"
+      = link_to "Это и все следущие", event_path(id: @event.id, value:"future"), method: :delete, data: { confirm: "Внимание! Вы удаляете цепь событий!" }, class: "btn btn-danger removing"
 
   hr
   p

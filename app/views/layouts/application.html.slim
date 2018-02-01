@@ -38,15 +38,13 @@ html
               span.glyphicon.glyphicon-user
               |Войти
           end
-    div id="sign_in_dialog" class="modal fade"
-      div class="modal-dialog modal-sm"
-        div class="modal-content"
-          div class="modal-header"
-            button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-              |×
-            h4 class="modal-title"
-              |Вход:
-          div class="modal-body"
+    #sign_in_dialog.modal.fade
+      .modal-dialog.modal-sm
+        .modal-content
+          .modal-header
+            button.close type="button" data-dismiss="modal" aria-hidden="true" ×
+            h4.modal-title Вход:
+          .modal-body.sign_in_dialog
             = form_for(:user, url: session_path(:user), remote: true) do |f|
               div
                 = f.label :email
@@ -57,8 +55,7 @@ html
                 br
                 = f.password_field :password, autocomplete: "off"
               br
-
-              div class="modal-footer"
+              .modal-footer
                 = f.submit "Войти"
             end
 
