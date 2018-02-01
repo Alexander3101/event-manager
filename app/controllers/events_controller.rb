@@ -43,10 +43,10 @@ class EventsController < ApplicationController
     if current_user.role == "admin" || current_user.id == @event.user_id
       @rooms = Room.all
       flash[:notice] = ""
-    @repeatly = false
-    if Event.where("title = ? and id != ?", @event.title, @event.id).length != 0
-      @repeatly = true
-    end
+      @repeatly = false
+      if Event.where("title = ? and id != ?", @event.title, @event.id).length != 0
+        @repeatly = true
+      end
 
       respond_to do |format|
         format.html do
