@@ -1,13 +1,93 @@
 = link_to "Создать событие", new_event_path, class: "btn btn-primary create", style: "float: right;"
-h2
-  |Ваши события
-ul
-  - current_user.events.each do |event|
-    li.my
-      = link_to event.title, event_path(event)
-      br
-			|Время проведения события: 
-			= event.begin_time.strftime("с %d.%m.%Y, %H:%M")
-			= event.end_time.strftime(" до %d.%m.%Y, %H:%M")
-      a.btn.btn-xs.btn-warning.btn-margins href=edit_event_path(event) Изменить
-      a.btn.btn-xs.btn-danger.btn-margins href=event_path(event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить
+a.btn.btn-primary.create.archive-btn style="float: right;" Архив моих событий
+a.btn.btn-primary.create.actual-btn style="float: right;" Мои события
+  
+.events
+  h2
+    |Ваши события
+  hr
+  ul
+    - current_user.events.each do |event|
+      li.my.my_event id=event.id
+        .room-title
+          = event.title
+        br
+        |Дата:
+        = event.date.strftime("%d.%m.%Y")
+        br
+  			|Время: 
+  			= event.begin_time.strftime("с %H:%M")
+  			= event.end_time.strftime(" до %H:%M")
+        br
+        |Организатор:
+        = event.organizer.name
+        br
+        |Проводит:
+        = event.lector.name
+        br
+        br
+        =event.description
+      hr
+      
+.archive
+  h2
+    |Ваши архивные события
+  hr
+  ul
+    - current_user.events.each do |event|
+      - if event.archive
+        li.my.my_event id=event.id
+          .room-title
+            = event.title
+          br
+          |Дата:
+          = event.date.strftime("%d.%m.%Y")
+          br
+          |Время: 
+          = event.begin_time.strftime("с %H:%M")
+          = event.end_time.strftime(" до %H:%M")
+          br
+          |Организатор:
+          = event.organizer.name
+          br
+          |Проводит:
+          = event.lector.name
+          br
+          br
+          =event.description
+        hr
+    
+
+#event_form.modal.fade role="dialog"
+  .modal-dialog.form-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" &times;
+        h4 class="modal-title"
+      .modal-body
+      .modal-footer
+        button type="button" class="btn btn-default" data-dismiss="modal" Отмена
+
+javascript:
+  $(".archive").hide();
+  $(".actual-btn").hide();
+  $(".my_event").click(function(){
+    var url = "/events/"+$(this).attr("id")+"/edit";
+    $.get(url, function(data){
+      $("#event_form").modal();
+      $("#event_form .modal-title").html("Событие");
+      $("#event_form .modal-body").html(data);
+    });
+  });
+  $(".archive-btn").click(function(){
+    $(".events").hide();
+    $(".archive-btn").hide();
+    $(".archive").show();
+    $(".actual-btn").show();
+  });
+  $(".actual-btn").click(function(){
+    $(".events").show();
+    $(".archive-btn").show();
+    $(".archive").hide();
+    $(".actual-btn").hide();
+  });
