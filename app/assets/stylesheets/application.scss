@@ -7,6 +7,14 @@
 @import 'rails_bootstrap_forms';
 @import 'fullcalendar';
 
+h2 {
+  margin-top: 80px;
+}
+h2.in_modal {
+  margin-top: 0;
+  text-align: center;
+}
+
 .navbar-default {
   background-color: rgb(246, 246, 246);
 }
@@ -17,15 +25,14 @@
   margin-right: 5px;
 }
 .btn-primary {
-  background-color: rgb(64, 121, 171);
-  border-color: rgb(229, 237, 244);
+  background-color: rgba(#077185, 0.8);
 }
-h2 {
-  margin-top: 80px;
-}
-h2.in_modal {
-  margin-top: 0;
-  text-align: center;
+.btn-primary:focus,
+.btn-primary:active:focus,
+.btn-primary:hover {
+  background-color : #077185;
+  color : #ffffff;
+  border-color: #077185;
 }
 .my {
   margin-top: 12px;
@@ -52,10 +59,6 @@ h2.in_modal {
 .fc-sat, .fc-sun {
   background-color: rgba(#da4300, 0.1);
 }
-#calendar {
-  width: 100%;
-  margin-bottom: 50px;
-}
 .fc-past {
   background-color: #c2c7d2;
   opacity: 0.5;
@@ -66,11 +69,14 @@ h2.in_modal {
 .fc-unthemed th, .fc-unthemed td{
   border-color: #cecbcb;
 }
-.modal-dialog {
+.form-dialog {
   width: 700px;
 }
 .fc-title {
   display: none;
+}
+.fc-event {
+  cursor: pointer;
 }
 .popover {
   position: fixed;
@@ -78,4 +84,15 @@ h2.in_modal {
 }
 .removing {
   margin-right: 5px;
+}
+.sign_in_dialog {
+  text-align: center;
+}
+.modal-sm {
+  margin-top: 10%;
+}
+
+#calendar {
+  width: 100%;
+  margin-bottom: 50px;
 }
