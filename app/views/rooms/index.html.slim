@@ -3,10 +3,11 @@
 
 h2
   |Комнаты:
+hr
 ul
   - @rooms.each do |room|
     li.my
-      = link_to room.title, room_path(room)
+      = link_to room.title, room_path(room), :class => "room-title"
       br
       |Время работы комнаты: 
       = room.begin_work_time.strftime("с \t%H:%M")
@@ -18,3 +19,4 @@ ul
       br
       p
         = room.description
+    hr

@@ -28,7 +28,12 @@ h2.in_modal {
   background-color: rgb(64, 121, 171);
 }
 .my {
-  margin-top: 12px;
+  // margin-top: 20px;
+  // float: left;
+  // width: 200px;
+  // height: 100px;
+  overflow: hidden;
+  // border: 2px solid #2b89a7;
 }
 .create {
   margin-top: 80px;
@@ -84,7 +89,9 @@ h2.in_modal {
 .modal-sm {
   margin-top: 10%;
 }
-
+.room-title {
+  font-size: 15pt;
+}
 #calendar {
   width: 100%;
   margin-bottom: 50px;
