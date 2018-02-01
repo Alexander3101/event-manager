@@ -44,7 +44,7 @@ function eventCalendar() {
     },
     eventRender: function(event, element) {
       if (event.user.id == current_user)
-        $(element).css("background-color", "#378006");
+        $(element).css("background-color", "#16907b");
       $(element).popover({
         html : true,
         title: event.title,
