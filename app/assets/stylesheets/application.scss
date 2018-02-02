@@ -35,9 +35,6 @@ h2.in_modal {
   overflow: hidden;
   // border: 2px solid #2b89a7;
 }
-.my_event {
-  width: 500px;
-}
 .create {
   margin-top: 80px;
   margin-left: 5px;
@@ -93,12 +90,15 @@ h2.in_modal {
 .modal-sm {
   margin-top: 10%;
 }
-.room-title {
+.title {
   font-size: 15pt;
+  cursor: pointer;
 }
 .event-title {
   font-size: 14pt;
+  cursor: pointer;
 }
+
 #calendar {
   width: 100%;
   margin-bottom: 50px;
