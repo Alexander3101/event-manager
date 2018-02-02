@@ -21,11 +21,13 @@ html
             span.icon-bar
           a.navbar-brand href=root_path Комнаты
         #navbar.navbar-collapse.collapse
-          / ul.nav.navbar-nav
-          /   li class=("active" if controller_name == "events")
-          /     a href=events_path События
-          /   li class=("active" if controller_name == "rooms")
-          /     a href=rooms_path Комнаты
+          - if user_signed_in? and  current_user.role == "admin"
+            ul.nav.navbar-nav
+              li class=("active" if controller_name == "events" and action_name == "index")
+                a href=events_path События
+              li class=("active" if controller_name == "events" and action_name == "archive")
+                a href=archive_path Архив
+
           -if user_signed_in?
             = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-primary navbar-btn navbar-right"
             = link_to 'Личный кабинет', user_path(current_user),  :class =>"btn btn-primary navbar-btn navbar-right"

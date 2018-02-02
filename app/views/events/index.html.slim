@@ -5,14 +5,21 @@ h2
 ul
   - @events.each do |event|
     li.my
-      = link_to event.title, event_path(event)
+      a.title.my_event id=event.id
+        = event.title
       br
-      |Время проведения события события: 
-      = event.begin_time.strftime("c %d.%m.%Y, %H:%M")
-      = event.end_time.strftime("  до  %d.%m.%Y, %H:%M")
+      |Дата:
+      = event.date.strftime("%d.%m.%Y")
       br
+      |Время:
+      = event.begin_time.strftime("с %H:%M")
+      = event.end_time.strftime(" до %H:%M")
       |Организатор:
       = event.organizer.name
-      - if user_signed_in? and (event.user_id == current_user.id or current_user.role == "admin")
-        a.btn.btn-xs.btn-warning.btn-margins href=edit_event_path(event) Изменить
-        a.btn.btn-xs.btn-danger.btn-margins href=event_path(event) data-method="delete" data-confirm="Внимание! Вы удаляете событие!" Удалить
+      br
+      |Проводит:
+      = event.lector.name
+      br
+      br
+      =event.description
+    hr
