@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/home', to: 'home#index', as: :home
   get 'events/archive', to: 'events#archive', as: :archive
   get 'users/:id' => 'users#show'
+  get 'users/archive/:id', to: 'users#archive', as: :user_archive
   # get '/events/:id' => 'events#edit'
   resources :events, except: [:show]
   resources :rooms

@@ -1,24 +1,22 @@
 = link_to "Создать событие", new_event_path, class: "btn btn-primary create", style: "float: right;"
-a.btn.btn-primary.create.archive-btn style="float: right;" Архив моих событий
-a.btn.btn-primary.create.actual-btn style="float: right;" Мои события
-  
+= link_to "Архив моих событий", user_archive_path(current_user), class: "btn btn-primary create archive-btn", style: "float: right;"
+
 .events
   h2
     |Ваши события
   hr
   ul
     - current_user.events.each do |event|
-      li.my.my_event id=event.id
-        .room-title
+      li.my
+        a.title.my_event id=event.id
           = event.title
         br
         |Дата:
         = event.date.strftime("%d.%m.%Y")
         br
-  			|Время: 
+  			|Время:
   			= event.begin_time.strftime("с %H:%M")
   			= event.end_time.strftime(" до %H:%M")
-        br
         |Организатор:
         = event.organizer.name
         br
@@ -28,35 +26,6 @@ a.btn.btn-primary.create.actual-btn style="float: right;" Мои события
         br
         =event.description
       hr
-      
-.archive
-  h2
-    |Ваши архивные события
-  hr
-  ul
-    - current_user.events.each do |event|
-      - if event.archive
-        li.my.my_event id=event.id
-          .room-title
-            = event.title
-          br
-          |Дата:
-          = event.date.strftime("%d.%m.%Y")
-          br
-          |Время: 
-          = event.begin_time.strftime("с %H:%M")
-          = event.end_time.strftime(" до %H:%M")
-          br
-          |Организатор:
-          = event.organizer.name
-          br
-          |Проводит:
-          = event.lector.name
-          br
-          br
-          =event.description
-        hr
-    
 
 #event_form.modal.fade role="dialog"
   .modal-dialog.form-dialog
@@ -69,8 +38,6 @@ a.btn.btn-primary.create.actual-btn style="float: right;" Мои события
         button type="button" class="btn btn-default" data-dismiss="modal" Отмена
 
 javascript:
-  $(".archive").hide();
-  $(".actual-btn").hide();
   $(".my_event").click(function(){
     var url = "/events/"+$(this).attr("id")+"/edit";
     $.get(url, function(data){
@@ -78,16 +45,4 @@ javascript:
       $("#event_form .modal-title").html("Событие");
       $("#event_form .modal-body").html(data);
     });
-  });
-  $(".archive-btn").click(function(){
-    $(".events").hide();
-    $(".archive-btn").hide();
-    $(".archive").show();
-    $(".actual-btn").show();
-  });
-  $(".actual-btn").click(function(){
-    $(".events").show();
-    $(".archive-btn").show();
-    $(".archive").hide();
-    $(".actual-btn").hide();
   });

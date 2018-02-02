@@ -1,0 +1,28 @@
+= link_to "Мои события", user_path(current_user), class: "btn btn-primary create archive-btn", style: "float: right;"
+
+.archive
+  h2
+    |Ваши архивные события
+  hr
+  ul
+    - current_user.events.each do |event|
+      - if event.archive
+        li.my.my_event id=event.id
+          .title
+            = event.title
+          |Дата:
+          = event.date.strftime("%d.%m.%Y")
+          br
+          |Время:
+          = event.begin_time.strftime("с %H:%M")
+          = event.end_time.strftime(" до %H:%M")
+          br
+          |Организатор:
+          = event.organizer.name
+          br
+          |Проводит:
+          = event.lector.name
+          br
+          br
+          =event.description
+        hr
