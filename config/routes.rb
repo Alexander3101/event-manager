@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
-
   get '/home', to: 'home#index', as: :home
-  get 'events/archive', to: 'events#archive', as: :archive
+
+  devise_for :users
   get 'users/:id' => 'users#show'
   get 'users/archive/:id', to: 'users#archive', as: :user_archive
-  # get '/events/:id' => 'events#edit'
+  
   resources :events, except: [:show]
+  get 'events/archive', to: 'events#archive', as: :archive
+
   resources :rooms
-  resources :users
 
   root to: 'rooms#index'
 end
