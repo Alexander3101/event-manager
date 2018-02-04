@@ -10,7 +10,7 @@ p
   div class="row"
     div class='col-sm-6'
       = f.text_area :description, :class => "form-control"
-  
+
 p
   = f.label "Время начала работы комнаты"
   br
@@ -34,18 +34,5 @@ javascript:
       stepping: 15,
       inline: true,
       keepOpen: true
-    });
-    
-    $("#picker1").on("dp.change", function () {
-      $('#picker1').data("DateTimePicker").maxDate($('#picker2').val());
-      $('#picker2').data("DateTimePicker").minDate($('#picker1').val());
-    });
-    $("#picker1").on("dp.show", function () {
-      $('#picker1').data("DateTimePicker").maxDate($('#picker2').val());
-      $('#picker2').data("DateTimePicker").minDate($('#picker1').val());
-    });
-    $('#picker2').on("dp.change", function() {
-      $('#picker1').data("DateTimePicker").maxDate($('#picker2').val());
-      $('#picker2').data("DateTimePicker").minDate($('#picker1').val());
     });
   });
