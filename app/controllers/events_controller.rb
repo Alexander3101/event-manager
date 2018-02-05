@@ -16,9 +16,6 @@ class EventsController < ApplicationController
 
   def past
     @events = Event.where("archive = ? and date <= ? and end_time <= ?", false, DateTime.now, Time.now.change(year:2000,month:1,day:1)).order(:begin_time).paginate(page: params[:page])
-    @x = @events.last.end_time
-    @y = Time.now.change(year:2000,month:1,day:1).utc
-
   end
 
   def new

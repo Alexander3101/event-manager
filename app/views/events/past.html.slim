@@ -36,9 +36,6 @@
         button type="button" class="btn btn-default" data-dismiss="modal" Отмена
 
 javascript:
-  console.log("#{@x}");
-  console.log("#{@y}");
-
   $(".my_event").click(function(){
     var url = "/events/"+$(this).attr("id")+"/edit";
     $.get(url, function(data){
