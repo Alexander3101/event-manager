@@ -1,8 +1,9 @@
 a.btn.btn-primary.create.for_new style="float: right;" Создать событие
-.btn-group style="float: right;"
-  = link_to "Архив моих событий", user_archive_path(current_user), class: "btn btn-primary create archive-btn", style: "float: right;"
-  = link_to "Прошедшие события", user_past_path, class: "btn btn-primary create", style: "float: right;"
-  = link_to "Мои события", user_path(current_user), class: "btn btn-primary create archive-btn active", style: "float: right;"
+.btn-group.user_menu
+  = link_to "Мои события", user_path(current_user), class: "btn btn-primary active"
+  = link_to "Прошедшие события", user_past_path, class: "btn btn-primary"
+  = link_to "Архив событий", user_archive_path(current_user), class: "btn btn-primary"
+
 .events
   h2
     |Ваши события
