@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'events/archive', to: 'events#archive', as: :archive
 
   resources :rooms
+  get 'rooms/print/:id', to: 'rooms#show_print', as: :print
 
   root to: 'rooms#index'
 end

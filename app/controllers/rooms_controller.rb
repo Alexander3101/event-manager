@@ -8,6 +8,13 @@ class RoomsController < ApplicationController
     #session[:return_to] = request.original_url
   end
 
+  def show_print
+    @begin_date = params[:begin_date] ? params[:begin_date] : DateTime.now.strftime("%d.%m.%Y")
+    @end_date = params[:end_date] ? params[:end_date] : DateTime.now.next_month.strftime("%d.%m.%Y")
+    @room = Room.find(params[:id])
+    @events = Event.where("room_id = ? and date >= ? and date <= ? and archive = ?", @room.id, @begin_date, @end_date, false)
+  end
+
   def new
     @room = Room.new
   end

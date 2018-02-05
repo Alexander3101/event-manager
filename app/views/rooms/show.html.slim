@@ -13,6 +13,7 @@ p.description
   = @room.description
 
 br
+=link_to "версия для печати", print_path(@room.id)
 
 -if user_signed_in?
   #calendar data-room-id="#{@room.id}" current_user = current_user.id
