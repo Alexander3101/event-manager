@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'events/past', to: 'events#past', as: :past
 
   resources :rooms
+  get 'rooms/print/:id', to: 'rooms#show_print', as: :print
 
   root to: 'rooms#index'
 end
