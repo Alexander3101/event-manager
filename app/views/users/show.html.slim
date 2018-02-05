@@ -1,4 +1,4 @@
-= link_to "Создать событие", new_event_path, class: "btn btn-primary create", style: "float: right;"
+a.btn.btn-primary.create style="float: right;" Создать событие
 = link_to "Архив моих событий", user_archive_path(current_user), class: "btn btn-primary create archive-btn", style: "float: right;"
 = link_to "Прошедшие события", user_past_path, class: "btn btn-primary create", style: "float: right;"
 
@@ -40,14 +40,19 @@
         button type="button" class="btn btn-default" data-dismiss="modal" Отмена
 
 javascript:
-  console.log("#{@x}");
-  console.log("#{@y}");
-
   $(".my_event").click(function(){
     var url = "/events/"+$(this).attr("id")+"/edit";
     $.get(url, function(data){
       $("#event_form").modal();
       $("#event_form .modal-title").html("Событие");
+      $("#event_form .modal-body").html(data);
+    });
+  });
+  $(".create").click(function(){
+    var url = "/events/new";
+    $.get(url, function(data){
+      $("#event_form").modal();
+      $("#event_form .modal-title").html("Новое событие");
       $("#event_form .modal-body").html(data);
     });
   });
