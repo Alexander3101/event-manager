@@ -6,16 +6,16 @@ class EventsController < ApplicationController
     if params[:room_id]
       @events = Event.where(room_id: params[:room_id], archive: false).order(:begin_time)
     else
-      @events = Event.where(archive: false).order(:begin_time).paginate(page: params[:page])
+      @events = Event.where(archive: false).where("date > ? or date = ? and end_time > ?", DateTime.now.strftime("%Y-%m-%d"), DateTime.now.strftime("%Y-%m-%d"), DateTime.now.change(year:2000,month:1,day:1).strftime("%Y-%m-%d %H:%M:%S UTC")).order(:date).order(:begin_time).paginate(page: params[:page])
     end
   end
 
   def archive
-    @events = Event.where(archive: true).order(:begin_time).paginate(page: params[:page])
+    @events = Event.where(archive: true).reorder(:date).reorder(:begin_time).paginate(page: params[:page])
   end
 
   def past
-    @events = Event.where("archive = ? and date <= ? and end_time <= ?", false, DateTime.now, Time.now.change(year:2000,month:1,day:1)).order(:begin_time).paginate(page: params[:page])
+    @events = Event.where("archive = ? and date <= ? and end_time <= ?", false, DateTime.now.strftime("%Y-%m-%d"), DateTime.now.change(year:2000,month:1,day:1).strftime("%Y-%m-%d %H:%M:%S UTC")).order(:date).order(:begin_time).paginate(page: params[:page])
   end
 
   def new

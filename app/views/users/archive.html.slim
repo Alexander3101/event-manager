@@ -1,6 +1,8 @@
-a.btn.btn-primary.create style="float: right;" Создать событие
-= link_to "Мои события", user_path(current_user), class: "btn btn-primary create archive-btn", style: "float: right;"
-= link_to "Прошедшие события", user_past_path, class: "btn btn-primary create", style: "float: right;"
+a.btn.btn-primary.create.for_new style="float: right;" Создать событие
+.btn-group style="float: right; margin-top: 80px;"
+  = link_to "Архив моих событий", user_archive_path(current_user), class: "btn btn-primary active archive-btn", style: "float: right;"
+  = link_to "Прошедшие события", user_past_path, class: "btn btn-primary", style: "float: right;"
+  = link_to "Мои события", user_path(current_user), class: "btn btn-primary archive-btn", style: "float: right;"
 
 .archive
   h2
@@ -9,8 +11,8 @@ a.btn.btn-primary.create style="float: right;" Создать событие
   ul
     - @events.each do |event|
       - if event.archive
-        li.my.my_event id=event.id
-          .title
+        li.my
+          .title.my_event id=event.id
             = event.title
           |Дата:
           = event.date.strftime("%d.%m.%Y")
@@ -48,7 +50,7 @@ javascript:
       $("#event_form .modal-body").html(data);
     });
   });
-  $(".create").click(function(){
+  $(".for_new").click(function(){
     var url = "/events/new";
     $.get(url, function(data){
       $("#event_form").modal();
