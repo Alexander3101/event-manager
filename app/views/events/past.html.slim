@@ -1,0 +1,49 @@
+.events
+  h2
+    |Прошедшие события
+  hr
+  ul
+    - @events.each do |event|
+      li.my
+        a.title.my_event id=event.id
+          = event.title
+        br
+        |Дата:
+        = event.date.strftime("%d.%m.%Y")
+        br
+  			|Время:
+  			= event.begin_time.strftime("с %H:%M")
+  			= event.end_time.strftime(" до %H:%M")
+        br
+        |Организатор:
+        = event.organizer.name
+        br
+        |Проводит:
+        = event.lector.name
+        br
+        br
+        =event.description
+      hr
+
+#event_form.modal.fade role="dialog"
+  .modal-dialog.form-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" &times;
+        h4 class="modal-title"
+      .modal-body
+      .modal-footer
+        button type="button" class="btn btn-default" data-dismiss="modal" Отмена
+
+javascript:
+  console.log("#{@x}");
+  console.log("#{@y}");
+
+  $(".my_event").click(function(){
+    var url = "/events/"+$(this).attr("id")+"/edit";
+    $.get(url, function(data){
+      $("#event_form").modal();
+      $("#event_form .modal-title").html("Событие");
+      $("#event_form .modal-body").html(data);
+    });
+  });

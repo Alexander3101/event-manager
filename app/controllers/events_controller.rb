@@ -14,10 +14,24 @@ class EventsController < ApplicationController
     @events = Event.where(archive: true).order(:begin_time).paginate(page: params[:page])
   end
 
+  def past
+    @events = Event.where("archive = ? and date <= ? and end_time <= ?", false, DateTime.now, Time.now.change(year:2000,month:1,day:1)).order(:begin_time).paginate(page: params[:page])
+    @x = @events.last.end_time
+    @y = Time.now.change(year:2000,month:1,day:1).utc
+
+  end
+
   def new
     @event = Event.new
-    @event.room_id = params[:room_id]
-    @event.date = params[:date]
+    if params[:room_id]
+      @event.room_id = params[:room_id]
+    end
+    if params[:date]
+      @event.date = params[:date]
+    else
+      @event.date = DateTime.now
+    end
+
     @event.begin_time = Time.parse("15:00")
     @event.end_time = Time.parse("15:30")
     @rooms = Room.all

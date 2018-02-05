@@ -25,8 +25,10 @@ html
             ul.nav.navbar-nav
               li class=("active" if controller_name == "events" and action_name == "index")
                 a href=events_path События
+              li class=("active" if controller_name == "events" and action_name == "past")
+                a href=past_path Прошедшие события
               li class=("active" if controller_name == "events" and action_name == "archive")
-                a href=archive_path Архив
+                a href=archive_path Отмененные события
 
           -if user_signed_in?
             = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-primary navbar-btn navbar-right"
