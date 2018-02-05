@@ -101,6 +101,13 @@ h2.in_modal {
 .for_new {
   background-color: green;
 }
+.for_new:hover {
+  background-color: #185f18;
+}
+.user_menu {
+  float: right;
+  margin-top: 80px;
+}
 
 #calendar {
   width: 100%;
