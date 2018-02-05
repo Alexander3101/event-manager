@@ -23,15 +23,8 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    if params[:room_id]
-      @event.room_id = params[:room_id]
-    end
-    if params[:date]
-      @event.date = params[:date]
-    else
-      @event.date = DateTime.now
-    end
-
+    @event.room_id = params[:room_id]
+    @event.date = params[:date] ? params[:date] : DateTime.now.strftime("%d.%m.%Y")
     @event.begin_time = Time.parse("15:00")
     @event.end_time = Time.parse("15:30")
     @rooms = Room.all
@@ -53,7 +46,7 @@ class EventsController < ApplicationController
       if @event.save
         create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
 
-        format.html { redirect_to @event.room }
+        format.html { redirect_to request.referrer }
       else
         flash[:notice] = @event.errors['text'].last
         format.html { render partial: 'new' }
@@ -95,7 +88,7 @@ class EventsController < ApplicationController
         edit_repeatly_events(old_title) if params.permit(:change)[:change] == "future"
         create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
 
-        format.html { redirect_to @event.room }
+        format.html { redirect_to request.referrer }
       else
         flash[:notice] = @event.errors['text'].last
         format.html { render partial: 'edit' }
@@ -121,7 +114,7 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to deleting_event.room }
+      format.html { redirect_to request.referrer }
     end
   end
 
