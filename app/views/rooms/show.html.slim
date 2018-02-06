@@ -1,19 +1,20 @@
 h2
   = @room.title
+  - if user_signed_in? and current_user.role == "admin"
+    a.btn.btn-xs.btn-warning.btn-margins.in_show href=edit_room_path(@room) Изменить
+    a.btn.btn-xs.btn-danger.btn-margins.in_show href=room_path(@room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!" Удалить
 hr
-- if user_signed_in? and current_user.role == "admin"
-  a.btn.btn-xs.btn-warning.btn-margins.in_show href=edit_room_path(@room) Изменить
-  a.btn.btn-xs.btn-danger.btn-margins.in_show href=room_path(@room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!" Удалить
 
 |Время работы комнаты:
 = @room.begin_work_time.strftime("c %H:%M")
 = @room.end_work_time.strftime("  до  %H:%M")
-h4
+
+=link_to "версия для печати", print_path(@room.id), :class => "a btn btn-margins for_print btn-primary"
+
 p.description
   = @room.description
 
 br
-=link_to "версия для печати", print_path(@room.id)
 
 -if user_signed_in?
   #calendar data-room-id="#{@room.id}" current_user = current_user.id

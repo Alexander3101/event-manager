@@ -1,8 +1,8 @@
 a.btn.btn-primary.create.for_new style="float: right;" Создать событие
-.btn-group style="float: right;"
-  = link_to "Архив моих событий", user_archive_path(current_user), class: "btn btn-primary create archive-btn", style: "float: right;"
-  = link_to "Прошедшие события", user_past_path, class: "btn btn-primary active create", style: "float: right;"
-  = link_to "Мои события", user_path(current_user), class: "btn btn-primary create archive-btn", style: "float: right;"
+.btn-group.user_menu
+  = link_to "Мои события", user_path(current_user), class: "btn btn-primary"
+  = link_to "Прошедшие события", user_past_path, class: "btn btn-primary active"
+  = link_to "Архив событий", user_archive_path(current_user), class: "btn btn-primary"
 
 .events
   h2
@@ -15,15 +15,15 @@ a.btn.btn-primary.create.for_new style="float: right;" Создать событ
           = event.title
         br
         |Дата:
-        = event.date.strftime("%d.%m.%Y")
+        = event.date.strftime(" %d.%m.%Y")
         br
   			|Время:
-  			= event.begin_time.strftime("с %H:%M")
+  			= event.begin_time.strftime(" с %H:%M")
   			= event.end_time.strftime(" до %H:%M")
-        |Организатор:
+        |Организатор: 
         = event.organizer.name
         br
-        |Проводит:
+        |Проводит: 
         = event.lector.name
         br
         br
