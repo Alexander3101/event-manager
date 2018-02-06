@@ -11,20 +11,20 @@ ul
       |Дата:
       = event.date.strftime(" %d.%m.%Y")
       br
-      |Комната:
+      |Комната: 
       = event.room_id
       br
       |Время:
       = event.begin_time.strftime(" с %H:%M")
       = event.end_time.strftime(" до %H:%M")
       br
-      |Создатель события:
+      |Создатель события: 
       = event.user.email
       br
-      |Организатор:
+      |Организатор: 
       = event.organizer.name
       br
-      |Проводит:
+      |Проводит: 
       = event.lector.name
       br
       br

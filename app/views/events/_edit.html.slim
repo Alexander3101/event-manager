@@ -22,6 +22,3 @@
         = link_to "Удалить", event_path(id: @event.id, value:"this"), method: :delete, data: { confirm: "Внимание! Вы удаляете событиe!" }, class: "btn btn-danger removing"
   hr
   = render partial: 'events/form', locals: { f: f, repeat_label: "Добавить повторение" }
-
-javascript:
-  console.log("#{@repeatly}");

@@ -20,10 +20,14 @@ a.btn.btn-primary.create.for_new style="float: right;" Создать событ
   			|Время:
   			= event.begin_time.strftime(" с %H:%M")
   			= event.end_time.strftime(" до %H:%M")
-        |Организатор:
+        br
+        |Комната: 
+        = event.room_id
+        br
+        |Организатор: 
         = event.organizer.name
         br
-        |Проводит:
+        |Проводит: 
         = event.lector.name
         br
         br
