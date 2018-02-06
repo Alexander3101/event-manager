@@ -9,8 +9,8 @@ class RoomsController < ApplicationController
   end
 
   def show_print
-    @begin_date = params[:begin_date] ? params[:begin_date] : DateTime.now.strftime("%d.%m.%Y")
-    @end_date = params[:end_date] ? params[:end_date] : DateTime.now.next_month.strftime("%d.%m.%Y")
+    @begin_date = params[:begin_date] ? params[:begin_date] : DateTime.now.strftime("%Y.%m.%d")
+    @end_date = params[:end_date] ? params[:end_date] : DateTime.now.next_month.strftime("%Y.%m.%d")
     @room = Room.find(params[:id])
     @events = Event.where("room_id = ? and date >= ? and date <= ? and archive = ?", @room.id, @begin_date, @end_date, false)
   end
