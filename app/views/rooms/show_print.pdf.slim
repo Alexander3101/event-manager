@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    title
+      |Календарь событий
+    meta charset="UTF-8"
+    = csrf_meta_tags
+    meta name="viewport" content="width=device-width, initial-scale=1"
+
+    = wicked_pdf_stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+
+  body
+    h2
+      = @room.title
+    hr
+
+    |Время работы комнаты:
+    = @room.begin_work_time.strftime("c %H:%M")
+    = @room.end_work_time.strftime("  до  %H:%M")
+
+    p.description
+      = @room.description
+
+    h3 Список событий на период с #{@begin_date} по #{@end_date}
+
+    table.table.table-bordered
+      tr
+        th №
+        th Дата
+        th Время
+        th Название
+      - @events.each_with_index do |event, i|
+        tr.nobreak
+          td
+            = i+1
+          td
+            = event.date.strftime("%d.%m.%Y")
+          td
+            = event.begin_time.strftime("%H:%M - ")
+            = event.end_time.strftime("%H:%M")
+          td
+            b
+              = event.title
+            br
+            | Проводит: #{event.lector.name}
+            br
+            | Организатор: #{event.organizer.name}
+            br
+            |
+            i
+              = event.description

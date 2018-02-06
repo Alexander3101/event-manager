@@ -9,7 +9,7 @@ hr
 = @room.begin_work_time.strftime("c %H:%M")
 = @room.end_work_time.strftime("  до  %H:%M")
 
-=link_to "версия для печати", print_path(@room.id), :class => "a btn btn-margins for_print btn-primary"
+=link_to "версия для печати", print_path(@room.id, format: :pdf), :class => "a btn btn-margins for_print btn-primary"
 
 p.description
   = @room.description

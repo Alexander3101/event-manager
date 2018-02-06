@@ -13,6 +13,12 @@ class RoomsController < ApplicationController
     @end_date = params[:end_date] ? params[:end_date] : DateTime.now.next_month.strftime("%Y.%m.%d")
     @room = Room.find(params[:id])
     @events = Event.where("room_id = ? and date >= ? and date <= ? and archive = ?", @room.id, @begin_date, @end_date, false)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "file_name", layout: false   # Excluding ".pdf" extension.
+      end
+    end
   end
 
   def new

@@ -116,6 +116,10 @@ h2.in_modal {
   background-color: #1e677d;
 }
 
+.nobreak{
+  page-break-inside: avoid;
+}
+
 #calendar {
   width: 100%;
   margin-bottom: 50px;
