@@ -1,6 +1,7 @@
 a.btn.btn-primary.create style="float: right;" Создать событие
 h2
   |События:
+hr
 ul
   - @events.each do |event|
     li.my
@@ -8,16 +9,22 @@ ul
         = event.title
       br
       |Дата:
-      = event.date.strftime("%d.%m.%Y")
+      = event.date.strftime(" %d.%m.%Y")
+      br
+      |Комната: 
+      = event.room_id
       br
       |Время:
-      = event.begin_time.strftime("с %H:%M")
+      = event.begin_time.strftime(" с %H:%M")
       = event.end_time.strftime(" до %H:%M")
       br
-      |Организатор:
+      |Создатель события: 
+      = event.user.email
+      br
+      |Организатор: 
       = event.organizer.name
       br
-      |Проводит:
+      |Проводит: 
       = event.lector.name
       br
       br

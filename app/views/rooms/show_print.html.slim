@@ -5,12 +5,11 @@ hr
 |Время работы комнаты:
 = @room.begin_work_time.strftime("c %H:%M")
 = @room.end_work_time.strftime("  до  %H:%M")
-h4
+
 p.description
   = @room.description
-
-br
-h2 Список событий на период с #{@begin_date} по #{@end_date}
+  
+h3 Список событий на период с #{@begin_date} по #{@end_date}
 
 table.table.table-bordered
   tr

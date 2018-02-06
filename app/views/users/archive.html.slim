@@ -15,16 +15,16 @@ a.btn.btn-primary.create.for_new style="float: right;" Создать событ
           .title.my_event id=event.id
             = event.title
           |Дата:
-          = event.date.strftime("%d.%m.%Y")
+          = event.date.strftime(" %d.%m.%Y")
           br
           |Время:
-          = event.begin_time.strftime("с %H:%M")
+          = event.begin_time.strftime(" с %H:%M")
           = event.end_time.strftime(" до %H:%M")
           br
-          |Организатор:
+          |Организатор: 
           = event.organizer.name
           br
-          |Проводит:
+          |Проводит: 
           = event.lector.name
           br
           br
