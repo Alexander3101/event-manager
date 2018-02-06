@@ -20,15 +20,17 @@ a.btn.btn-primary.create.for_new style="float: right;" Создать событ
   			|Время:
   			= event.begin_time.strftime(" с %H:%M")
   			= event.end_time.strftime(" до %H:%M")
-        |Организатор: 
+        |Организатор:
         = event.organizer.name
         br
-        |Проводит: 
+        |Проводит:
         = event.lector.name
         br
         br
         =event.description
       hr
+
+= will_paginate @events
 
 #event_form.modal.fade role="dialog"
   .modal-dialog.form-dialog
