@@ -9,4 +9,3 @@
 //= require calendar-initializer
 //
 // For debug purposes
-//= require calendar-block-checker
