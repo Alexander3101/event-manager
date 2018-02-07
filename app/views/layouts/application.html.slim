@@ -24,15 +24,10 @@ html
           - if user_signed_in? and  current_user.role == "admin"
             ul.nav.navbar-nav
               li class=("active" if controller_name == "events" and action_name == "index")
-                a href=events_path События
-              li class=("active" if controller_name == "events" and action_name == "past")
-                a href=past_path Прошедшие события
-              li class=("active" if controller_name == "events" and action_name == "archive")
-                a href=archive_path Отмененные события
+                a href=user_path(current_user) События
 
           -if user_signed_in?
-            = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-primary navbar-btn navbar-right"
-            = link_to 'Личный кабинет', user_path(current_user),  :class =>"btn btn-default navbar-btn navbar-right"
+            = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-default navbar-btn navbar-right"
             .navbar-text.navbar-right
               span.glyphicon.glyphicon-user
               = current_user.email
