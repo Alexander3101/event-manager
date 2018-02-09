@@ -19,12 +19,14 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand href=root_path Комнаты
+          a.navbar-brand href=root_path Главная
         #navbar.navbar-collapse.collapse
           - if user_signed_in? and current_user.role == "admin"
             ul.nav.navbar-nav
               li class=("active" if controller_name == "events" and action_name == "index")
                 a href=personal_current_path События
+              li class=("active" if controller_name == "rooms" and action_name == "admin_index")
+                a href=admin_index_path Комнаты
 
           -if user_signed_in?
             = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-default navbar-btn navbar-right"
@@ -47,18 +49,18 @@ html
               div
                 = f.label :email
                 br
-                = f.email_field :email, autofocus: true
+                = f.email_field :email, autofocus: true, class: "form-control"
               br
                 = f.label 'Пароль'
                 br
-                = f.password_field :password, autocomplete: "off"
+                = f.password_field :password, autocomplete: "off", class: "form-control"
               br
               .modal-footer
-                = f.submit "Войти"
+                = f.submit "Войти", class: "btn btn-success"
             end
 
     .container.main-content
       = yield
     footer.footer
       .container
-        .text-muted События
+        .text-muted style="float: right;" Designed by TvSU

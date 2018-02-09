@@ -1,0 +1,20 @@
+.btn.btn-margins.btn-info.btn-margins.for_new style="float: right;" Новая комната
+br
+br
+table.table.table-striped.table-bordered
+  thead
+    tr
+      th scope="col"  Название
+      th scope="col"  Время
+      th scope="col"  &nbsp
+  tbody
+    - @rooms.each do |room|
+      tr
+        td
+          a.room id=room.id = room.title
+        td
+    			= room.begin_work_time.strftime("\t%H:%M")
+    			= room.end_work_time.strftime(" - \t%H:%M")
+        td
+          = room.description
+= render 'modal_and_script'

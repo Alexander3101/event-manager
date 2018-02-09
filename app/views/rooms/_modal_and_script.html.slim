@@ -1,0 +1,27 @@
+#room_form.modal.fade role="dialog"
+  .modal-dialog.form-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" &times;
+        h4 class="modal-title"
+      .modal-body
+      .modal-footer
+        button type="button" class="btn btn-default" data-dismiss="modal" Отмена
+
+javascript:
+  $(".room").click(function(){
+    var url = "/rooms/"+$(this).attr("id")+"/edit";
+    $.get(url, function(data){
+      $("#room_form").modal();
+      $("#room_form .modal-title").html("Комната");
+      $("#room_form .modal-body").html(data);
+    });
+  });
+  $(".for_new").click(function(){
+    var url = "/rooms/new";
+    $.get(url, function(data){
+      $("#room_form").modal();
+      $("#room_form .modal-title").html("Новая комната");
+      $("#room_form .modal-body").html(data);
+    });
+  });

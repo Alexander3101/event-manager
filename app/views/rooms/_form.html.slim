@@ -1,28 +1,24 @@
-p
-  = f.label "Название комнаты"
-  br
-  div class="row"
-    div class='col-sm-6'
-      = f.text_field :title, :class => "form-control"
-p
-  = f.label "Описание комнаты"
-  br
-  div class="row"
-    div class='col-sm-6'
-      = f.text_area :description, :class => "form-control"
+.row
+  div.col-sm-12
+    = f.label "Название комнаты"
+    = f.text_field :title, :class => "form-control"
+br
 
-p
-  = f.label "Время начала работы комнаты"
-  br
-  div class="row"
-    div class='col-sm-1'
-      = f.hidden_field :begin_work_time, :class => "form-control for_time", id: "picker1"
-p
-  = f.label "Время окончания работы комнаты"
-  br
-  div class="row"
-    div class='col-sm-1'
-      = f.hidden_field :end_work_time, :class => "form-control for_time", id: "picker2"
+.row
+  div.col-sm-12
+    = f.label "Описание комнаты"
+    = f.text_area :description, :class => "form-control"
+br
+
+.row
+  div.col-sm-6
+    = f.label "Время начала работы комнаты"
+    = f.hidden_field :begin_work_time, :class => "form-control for_time", id: "picker1"
+  div.col-sm-6
+    = f.label "Время окончания работы комнаты"
+    = f.hidden_field :end_work_time, :class => "form-control for_time", id: "picker2"
+br
+
 p
   = f.submit "Сохранить", class: "btn btn-success"
 
@@ -32,7 +28,9 @@ javascript:
       locale: 'ru',
       format: '[2000-01-01 ]HH:mm[ UTC]',
       stepping: 15,
-      inline: true,
-      keepOpen: true
+      inline: true
     });
+  });
+  document.body.addEventListener('ajax:complete', function(answer) {
+    $("#room_form .modal-body").html(answer.detail[0].response);
   });
