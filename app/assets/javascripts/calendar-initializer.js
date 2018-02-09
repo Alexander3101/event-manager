@@ -7,12 +7,16 @@ function eventCalendar() {
     locale: 'ru',
     contentHeight: 600,
     header: {
-      left: 'month,agendaWeek,agendaDay',
-      center: 'title'
+      left: 'prev',
+      center: 'title',
+      right: 'next'
     },
     views: {
       month: {
-        buttonText: 'Месяц'
+        buttonText: 'Месяц',
+        type: 'basic',
+        duration: {weeks: 2},
+        rows: 2
       },
       agendaWeek: {
         type: 'agenda',
@@ -35,7 +39,7 @@ function eventCalendar() {
     events: '/events.json?room_id=' + parameter,
     timeFormat: 'HH:mm',
     displayEventEnd: true,
-    eventLimit: true,
+    eventLimit: false,
     dayClick: function(date, jsEvent, view, resourceObj) {
       var d = new Date();
       d.setHours(0, 0, 0);

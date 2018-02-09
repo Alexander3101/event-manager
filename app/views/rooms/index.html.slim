@@ -1,22 +1,16 @@
-- if user_signed_in? and current_user.role == "admin"
-  = link_to "Создать", new_room_path, class: "btn btn-primary create", style: "float: right;"
-
-h2
-  |Комнаты:
-hr
-ul
-  - @rooms.each do |room|
-    li.my
-      = link_to room.title, room_path(room), :class => "title"
-      br
-      |Время работы комнаты:
-      = room.begin_work_time.strftime("с \t%H:%M")
-      = room.end_work_time.strftime(" до \t%H:%M")
-
-      - if user_signed_in? and current_user.role == "admin"
-        a.btn.btn-xs.btn-warning.btn-margins href=edit_room_path(room) Изменить
-        a.btn.btn-xs.btn-danger.btn-margins href=room_path(room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!" Удалить
-      br
-      p
-        = room.description
-    hr
+.cards
+  .row
+    - @rooms.each_slice(3).each do |rooms_slice|
+      - rooms_slice.each do |room|
+        .col-sm-6.col-md-4.room-block
+          .well
+            = link_to room_path(room) do 
+              .card-body
+                h4 = room.title
+                .card-text
+                  = room.description
+              .card-footer
+                |Время работы:
+                = room.begin_work_time.strftime("\t%H:%M")
+                = room.end_work_time.strftime(" - \t%H:%M")
+            

@@ -1,0 +1,33 @@
+= render 'button_group', current: nil, past: nil, canceled: 'active'
+
+table.table.table-striped.table-bordered
+  thead
+    tr
+      th scope="col"  &nbsp
+      th scope="col"  Дата
+      th scope="col"  Время
+      th scope="col"  Комната
+      th scope="col"  Организатор
+      th scope="col"  Проводит
+      th scope="col"  &nbsp
+  tbody
+  - @events.each do |event|
+    - if event.archive
+      tr
+        td
+          = event.title
+        td
+          = event.date.strftime(" %d.%m.%Y")
+        td
+          = event.begin_time.strftime("%H:%M")
+          = event.end_time.strftime(" - %H:%M")
+        td
+          = event.room_id
+        td
+          = event.organizer.name
+        td
+          = event.lector.name
+        td
+          =event.description
+
+= render 'modal_and_script'

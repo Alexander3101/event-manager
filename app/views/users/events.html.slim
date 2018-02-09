@@ -1,4 +1,4 @@
-= render 'button_group', current: nil, past: 'active', canceled: nil
+= render 'button_group', current: 'active', past: nil, canceled: nil
 
 table.table.table-striped.table-bordered
   thead
@@ -14,12 +14,12 @@ table.table.table-striped.table-bordered
   - @events.each do |event|
     tr
       td
-        = event.title
+        a.my_event id=event.id = event.title
       td
         = event.date.strftime(" %d.%m.%Y")
       td
-        = event.begin_time.strftime("%H:%M")
-        = event.end_time.strftime(" - %H:%M")
+  			= event.begin_time.strftime("%H:%M")
+  			= event.end_time.strftime(" - %H:%M")
       td
         = event.room_id
       td

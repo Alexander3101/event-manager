@@ -1,18 +1,15 @@
 h2
   = @room.title
-  - if user_signed_in? and current_user.role == "admin"
-    a.btn.btn-xs.btn-warning.btn-margins.in_show href=edit_room_path(@room) Изменить
-    a.btn.btn-xs.btn-danger.btn-margins.in_show href=room_path(@room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!" Удалить
-hr
-
+p.description
+  = @room.description
 |Время работы комнаты:
 = @room.begin_work_time.strftime("c %H:%M")
 = @room.end_work_time.strftime("  до  %H:%M")
+.btn.btn-margins.btn-info.btn-margins.for_print Версия для печати
+hr
 
-.btn.btn-margins.btn-primary.btn-margins.for_print Версия для печати
 
-p.description
-  = @room.description
+
 
 br
 
@@ -65,5 +62,9 @@ javascript:
     });
   });
   $(".for_print").click(function(){
-    $("#dateselect").modal();
+    var date = $("#calendar").fullCalendar('getDate');
+    var begin_date = date.format('YYYY-MM-DD');
+    var end_date = date.endOf('month').format('YYYY-MM-DD');
+    var room = $('#calendar').attr('data-room-id');
+    window.open("/rooms/print/"+room+".pdf?begin_date="+begin_date+"&end_date="+end_date)
   });
