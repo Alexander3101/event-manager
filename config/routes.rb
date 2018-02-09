@@ -7,12 +7,13 @@ Rails.application.routes.draw do
   get 'users/past/', to: 'users#past', as: :user_past
   # resources :users
 
-  resources :events, except: [:show]
   get 'events/archive', to: 'events#archive', as: :archive
   get 'events/past', to: 'events#past', as: :past
+  resources :events, except: [:show]
 
-  resources :rooms
+  get 'rooms/admin_index', to: 'rooms#admin_index', as: :admin_index
   get 'rooms/print/:id', to: 'rooms#show_print', as: :print
+  resources :rooms
 
   root to: 'rooms#index'
 end
