@@ -11,13 +11,21 @@ class EventsController < ApplicationController
     end
   end
 
-  def archive
-    @events = Event.where(archive: true).order(:date).reverse_order.order(:begin_time).paginate(page: params[:page], :per_page => 10)
-  end
-
-  def past
-    dtn = DateTime.now
-    @events = Event.where(archive: false).where("date < ? or (date = ? and end_time <= ?)", dtn.strftime("%Y-%m-%d"), dtn.strftime("%Y-%m-%d"), dtn.strftime("%H:%M")).order(:date).reverse_order.order(:begin_time).paginate(page: params[:page], :per_page => 10)
+  def personal
+    case params[:state]
+    when 'past'
+      @past = 'active'
+      @current = @canceled = nil
+      @events = Event.past_events(current_user.id)
+    when 'canceled'
+      @canceled = 'active'
+      @current = @past = nil
+      @events = Event.canceled_events(current_user.id)
+    else
+      @current = 'active'
+      @past = @canceled = nil
+      @events = Event.current_events(current_user.id)
+    end
   end
 
   def new

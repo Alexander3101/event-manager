@@ -1,6 +1,6 @@
-= render 'button_group', current: nil, past: nil, canceled: 'active'
+= render 'button_group', current: @current, past: @past, canceled: @canceled
 
-table.table.table-striped.table-bordered
+table.table.table-striped.table-bordered.datatable
   thead
     tr
       th scope="col"  &nbsp
@@ -11,18 +11,20 @@ table.table.table-striped.table-bordered
       th scope="col"  Проводит
       th scope="col"  &nbsp
   tbody
-  - @events.each do |event|
-    - if event.archive
+    - @events.each do |event|
       tr
         td
-          = event.title
+          -if event.archive
+            = event.title
+          -else
+            a.my_event id=event.id = event.title
         td
           = event.date.strftime(" %d.%m.%Y")
         td
-          = event.begin_time.strftime("%H:%M")
-          = event.end_time.strftime(" - %H:%M")
+    			= event.begin_time.strftime("%H:%M")
+    			= event.end_time.strftime(" - %H:%M")
         td
-          = event.room_id
+          = event.room.title
         td
           = event.organizer.name
         td
@@ -31,3 +33,6 @@ table.table.table-striped.table-bordered
           =event.description
 
 = render 'modal_and_script'
+
+javascript:
+  $('.datatable').DataTable();

@@ -7,8 +7,8 @@
 //= require moment/ru
 //= require fullcalendar
 //= require calendar-initializer
-//
-// For debug purposes
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 
 
 $(document).on('turbolinks:load', function() {

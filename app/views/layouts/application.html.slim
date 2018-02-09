@@ -21,10 +21,10 @@ html
             span.icon-bar
           a.navbar-brand href=root_path Комнаты
         #navbar.navbar-collapse.collapse
-          - if user_signed_in? and  current_user.role == "admin"
+          - if user_signed_in? and current_user.role == "admin"
             ul.nav.navbar-nav
               li class=("active" if controller_name == "events" and action_name == "index")
-                a href=users_path События
+                a href=personal_current_path События
 
           -if user_signed_in?
             = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-default navbar-btn navbar-right"
