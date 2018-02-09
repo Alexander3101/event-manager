@@ -47,14 +47,14 @@ html
               div
                 = f.label :email
                 br
-                = f.email_field :email, autofocus: true
+                = f.email_field :email, autofocus: true, class: "form-control"
               br
                 = f.label 'Пароль'
                 br
-                = f.password_field :password, autocomplete: "off"
+                = f.password_field :password, autocomplete: "off", class: "form-control"
               br
               .modal-footer
-                = f.submit "Войти"
+                = f.submit "Войти", class: "btn btn-success"
             end
 
     .container.main-content
