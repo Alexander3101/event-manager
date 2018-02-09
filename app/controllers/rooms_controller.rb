@@ -8,6 +8,10 @@ class RoomsController < ApplicationController
     #session[:return_to] = request.original_url
   end
 
+  def admin_index
+    @rooms = Room.paginate(page: params[:page])
+  end
+
   def show_print
     @begin_date = params[:begin_date] ? params[:begin_date] : DateTime.now.strftime("%Y-%m-%d")
     @end_date = params[:end_date] ? params[:end_date] : DateTime.now.next_month.strftime("%Y-%m-%d")
@@ -23,6 +27,11 @@ class RoomsController < ApplicationController
 
   def new
     @room = Room.new
+    respond_to do |format|
+      format.html do
+        render partial: 'new'
+      end
+    end
   end
 
   def create
@@ -30,21 +39,26 @@ class RoomsController < ApplicationController
     if @room.save
       redirect_to @room
     else
-      render 'new'
+      format.html { render partial: 'new' }
     end
   end
 
   def edit
     @room = Room.find(params[:id])
+    respond_to do |format|
+      format.html do
+        render partial: 'edit'
+      end
+    end
   end
 
   def update
     @room = Room.find(params[:id])
 
     if @room.update(room_params)
-      redirect_to @room
+      format.html { redirect_to request.referrer }
     else
-      render 'edit'
+      format.html { render partial: 'edit' }
     end
   end
 

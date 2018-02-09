@@ -1,0 +1,3 @@
+= form_for :room, url: room_path(@room), method: :patch, remote: true  do |f|
+  
+  = render partial: 'rooms/form', locals: { f: f }
