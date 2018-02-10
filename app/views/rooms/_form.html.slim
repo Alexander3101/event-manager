@@ -1,34 +1,35 @@
 .row
   div.col-sm-12
-    = f.label "Название комнаты"
+    = f.label :title, "Название комнаты"
     = f.text_field :title, :class => "form-control"
 br
 
 .row
   div.col-sm-12
-    = f.label "Описание комнаты"
+    = f.label :description, "Описание комнаты"
     = f.text_area :description, :class => "form-control"
 br
 
 .row
   div.col-sm-6
-    = f.label "Время начала работы комнаты"
-    = f.hidden_field :begin_work_time, :class => "form-control for_time", id: "picker1"
+    = f.label :begin_work_time, "Время начала работы комнаты"
+    = f.text_field :begin_work_time, value: @room.begin_work_time.strftime("%H:%M"), :class => "form-control for_time", id: "datetimepicker1"
   div.col-sm-6
-    = f.label "Время окончания работы комнаты"
-    = f.hidden_field :end_work_time, :class => "form-control for_time", id: "picker2"
+    = f.label :end_work_time, "Время окончания работы комнаты"
+    = f.text_field :end_work_time, value: @room.end_work_time.strftime("%H:%M"), :class => "form-control for_time", id: "datetimepicker2"
 br
 
 p
-  = f.submit "Сохранить", class: "btn btn-success"
+  = f.submit "Сохранить", class: "btn btn-success btn-save_form btn-save_room"
 
 javascript:
   $(function () {
     $('.for_time').datetimepicker({
       locale: 'ru',
-      format: '[2000-01-01 ]HH:mm[ UTC]',
+      format: 'HH:mm',
       stepping: 15,
-      inline: true
+      keepOpen: true,
+      sideBySide: true
     });
   });
   document.body.addEventListener('ajax:complete', function(answer) {

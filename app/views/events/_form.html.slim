@@ -9,12 +9,9 @@
 br
 
 .row
-  div.col-sm-6
+  div.col-sm-12
     = f.label :title, "Название события"
     = f.text_field :title, :class => "form-control"
-  div.col-sm-6
-    = f.label :room_id, "Комната"
-    = f.collection_select :room_id, @rooms, :id, :title, {}, class: "form-control"
 br
 
 div
@@ -62,7 +59,7 @@ label
     = text_field_tag :max_date, l(@event.date, format: :std), :class => "form-control for_date", :id => 'datetimepicker4'
 br
 div
-  = f.submit "Сохранить событие", class: "btn btn-success", data: { "disable-with": "Сохраняю..." }
+  = f.submit "Сохранить событие", class: "btn btn-success btn-save_form btn-save_event", data: { "disable-with": "Сохраняю..." }
 
 #help.col-sm-6
 

@@ -25,29 +25,6 @@ br
       .modal-footer
         button type="button" class="btn btn-default" data-dismiss="modal" Отмена
 
-#dateselect.modal.fade role="dialog"
-  .modal-dialog.form-dialog
-    .modal-content
-      .modal-header
-        .btn-margins.btn-primary
-          =link_to "Печать событий на месяц вперед", print_path(@room.id, format: :pdf), :class => "a btn btn-margins for_print btn-primary"
-        h4 class="modal-title"
-          |Выберете период для печати
-      = form_tag({controller: "rooms", action: "show_print", format: :pdf}, method: "get") do
-        .modal-body
-            .row
-              div.col-sm-3
-                = label_tag(:begin_date, "Начало:")
-                = text_field_tag(:begin_date, "datetimepicker1", value: @begin_date, :class => "form-control for_date")
-              div.col-sm-3
-                = label_tag(:end_date, "Конец:")
-                = text_field_tag(:end_date, "datetimepicker2",  value: @end_date, :class => "form-control for_date")
-            br
-
-        .modal-footer
-          = submit_tag "Распечатать этот период", class: "form_submit"
-      end
-
 javascript:
   $(function () {
     $('.for_date').datetimepicker({

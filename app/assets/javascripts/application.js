@@ -25,6 +25,12 @@ $(document).on('turbolinks:load', function() {
     $(this).height(max_height);
   });
 
+  var pathname = window.location.pathname;
+  if(pathname.search('orders'))
+    $(pathname.replace(/orders\//,'').replace(/\//, '.').replace(/\/.*/, '').replace(/$/,'-nav')).addClass('active');
+  else
+    $(pathname.replace(/\//, '.').replace(/\/.*/, '').replace(/$/,'-nav')).addClass('active');
+
   $('.datatable').DataTable({
     "language":
       {
