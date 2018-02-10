@@ -36,10 +36,13 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params)
-    if @room.save
-      redirect_to @room
-    else
-      format.html { render partial: 'new' }
+    
+    respond_to do |format|
+      if @room.save
+        format.html { redirect_to request.referrer }
+      else
+        format.html { render partial: 'new' }
+      end
     end
   end
 
@@ -55,10 +58,12 @@ class RoomsController < ApplicationController
   def update
     @room = Room.find(params[:id])
 
-    if @room.update(room_params)
-      format.html { redirect_to request.referrer }
-    else
-      format.html { render partial: 'edit' }
+    respond_to do |format|
+      if @room.update(room_params)
+        format.html { redirect_to request.referrer }
+      else
+        format.html { render partial: 'edit' }
+      end
     end
   end
 
