@@ -27,6 +27,8 @@ class RoomsController < ApplicationController
 
   def new
     @room = Room.new
+    @room.begin_work_time = Time.parse("12:00")
+    @room.end_work_time = Time.parse("21:00")
     respond_to do |format|
       format.html do
         render partial: 'new'
