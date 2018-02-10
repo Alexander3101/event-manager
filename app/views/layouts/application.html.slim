@@ -23,10 +23,15 @@ html
         #navbar.navbar-collapse.collapse
           - if user_signed_in? and current_user.role == "admin"
             ul.nav.navbar-nav
-              li class=("active" if controller_name == "events" and action_name == "index")
+              li class="events-nav"
                 a href=personal_current_path События
-              li class=("active" if controller_name == "rooms" and action_name == "admin_index")
+              li class="rooms-nav"
                 a href=admin_index_path Комнаты
+              / li class=("active" if controller_name == "events" and action_name == "index")
+              /   a href=personal_current_path События
+              / li class=("active" if controller_name == "rooms" and action_name == "admin_index")
+              /   a href=admin_index_path Комнаты
+
 
           -if user_signed_in?
             = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-default navbar-btn navbar-right"
