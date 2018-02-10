@@ -3,12 +3,7 @@ class EventsController < ApplicationController
   before_action :check_user, only: [:edit, :update, :destroy]
 
   def index
-    if params[:room_id]
-      @events = Event.where(room_id: params[:room_id], archive: false).order(:begin_time)
-    else
-      dtn = DateTime.now
-      @events = Event.where(archive: false).where("date > ? or (date = ? and end_time > ?)", dtn.strftime("%Y-%m-%d"), dtn.strftime("%Y-%m-%d"), dtn.strftime("%H:%M")).order(:date).order(:begin_time).paginate(page: params[:page], :per_page => 10)
-    end
+    @events = Event.where(room_id: params[:room_id], archive: false).order(:begin_time)
   end
 
   def personal
@@ -31,7 +26,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @event.room_id = params[:room_id]
-    @event.date = params[:date] ? params[:date] : DateTime.now.strftime("%d.%m.%Y")
+    @event.date = params[:date] ? params[:date] : l(DateTime.now, format: :std)
     @event.begin_time = Time.parse("15:00")
     @event.end_time = Time.parse("15:30")
     @rooms = Room.all

@@ -52,6 +52,7 @@ gem 'rubocop', require: false
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'jquery-datatables-rails', '~> 3.4.0'
+gem "i18n-js"
 
 group :deploy do
   gem 'capistrano'

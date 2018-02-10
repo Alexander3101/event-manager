@@ -3,13 +3,10 @@ h2
 p.description
   = @room.description
 |Время работы комнаты:
-= @room.begin_work_time.strftime("c %H:%M")
-= @room.end_work_time.strftime("  до  %H:%M")
+= l(@room.begin_work_time, format: :from)
+= l(@room.end_work_time, format: :to)
 .btn.btn-margins.btn-info.btn-margins.for_print Версия для печати
 hr
-
-
-
 
 br
 
@@ -33,7 +30,7 @@ br
     .modal-content
       .modal-header
         .btn-margins.btn-primary
-          =link_to "Печать событий на месяц вперед", print_path(@room.id, format: :pdf), :class => "a btn btn-margins for_print btn-primary" 
+          =link_to "Печать событий на месяц вперед", print_path(@room.id, format: :pdf), :class => "a btn btn-margins for_print btn-primary"
         h4 class="modal-title"
           |Выберете период для печати
       = form_tag({controller: "rooms", action: "show_print", format: :pdf}, method: "get") do
@@ -46,9 +43,9 @@ br
                 = label_tag(:end_date, "Конец:")
                 = text_field_tag(:end_date, "datetimepicker2",  value: @end_date, :class => "form-control for_date")
             br
-            
+
         .modal-footer
-          = submit_tag "Распечатать этот период", class: "form_submit" 
+          = submit_tag "Распечатать этот период", class: "form_submit"
       end
 
 javascript:

@@ -15,13 +15,13 @@ html
     hr
 
     |Время работы комнаты:
-    = @room.begin_work_time.strftime("c %H:%M")
-    = @room.end_work_time.strftime("  до  %H:%M")
+    = l(@room.begin_work_time, format: :from)
+    = l(@room.end_work_time, format: :to)
 
     p.description
       = @room.description
 
-    h3 Список событий на период с #{@begin_date} по #{@end_date}
+    h3 Список событий на период с #{l(@begin_date, format: :std)} по #{l(@end_date, format: :std)}
 
     table.table.table-bordered
       tr
@@ -34,10 +34,10 @@ html
           td
             = i+1
           td
-            = event.date.strftime("%d.%m.%Y")
+            = l(event.date, format: :std)
           td
-            = event.begin_time.strftime("%H:%M - ")
-            = event.end_time.strftime("%H:%M")
+            = l(event.begin_time, format: :std)
+            = l(event.end_time, format: :dash)
           td
             b
               = event.title
@@ -46,6 +46,5 @@ html
             br
             | Организатор: #{event.organizer.name}
             br
-            |
             i
               = event.description

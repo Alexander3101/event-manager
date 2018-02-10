@@ -13,8 +13,8 @@ table.table.table-striped.table-bordered.datatable
         td
           a.room id=room.id = room.title
         td
-    			= room.begin_work_time.strftime("\t%H:%M")
-    			= room.end_work_time.strftime(" - \t%H:%M")
+          = l(room.begin_work_time, format: :std)
+          = l(room.end_work_time, format: :dash)
         td
           = room.description
 = render 'modal_and_script'

@@ -25,13 +25,13 @@ br
 .row
   div.col-sm-4
     = f.label :date, "Дата начала события"
-    = f.text_field :date, value: @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", id: "datetimepicker1"
+    = f.text_field :date, value: l(@event.date, format: :std), :class => "form-control for_date", id: "datetimepicker1"
   div.col-sm-4
     = f.label :begin_time, "Время начала события"
-    = f.text_field :begin_time, value: @event.begin_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker2'
+    = f.text_field :begin_time, value: l(@event.begin_time, format: :std), :class => "form-control for_time", :id => 'datetimepicker2'
   div.col-sm-4
     = f.label :end_time, "Время окончания события"
-    = f.text_field :end_time, value: @event.end_time.strftime("%H:%M"), :class => "form-control for_time", :id => 'datetimepicker3'
+    = f.text_field :end_time, value:l(@event.end_time, format: :std), :class => "form-control for_time", :id => 'datetimepicker3'
 br
 
 .row
@@ -59,7 +59,7 @@ label
   br
   div
     = label_tag :max_date, "Повторять событие до:"
-    = text_field_tag :max_date, @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", :id => 'datetimepicker4'
+    = text_field_tag :max_date, l(@event.date, format: :std), :class => "form-control for_date", :id => 'datetimepicker4'
 br
 div
   = f.submit "Сохранить событие", class: "btn btn-success", data: { "disable-with": "Сохраняю..." }
@@ -106,13 +106,3 @@ javascript:
     else
       $('#new_lector').hide();
   });
-
-  //function assist(){
-  //  var url = "/event/assist?room_id="+$('#event_room_id').val()
-  //  $.get(url, function(data){
-  //    $('#help').html(data);
-  //  })
-  //};
-
-  //$('#event_room_id').change(assist);
-  //$(document).on("turbolinks:load", assist);

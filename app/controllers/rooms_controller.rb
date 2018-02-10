@@ -5,7 +5,6 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    #session[:return_to] = request.original_url
   end
 
   def admin_index
@@ -13,14 +12,14 @@ class RoomsController < ApplicationController
   end
 
   def show_print
-    @begin_date = params[:begin_date] ? params[:begin_date] : DateTime.now.strftime("%Y-%m-%d")
-    @end_date = params[:end_date] ? params[:end_date] : DateTime.now.next_month.strftime("%Y-%m-%d")
+    @begin_date = Date.parse(params[:begin_date])
+    @end_date = Date.parse(params[:end_date])
     @room = Room.find(params[:id])
-    @events = Event.where("room_id = ? and date >= ? and date <= ? and archive = ?", @room.id, @begin_date, @end_date, false).order(:date).order(:begin_time)
+    @events = Event.where("room_id = ? and date >= ? and date <= ? and archive = ?", @room.id, l(@begin_date, format: :db), l(@end_date, format: :db), false).order(:date).order(:begin_time)
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "file_name", layout: false   # Excluding ".pdf" extension.
+        render pdf: "#{@room.title} events", layout: false   # Excluding ".pdf" extension.
       end
     end
   end
@@ -36,7 +35,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params)
-    
+
     respond_to do |format|
       if @room.save
         format.html { redirect_to request.referrer }

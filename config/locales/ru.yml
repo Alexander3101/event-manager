@@ -1,4 +1,34 @@
 ru:
-  will_paginate:
-    previous_label: "&#8592; Назад"
-    next_label: "Вперёд &#8594;"
+  layout:
+    expand_menu: 'Раскрыть меню'
+  date:
+    formats:
+      std: '%d-%m-%Y'
+      db: '%Y-%m-%d'
+
+  time:
+    formats:
+      std: '%H:%M'
+      dash: ' - %H:%M'
+      from: ' с %H:%M'
+      to: ' до %H:%M'
+
+  datatables:
+    processing: "Подождите..."
+    search: "Поиск:"
+    lengthMenu: "Показать _MENU_ записей"
+    info: "Записи с _START_ до _END_ из _TOTAL_ записей"
+    infoEmpty: "Записи с 0 до 0 из 0 записей"
+    infoFiltered: "(отфильтровано из _MAX_ записей)"
+    infoPostFix: ""
+    loadingRecords: "Загрузка записей..."
+    zeroRecords: "Записи отсутствуют."
+    emptyTable: "В таблице отсутствуют данные"
+    paginate:
+      first: "Первая"
+      previous: "Предыдущая"
+      next: "Следующая"
+      last: "Последняя"
+    aria:
+      sortAscending: ": активировать для сортировки столбца по возрастанию"
+      sortDescending: ": активировать для сортировки столбца по убыванию"

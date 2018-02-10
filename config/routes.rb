@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get '/home', to: 'home#index', as: :home
-
   devise_for :users
 
   get 'events/personal', to: 'events#personal', as: :personal_current

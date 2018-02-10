@@ -11,31 +11,6 @@ function eventCalendar() {
       center: 'title',
       right: 'next'
     },
-    views: {
-      month: {
-        buttonText: 'Месяц',
-        type: 'basic',
-        duration: {weeks: 2},
-        rows: 2
-      },
-      agendaWeek: {
-        type: 'agenda',
-        duration: {
-          days: 7
-        },
-        buttonText: 'Неделя'
-      },
-      agendaDay: {
-        type: 'agenda',
-        duration: {
-          days: 1
-        },
-        buttonText: 'День'
-      }
-    },
-    buttonText: {
-      today: 'Сегодня'
-    },
     events: '/events.json?room_id=' + parameter,
     timeFormat: 'HH:mm',
     displayEventEnd: true,
@@ -66,11 +41,6 @@ function eventCalendar() {
       })
     }
   });
-  //
-  // if ($(".userfield").attr('actual_user') == $(".userfield").val()) {
-  // }
-  // else {
-  // };
 };
 
 function clearCalendar() {
