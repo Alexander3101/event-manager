@@ -59,7 +59,7 @@ label
     = text_field_tag :max_date, @event.date.strftime("%d-%m-%Y"), :class => "form-control for_date", :id => 'datetimepicker4'
 br
 div
-  = f.submit "Сохранить событие", class: "btn btn-success", data: { "disable-with": "Сохраняю..." }
+  = f.submit "Сохранить событие", class: "btn btn-success btn-save_form btn-save_event", data: { "disable-with": "Сохраняю..." }
 
 #help.col-sm-6
 

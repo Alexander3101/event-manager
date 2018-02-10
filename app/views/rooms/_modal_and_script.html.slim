@@ -6,6 +6,7 @@
         h4 class="modal-title"
       .modal-body
       .modal-footer
+        button type="button" class="btn btn-success" Сохранить
         button type="button" class="btn btn-default" data-dismiss="modal" Отмена
 
 javascript:
@@ -25,5 +26,7 @@ javascript:
       $("#room_form .modal-body").html(data);
     });
   });
-
+  $(".btn-success").click(function(){
+    $(".btn-save_room").click();
+  })
   $('.datatable').DataTable();
