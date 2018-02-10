@@ -9,12 +9,9 @@
 br
 
 .row
-  div.col-sm-6
+  div.col-sm-12
     = f.label :title, "Название события"
     = f.text_field :title, :class => "form-control"
-  div.col-sm-6
-    = f.label :room_id, "Комната"
-    = f.collection_select :room_id, @rooms, :id, :title, {}, class: "form-control"
 br
 
 div
