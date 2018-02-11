@@ -1,21 +1,21 @@
 .row
   div.col-sm-12
-    = f.label :title, "Название комнаты"
+    = f.label :title, t('rooms.form.title')
     = f.text_field :title, :class => "form-control"
 br
 
 .row
   div.col-sm-12
-    = f.label :description, "Описание комнаты"
+    = f.label :description, t('rooms.form.description')
     = f.text_area :description, :class => "form-control"
 br
 
 .row
   div.col-sm-6
-    = f.label :begin_work_time, "Время начала работы комнаты"
+    = f.label :begin_work_time, t('rooms.form.begin_work_time')
     = f.text_field :begin_work_time, value: l(@room.begin_work_time.localtime), :class => "form-control for_time", id: "datetimepicker1"
   div.col-sm-6
-    = f.label :end_work_time, "Время окончания работы комнаты"
+    = f.label :end_work_time, t('rooms.form.end_work_time')
     = f.text_field :end_work_time, value: l(@room.end_work_time.localtime), :class => "form-control for_time", id: "datetimepicker2"
 br
 

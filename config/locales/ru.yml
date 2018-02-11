@@ -1,6 +1,64 @@
 ru:
+  title: 'Календарь событий'
+  btn_save: 'Сохранить'
+  btn_cancel: 'Отмена'
+
   layout:
     expand_menu: 'Раскрыть меню'
+    home_nav: 'Главная'
+    events_nav: 'События'
+    rooms_nav: 'Комнаты'
+    user_signed_out: 'Выйти'
+    user_signed_in: 'Войти'
+    sign_in_title: 'Вход'
+    sign_in_password: 'Пароль'
+
+  events:
+    time: 'Время'
+    title_new: 'Новое событие'
+    title_edit: 'Событие'
+    btn_create: 'Создать событие'
+    btn_current: 'Текущие'
+    btn_past: 'Прошедшие'
+    btn_canceled: 'Отмененные'
+    btn_delete: 'Удалить (для событий с одинаковым именем)'
+    btn_change: 'Изменить (для событий с одинаковым именем)'
+    btn_all: 'Все события'
+    btn_this: 'Только это событие'
+    btn_future: 'Это и все следущие'
+    title: 'Название события'
+    description: 'Описание'
+    room: 'Комната'
+    date: 'Дата'
+    organizer: 'Организатор'
+    lector: 'Проведёт'
+    form:
+      begin_time: 'Время начала события'
+      end_time: 'Время окончания события'
+      repeat_label_for_edit: 'Добавить повторение'
+      repeat_label_for_new: 'Повторять'
+      repeat: 'Повторять событие до:'
+      form_error:
+        wrong_event_time: 'Время начала должно отличаться от времени окончания не менее чем на 15 минут. Пожалуйста, повторите попытку'
+        conflux_with_room_time: 'Время брони должно укладываться в часы работы комнаты. Пожалуйста, повторите попытку'
+        conflux_events: 'К сожалению, на выбранное время комната уже занята. Пожалуйста, повторите попытку'
+    alert:
+      delete_chain_of_events: 'Внимание! Вы удаляете цепь событий!'
+      delete_this_event: 'Внимание! Вы удаляете событиe!'
+
+  rooms:
+    time: 'Время работы: '
+    period: 'Список событий на период: '
+    title_new: 'Новая комната'
+    title_edit: 'Комната'
+    btn_create: 'Новая комната'
+    btn_for_print: 'Версия для печати'
+    form:
+      title: 'Название комнаты'
+      description: 'Описание комнаты'
+      begin_work_time: 'Время начала работы комнаты'
+      end_work_time: 'Время окончания работы комнаты'
+
   date:
     formats:
       default: '%d-%m-%Y'

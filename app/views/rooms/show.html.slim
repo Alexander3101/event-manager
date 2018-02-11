@@ -2,10 +2,10 @@ h2
   = @room.title
 p.description
   = @room.description
-|Время работы комнаты:
+=t('rooms.time')
 = l(@room.begin_work_time.localtime, format: :from)
 = l(@room.end_work_time.localtime, format: :to)
-.btn.btn-margins.btn-info.btn-margins.for_print Версия для печати
+.btn.btn-margins.btn-info.btn-margins.for_print =t('rooms.btn_for_print')
 hr
 
 br
@@ -23,7 +23,8 @@ br
         h4 class="modal-title"
       .modal-body
       .modal-footer
-        button type="button" class="btn btn-default" data-dismiss="modal" Отмена
+        button type="button" class="btn btn-success" =t('btn_save')
+        button type="button" class="btn btn-default" data-dismiss="modal" =t('btn_cancel')
 
 javascript:
   $(function () {
@@ -42,3 +43,6 @@ javascript:
     var room = $('#calendar').attr('data-room-id');
     window.open("/rooms/print/"+room+".pdf?begin_date="+begin_date+"&end_date="+end_date)
   });
+  $(".btn-success").click(function(){
+    $(".btn-save_event").click();
+  })

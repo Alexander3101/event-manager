@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      |Календарь событий
+      =t('title')
     = csrf_meta_tags
     meta name="viewport" content="width=device-width, initial-scale=1"
 
@@ -19,36 +19,31 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand href=root_path Главная
+          a.navbar-brand href=root_path =t('layout.home_nav')
         #navbar.navbar-collapse.collapse
           - if user_signed_in? and current_user.role == "admin"
             ul.nav.navbar-nav
               li class="events-nav"
-                a href=personal_current_path События
+                a href=personal_current_path =t('layout.events_nav')
               li class="rooms-nav"
-                a href=admin_index_path Комнаты
-              / li class=("active" if controller_name == "events" and action_name == "index")
-              /   a href=personal_current_path События
-              / li class=("active" if controller_name == "rooms" and action_name == "admin_index")
-              /   a href=admin_index_path Комнаты
-
+                a href=admin_index_path =t('layout.rooms_nav')
 
           -if user_signed_in?
-            = link_to 'Выйти', destroy_user_session_path, :method => :delete, :class =>"btn btn-default navbar-btn navbar-right"
+            = link_to t('layout.user_signed_out'), destroy_user_session_path, :method => :delete, :class =>"btn btn-default navbar-btn navbar-right"
             .navbar-text.navbar-right
               span.glyphicon.glyphicon-user
               = current_user.email
           -else
             a href="#sign_in_dialog" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal"
               span.glyphicon.glyphicon-user
-              |Войти
+              =t('layout.user_signed_in')
           end
     #sign_in_dialog.modal.fade
       .modal-dialog.modal-sm
         .modal-content
           .modal-header
             button.close type="button" data-dismiss="modal" aria-hidden="true" ×
-            h4.modal-title Вход:
+            h4.modal-title =t('layout.sign_in_title')
           .modal-body.sign_in_dialog
             = form_for(:user, url: session_path(:user), remote: true) do |f|
               div
@@ -56,12 +51,12 @@ html
                 br
                 = f.email_field :email, autofocus: true, class: "form-control"
               br
-                = f.label 'Пароль'
+                = f.label t('layout.sign_in_password')
                 br
                 = f.password_field :password, autocomplete: "off", class: "form-control"
               br
               .modal-footer
-                = f.submit "Войти", class: "btn btn-success"
+                = f.submit t('layout.user_signed_in'), class: "btn btn-success"
             end
 
     .container.main-content

@@ -4,11 +4,11 @@ table.table.table-striped.table-bordered.datatable
   thead
     tr
       th scope="col"  &nbsp
-      th scope="col"  Дата
-      th scope="col"  Время
-      th scope="col"  Комната
-      th scope="col"  Организатор
-      th scope="col"  Проводит
+      th scope="col"  =t('events.date')
+      th scope="col"  =t('events.time')
+      th scope="col"  =t('events.room')
+      th scope="col"  =t('events.organizer')
+      th scope="col"  =t('events.lector')
       th scope="col"  &nbsp
   tbody
     - @events.each do |event|

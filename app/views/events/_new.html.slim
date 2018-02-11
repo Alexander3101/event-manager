@@ -1,7 +1,7 @@
 = form_for :event, url: {action: "create"}, remote: true do |f|
   .row
     div.col-sm-6
-      = f.label :room_id, "Комната"
+      = f.label :room_id, t('events.room')
       = f.collection_select :room_id, @rooms, :id, :title, {}, class: "form-control"
 
-  = render partial: 'events/form', locals: {f: f, repeat_label: "Повторять"}
+  = render partial: 'events/form', locals: {f: f, repeat_label: t('events.form.repeat_label_for_new')}

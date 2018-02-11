@@ -10,6 +10,6 @@
                 .card-text
                   = room.description
               .card-footer
-                |Время работы:
+                =t('rooms.time')
                 = l(room.begin_work_time.localtime)
                 = l(room.end_work_time.localtime, format: :dash)

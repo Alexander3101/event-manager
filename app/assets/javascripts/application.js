@@ -26,10 +26,10 @@ $(document).on('turbolinks:load', function() {
   });
 
   var pathname = window.location.pathname;
-  if(pathname.search('orders'))
-    $(pathname.replace(/orders\//,'').replace(/\//, '.').replace(/\/.*/, '').replace(/$/,'-nav')).addClass('active');
-  else
-    $(pathname.replace(/\//, '.').replace(/\/.*/, '').replace(/$/,'-nav')).addClass('active');
+  if (pathname == '/events/personal')
+    $(".events-nav").addClass('active');
+  else if (pathname == '/rooms/admin_index')
+    $(".rooms-nav").addClass('active');
 
   $('.datatable').DataTable({
     "language":

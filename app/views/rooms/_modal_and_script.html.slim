@@ -6,15 +6,15 @@
         h4 class="modal-title"
       .modal-body
       .modal-footer
-        button type="button" class="btn btn-success" Сохранить
-        button type="button" class="btn btn-default" data-dismiss="modal" Отмена
+        button type="button" class="btn btn-success" =t('btn_save')
+        button type="button" class="btn btn-default" data-dismiss="modal" =t('btn_cancel')
 
 javascript:
   $(".room").click(function(){
     var url = "/rooms/"+$(this).attr("id")+"/edit";
     $.get(url, function(data){
       $("#room_form").modal();
-      $("#room_form .modal-title").html("Комната");
+      $("#room_form .modal-title").html("#{t('rooms.title_edit')}");
       $("#room_form .modal-body").html(data);
     });
   });
@@ -22,7 +22,7 @@ javascript:
     var url = "/rooms/new";
     $.get(url, function(data){
       $("#room_form").modal();
-      $("#room_form .modal-title").html("Новая комната");
+      $("#room_form .modal-title").html("#{t('rooms.title_new')}");
       $("#room_form .modal-body").html(data);
     });
   });

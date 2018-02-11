@@ -1,43 +1,43 @@
 -if flash[:notice]
   .notice
     -if flash[:notice] == 'Длительность < 15 минут'
-      |Время начала должно отличаться от времени окончания не менее чем на 15 минут. Пожалуйста, повторите попытку
+      =t('events.form.form_error.wrong_event_time')
     -if flash[:notice] == 'Мимо комнаты'
-      |Время брони должно укладываться в часы работы комнаты. Пожалуйста, повторите попытку
+      =t('events.form.form_error.conflux_with_room_time')
     -if flash[:notice] == 'Пересечение событий'
-      |К сожалению, на выбранное время комната уже занята. Пожалуйста, повторите попытку
+      =t('events.form.form_error.conflux_events')
 br
 
 .row
   div.col-sm-12
-    = f.label :title, "Название события"
+    = f.label :title, t('events.title')
     = f.text_field :title, :class => "form-control"
 br
 
 div
-  = f.label :description, "Описание"
+  = f.label :description, t('events.description')
   = f.text_area :description, :class => "form-control"
 br
 
 .row
   div.col-sm-4
-    = f.label :date, "Дата начала события"
+    = f.label :date, t('events.date')
     = f.text_field :date, value: l(@event.date), :class => "form-control for_date", id: "datetimepicker1"
   div.col-sm-4
-    = f.label :begin_time, "Время начала события"
+    = f.label :begin_time, t('events.form.begin_time')
     = f.text_field :begin_time, value: l(@event.begin_time.localtime), :class => "form-control for_time", :id => 'datetimepicker2'
   div.col-sm-4
-    = f.label :end_time, "Время окончания события"
+    = f.label :end_time, t('events.form.end_time')
     = f.text_field :end_time, value: l(@event.end_time.localtime), :class => "form-control for_time", :id => 'datetimepicker3'
 br
 
 .row
   div.col-sm-6
-    = f.label :organizer_id, "Организатор"
+    = f.label :organizer_id, t('events.organizer')
     = f.select :organizer_id, options_for_select(Organizer.all.map{ |organizer| [organizer.name, organizer.id] }.push(["добавить", 0]), @event.organizer_id), {}, class: "form-control"
     = text_field_tag :new_organizer, "", :class => "form-control hideble"
   div.col-sm-6
-    = f.label :lector_id, "Проведёт"
+    = f.label :lector_id, t('events.lector')
     = f.select :lector_id, options_for_select(Lector.all.map{ |lector| [lector.name, lector.id] }.push(["добавить", 0]), @event.lector_id), {}, class: "form-control"
     = text_field_tag :new_lector, "", :class => "form-control hideble"
 
@@ -56,7 +56,7 @@ label
   br
   div
     = label_tag :max_date, "Повторять событие до:"
-    = text_field_tag :max_date, l(@event.date), :class => "form-control for_date", :id => 'datetimepicker4'
+    = text_field_tag :max_date, l(@event.date, format: :std), :class => "form-control for_date", :id => 'datetimepicker4'
 br
 div
   = f.submit "Сохранить событие", class: "btn btn-success btn-save_form btn-save_event", data: { "disable-with": "Сохраняю..." }
