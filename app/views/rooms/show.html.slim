@@ -23,6 +23,7 @@ br
         h4 class="modal-title"
       .modal-body
       .modal-footer
+        button type="button" class="btn btn-success" Сохранить
         button type="button" class="btn btn-default" data-dismiss="modal" Отмена
 
 javascript:
@@ -42,3 +43,6 @@ javascript:
     var room = $('#calendar').attr('data-room-id');
     window.open("/rooms/print/"+room+".pdf?begin_date="+begin_date+"&end_date="+end_date)
   });
+  $(".btn-success").click(function(){
+    $(".btn-save_event").click();
+  })
