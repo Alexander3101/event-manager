@@ -45,3 +45,5 @@ bower.json
 
 config/database.yml
 config/secrets.yml
+
+app/assets/javascripts/i18n/translations\.js
