@@ -1,6 +1,14 @@
 ru:
+  title: 'Календарь событий'
   layout:
     expand_menu: 'Раскрыть меню'
+    home_nav: 'Главная'
+    events_nav: 'События'
+    rooms_nav: 'Комнаты'
+    user_signed_out: 'Выйти'
+    user_signed_in: 'Войти'
+    sign_in_title: 'Вход'
+    sign_in_password: 'Пароль'
   date:
     formats:
       std: '%d-%m-%Y'
