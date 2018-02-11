@@ -15,13 +15,13 @@ html
     hr
 
     |Время работы комнаты:
-    = l(@room.begin_work_time, format: :from)
-    = l(@room.end_work_time, format: :to)
+    = l(@room.begin_work_time.localtime, format: :from)
+    = l(@room.end_work_time.localtime, format: :to)
 
     p.description
       = @room.description
 
-    h3 Список событий на период с #{l(@begin_date, format: :std)} по #{l(@end_date, format: :std)}
+    h3 Список событий на период с #{l(@begin_date)} по #{l(@end_date)}
 
     table.table.table-bordered
       tr
@@ -34,10 +34,10 @@ html
           td
             = i+1
           td
-            = l(event.date, format: :std)
+            = l(event.date)
           td
-            = l(event.begin_time, format: :std)
-            = l(event.end_time, format: :dash)
+            = l(event.begin_time.localtime)
+            = l(event.end_time.localtime, format: :dash)
           td
             b
               = event.title

@@ -13,10 +13,10 @@ br
 .row
   div.col-sm-6
     = f.label :begin_work_time, "Время начала работы комнаты"
-    = f.text_field :begin_work_time, value: @room.begin_work_time.strftime("%H:%M"), :class => "form-control for_time", id: "datetimepicker1"
+    = f.text_field :begin_work_time, value: l(@room.begin_work_time.localtime), :class => "form-control for_time", id: "datetimepicker1"
   div.col-sm-6
     = f.label :end_work_time, "Время окончания работы комнаты"
-    = f.text_field :end_work_time, value: @room.end_work_time.strftime("%H:%M"), :class => "form-control for_time", id: "datetimepicker2"
+    = f.text_field :end_work_time, value: l(@room.end_work_time.localtime), :class => "form-control for_time", id: "datetimepicker2"
 br
 
 p

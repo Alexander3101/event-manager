@@ -3,8 +3,8 @@ h2
 p.description
   = @room.description
 |Время работы комнаты:
-= l(@room.begin_work_time, format: :from)
-= l(@room.end_work_time, format: :to)
+= l(@room.begin_work_time.localtime, format: :from)
+= l(@room.end_work_time.localtime, format: :to)
 .btn.btn-margins.btn-info.btn-margins.for_print Версия для печати
 hr
 

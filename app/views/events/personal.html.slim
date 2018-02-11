@@ -19,10 +19,10 @@ table.table.table-striped.table-bordered.datatable
           -else
             a.my_event id=event.id = event.title
         td
-          = l(event.date, format: :std)
+          = l(event.date)
         td
-          = l(event.begin_time, format: :std)
-          = l(event.end_time, format: :dash)
+          = l(event.begin_time.localtime)
+          = l(event.end_time.localtime, format: :dash)
         td
           = event.room.title
         td

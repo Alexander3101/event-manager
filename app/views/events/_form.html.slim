@@ -22,13 +22,13 @@ br
 .row
   div.col-sm-4
     = f.label :date, "Дата начала события"
-    = f.text_field :date, value: l(@event.date, format: :std), :class => "form-control for_date", id: "datetimepicker1"
+    = f.text_field :date, value: l(@event.date), :class => "form-control for_date", id: "datetimepicker1"
   div.col-sm-4
     = f.label :begin_time, "Время начала события"
-    = f.text_field :begin_time, value: l(@event.begin_time, format: :std), :class => "form-control for_time", :id => 'datetimepicker2'
+    = f.text_field :begin_time, value: l(@event.begin_time.localtime), :class => "form-control for_time", :id => 'datetimepicker2'
   div.col-sm-4
     = f.label :end_time, "Время окончания события"
-    = f.text_field :end_time, value:l(@event.end_time, format: :std), :class => "form-control for_time", :id => 'datetimepicker3'
+    = f.text_field :end_time, value: l(@event.end_time.localtime), :class => "form-control for_time", :id => 'datetimepicker3'
 br
 
 .row
@@ -56,7 +56,7 @@ label
   br
   div
     = label_tag :max_date, "Повторять событие до:"
-    = text_field_tag :max_date, l(@event.date, format: :std), :class => "form-control for_date", :id => 'datetimepicker4'
+    = text_field_tag :max_date, l(@event.date), :class => "form-control for_date", :id => 'datetimepicker4'
 br
 div
   = f.submit "Сохранить событие", class: "btn btn-success btn-save_form btn-save_event", data: { "disable-with": "Сохраняю..." }

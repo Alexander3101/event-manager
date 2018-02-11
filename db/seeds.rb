@@ -2,7 +2,7 @@ users_number = 8
 rooms_number = 6
 organizers_number = 5
 lectors_number = 5
-time = Time.new(2000, 1, 1, 11, 0, 0, '+03:00')
+time = Time.parse("8:00")
 
 # Пользователи
 users_number.times do
@@ -43,8 +43,8 @@ puts 'lectors created'
 rooms_number.times do |i|
   Room.create(
     title: 'room_' + (i + rand(1..6) * 10).to_s,
-    begin_work_time: Time.new(2000, 1, 1, 11, 0, 0, '+03:00'),
-    end_work_time: Time.new(2000, 1, 1, 21, 0, 0, '+03:00'),
+    begin_work_time: Time.parse("11:00"),
+    end_work_time: Time.parse("18:00"),
     description: 'this is a room'
   )
 end

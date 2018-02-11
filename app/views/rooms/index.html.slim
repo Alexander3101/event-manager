@@ -11,5 +11,5 @@
                   = room.description
               .card-footer
                 |Время работы:
-                = l(room.begin_work_time, format: :std)
-                = l(room.end_work_time, format: :dash)
+                = l(room.begin_work_time.localtime)
+                = l(room.end_work_time.localtime, format: :dash)

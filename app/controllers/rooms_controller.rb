@@ -26,12 +26,10 @@ class RoomsController < ApplicationController
 
   def new
     @room = Room.new
-    @room.begin_work_time = Time.parse("12:00")
-    @room.end_work_time = Time.parse("21:00")
+    @room.begin_work_time = Time.parse("9:00")
+    @room.end_work_time = Time.parse("18:00")
     respond_to do |format|
-      format.html do
-        render partial: 'new'
-      end
+      format.html { render partial: 'new' }
     end
   end
 
@@ -50,9 +48,7 @@ class RoomsController < ApplicationController
   def edit
     @room = Room.find(params[:id])
     respond_to do |format|
-      format.html do
-        render partial: 'edit'
-      end
+      format.html { render partial: 'edit' }
     end
   end
 
@@ -76,6 +72,13 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:title, :description, :begin_work_time, :end_work_time)
+    params.require(:room).permit(:title, :description).merge(room_time_params)
+  end
+
+  private def room_time_params
+    {
+      begin_work_time: Time.parse(params.require(:event).permit(:begin_work_time)[:begin_work_time]),
+      end_work_time: Time.parse(params.require(:event).permit(:end_work_time)[:end_work_time])
+    }
   end
 end

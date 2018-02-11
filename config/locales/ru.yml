@@ -3,15 +3,19 @@ ru:
     expand_menu: 'Раскрыть меню'
   date:
     formats:
-      std: '%d-%m-%Y'
+      default: '%d-%m-%Y'
       db: '%Y-%m-%d'
 
+# and datetime too
   time:
     formats:
-      std: '%H:%M'
+      default: '%H:%M'
+      d: '%H:%M'
       dash: ' - %H:%M'
       from: ' с %H:%M'
       to: ' до %H:%M'
+      date: '%d-%m-%Y'
+      date_db: '%Y-%m-%d'
 
   datatables:
     processing: "Подождите..."

@@ -26,16 +26,14 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @event.room_id = params[:room_id]
-    @event.date = params[:date] ? params[:date] : l(DateTime.now, format: :std)
-    @event.begin_time = Time.parse("15:00")
-    @event.end_time = Time.parse("15:30")
+    @event.date = params[:date] ? params[:date] : Date.today
+    @event.begin_time = Time.parse("12:00")
+    @event.end_time = Time.parse("12:30")
     @rooms = Room.all
     flash[:notice] = ""
 
     respond_to do |format|
-      format.html do
-        render partial: 'new'
-      end
+      format.html { render partial: 'new' }
     end
   end
 
@@ -67,9 +65,7 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render partial: 'edit'
-      end
+      format.html { render partial: 'edit' }
     end
   end
 
@@ -85,6 +81,7 @@ class EventsController < ApplicationController
     add_new_organizers_and_lectors
 
     old_title = @event.title
+
     respond_to do |format|
       if @event.update(event_params)
         edit_repeatly_events(old_title) if params.permit(:change)[:change] == "future"
@@ -121,7 +118,14 @@ class EventsController < ApplicationController
   end
 
   private def event_params
-    params.require(:event).permit(:title, :description, :date, :begin_time, :end_time, :room_id, :organizer_id, :lector_id, :user_id)
+    params.require(:event).permit(:title, :description, :date, :room_id, :organizer_id, :lector_id, :user_id).merge(event_time_params)
+  end
+
+  private def event_time_params
+    {
+      begin_time: Time.parse(params.require(:event).permit(:begin_time)[:begin_time]),
+      end_time: Time.parse(params.require(:event).permit(:end_time)[:end_time])
+    }
   end
 
   private def check_user

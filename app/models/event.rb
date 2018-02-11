@@ -15,15 +15,15 @@ class Event < ApplicationRecord
   validates_with EventValidator
 
   def self.current_events(user_id)
-    dtn = DateTime.now
-    self.where(archive: false, user_id: user_id).where("date > ? or (date = ? and end_time > ?)", 
-      dtn.strftime("%Y-%m-%d"), dtn.strftime("%Y-%m-%d"), dtn.strftime("%H:%M")).order(:date).order(:begin_time)
+    dtc = DateTime.current
+    self.where(archive: false, user_id: user_id).where("date > ? or (date = ? and end_time > ?)",
+      I18n.l(dtc, format: :date_db), I18n.l(dtc, format: :date_db), I18n.l(dtc)).order(:date).order(:begin_time)
   end
 
   def self.past_events(user_id)
-    dtn = DateTime.now
-    self.where(archive: false, user_id: user_id).where("date <= ? or (date = ? and end_time <= ?)", 
-      dtn.strftime("%Y-%m-%d"), dtn.strftime("%Y-%m-%d"), dtn.strftime("%H:%M")).order(:date).reverse_order.order(:begin_time)
+    dtc = DateTime.current
+    self.where(archive: false, user_id: user_id).where("date < ? or (date = ? and end_time <= ?)",
+      I18n.l(dtc, format: :date_db), I18n.l(dtc, format: :date_db), I18n.l(dtc)).order(:date).reverse_order.order(:begin_time)
   end
 
   def self.canceled_events(user_id)

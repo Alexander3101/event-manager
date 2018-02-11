@@ -28,7 +28,7 @@ function eventCalendar() {
         html : true,
         title: event.title,
         content: function(){
-          var c = "Время проведения: " + event.start.format("HH.mm") + " - " + event.end.format("HH.mm");
+          var c = "Время проведения: " + I18n.l("time.formats.d", new Date(event.start)) + I18n.l("time.formats.dash", new Date(event.end));
           c += "<br>" + "Организатор: " + event.organizer.name + "<br>" + "Проводит: " + event.lector.name;
           c += "<hr>" + event.description;
           return c;
@@ -49,7 +49,7 @@ function clearCalendar() {
 };
 
 function showFormNew(date){
-  var url = "/events/new?room_id="+$('#calendar').attr('data-room-id')+"&date="+date.format("DD-MM-YYYY");
+  var url = "/events/new?room_id="+$('#calendar').attr('data-room-id')+"&date="+I18n.l("time.formats.date", new Date(date));
   $.get(url, function(data){
     $("#event_form").modal();
     $("#event_form .modal-title").html("Новое событие");
