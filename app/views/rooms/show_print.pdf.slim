@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      |Календарь событий
+      =t('title')
     meta charset="UTF-8"
     = csrf_meta_tags
     meta name="viewport" content="width=device-width, initial-scale=1"
@@ -14,21 +14,23 @@ html
       = @room.title
     hr
 
-    |Время работы комнаты:
+    =t('rooms.time')
     = l(@room.begin_work_time, format: :from)
     = l(@room.end_work_time, format: :to)
 
     p.description
       = @room.description
 
-    h3 Список событий на период с #{l(@begin_date, format: :std)} по #{l(@end_date, format: :std)}
+    h3
+      =t('rooms.period') 
+      | c #{l(@begin_date, format: :std)} по #{l(@end_date, format: :std)}
 
     table.table.table-bordered
       tr
         th №
-        th Дата
-        th Время
-        th Название
+        th =t('events.date')
+        th =t('events.time')
+        th =t('events.title')
       - @events.each_with_index do |event, i|
         tr.nobreak
           td
@@ -42,9 +44,11 @@ html
             b
               = event.title
             br
-            | Проводит: #{event.lector.name}
+            =t('events.lector')
+            |: #{event.lector.name}
             br
-            | Организатор: #{event.organizer.name}
+            =t('events.organizer')
+            |: #{event.organizer.name}
             br
             i
               = event.description

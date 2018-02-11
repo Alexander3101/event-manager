@@ -1,11 +1,11 @@
-.btn.btn-margins.btn-info.btn-margins.for_new style="float: right;" Новая комната
+.btn.btn-margins.btn-info.btn-margins.for_new style="float: right;" =t('rooms.btn_create')
 br
 br
 table.table.table-striped.table-bordered.datatable
   thead
     tr
-      th scope="col"  Название
-      th scope="col"  Время
+      th scope="col"  &nbsp
+      th scope="col"  =t('rooms.time')
       th scope="col"  &nbsp
   tbody
     - @rooms.each do |room|

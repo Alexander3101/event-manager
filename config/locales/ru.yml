@@ -1,5 +1,8 @@
 ru:
   title: 'Календарь событий'
+  btn_save: 'Сохранить'
+  btn_cancel: 'Отмена'
+
   layout:
     expand_menu: 'Раскрыть меню'
     home_nav: 'Главная'
@@ -23,8 +26,6 @@ ru:
     btn_all: 'Все события'
     btn_this: 'Только это событие'
     btn_future: 'Это и все следущие'
-    btn_save: 'Сохранить'
-    btn_cancel: 'Отмена'
     title: 'Название события'
     description: 'Описание'
     room: 'Комната'
@@ -44,6 +45,19 @@ ru:
     alert:
       delete_chain_of_events: 'Внимание! Вы удаляете цепь событий!'
       delete_this_event: 'Внимание! Вы удаляете событиe!'
+
+  rooms:
+    time: 'Время работы: '
+    period: 'Список событий на период: '
+    title_new: 'Новая комната'
+    title_edit: 'Комната'
+    btn_create: 'Новая комната'
+    btn_for_print: 'Версия для печати'
+    form:
+      title: 'Название комнаты'
+      description: 'Описание комнаты'
+      begin_work_time: 'Время начала работы комнаты'
+      end_work_time: 'Время окончания работы комнаты'
 
   date:
     formats:
