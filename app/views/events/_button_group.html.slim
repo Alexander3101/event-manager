@@ -1,6 +1,6 @@
 .envents-header
-  a.btn.btn-success.for_new style="float: right;" Создать событие
+  a.btn.btn-success.for_new style="float: right;" =t('events.btn_create')
   .btn-group.user_menu
-    = link_to "Текущие", personal_current_path, class: "btn btn-primary #{current}"
-    = link_to "Прошедшие", personal_path('past'), class: "btn btn-primary #{past}"
-    = link_to "Отмененные", personal_path('canceled'), class: "btn btn-primary #{canceled}"
+    = link_to t('events.btn_current'), personal_current_path, class: "btn btn-primary #{current}"
+    = link_to t('events.btn_past'), personal_path('past'), class: "btn btn-primary #{past}"
+    = link_to t('events.btn_canceled'), personal_path('canceled'), class: "btn btn-primary #{canceled}"

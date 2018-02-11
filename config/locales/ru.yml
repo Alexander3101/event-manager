@@ -9,6 +9,42 @@ ru:
     user_signed_in: 'Войти'
     sign_in_title: 'Вход'
     sign_in_password: 'Пароль'
+
+  events:
+    time: 'Время'
+    title_new: 'Новое событие'
+    title_edit: 'Событие'
+    btn_create: 'Создать событие'
+    btn_current: 'Текущие'
+    btn_past: 'Прошедшие'
+    btn_canceled: 'Отмененные'
+    btn_delete: 'Удалить (для событий с одинаковым именем)'
+    btn_change: 'Изменить (для событий с одинаковым именем)'
+    btn_all: 'Все события'
+    btn_this: 'Только это событие'
+    btn_future: 'Это и все следущие'
+    btn_save: 'Сохранить'
+    btn_cancel: 'Отмена'
+    title: 'Название события'
+    description: 'Описание'
+    room: 'Комната'
+    date: 'Дата'
+    organizer: 'Организатор'
+    lector: 'Проведёт'
+    form:
+      begin_time: 'Время начала события'
+      end_time: 'Время окончания события'
+      repeat_label_for_edit: 'Добавить повторение'
+      repeat_label_for_new: 'Повторять'
+      repeat: 'Повторять событие до:'
+      form_error:
+        wrong_event_time: 'Время начала должно отличаться от времени окончания не менее чем на 15 минут. Пожалуйста, повторите попытку'
+        conflux_with_room_time: 'Время брони должно укладываться в часы работы комнаты. Пожалуйста, повторите попытку'
+        conflux_events: 'К сожалению, на выбранное время комната уже занята. Пожалуйста, повторите попытку'
+    alert:
+      delete_chain_of_events: 'Внимание! Вы удаляете цепь событий!'
+      delete_this_event: 'Внимание! Вы удаляете событиe!'
+
   date:
     formats:
       std: '%d-%m-%Y'
