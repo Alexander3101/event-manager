@@ -13,7 +13,7 @@ module Devise
           @ldap.authenticate login.to_s, password.to_s
           raise :invalid_login unless @ldap.bind
 
-          user = User.find_or_create_by_email(login, role: user_role)
+          user = User.find_or_create_by_email(login, user_role)
           success!(user)
         rescue
           fail($!.inspect)
