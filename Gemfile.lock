@@ -157,6 +157,7 @@ GEM
     momentjs-rails (2.17.1)
       railties (>= 3.1)
     multi_json (1.13.1)
+    net-ldap (0.16.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
@@ -322,6 +323,7 @@ DEPENDENCIES
   jquery-turbolinks
   listen (>= 3.0.5, < 3.2)
   momentjs-rails (>= 2.9.0)
+  net-ldap
   pg (~> 0.21)
   puma (~> 3.7)
   rails (~> 5.1.1)
