@@ -58,7 +58,6 @@ function showFormNew(date){
 }
 
 function showFormEdit(event){
-  console.log(event);
   var url = "/events/"+event.id+"/edit";
   $.get(url, function(data){
     $("#event_form").modal();
