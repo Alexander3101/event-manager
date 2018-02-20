@@ -77,8 +77,8 @@ class RoomsController < ApplicationController
 
   private def room_time_params
     {
-      begin_work_time: Time.parse(params.require(:event).permit(:begin_work_time)[:begin_work_time]),
-      end_work_time: Time.parse(params.require(:event).permit(:end_work_time)[:end_work_time])
+      begin_work_time: Time.parse(params.require(:room).permit(:begin_work_time)[:begin_work_time]),
+      end_work_time: Time.parse(params.require(:room).permit(:end_work_time)[:end_work_time])
     }
   end
 end
