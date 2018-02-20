@@ -56,7 +56,7 @@ label
   br
   div
     = label_tag :max_date, "Повторять событие до:"
-    = text_field_tag :max_date, l(@event.date, format: :std), :class => "form-control for_date", :id => 'datetimepicker4'
+    = text_field_tag :max_date, l(@event.date), :class => "form-control for_date", :id => 'datetimepicker4'
 br
 div
   = f.submit "Сохранить событие", class: "btn btn-success btn-save_form btn-save_event", data: { "disable-with": "Сохраняю..." }
