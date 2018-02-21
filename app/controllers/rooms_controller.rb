@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  before_action :user_is_admin, except: [:index, :show, :show_print]
+
   def index
     @rooms = Room.paginate(page: params[:page])
   end
@@ -15,7 +17,7 @@ class RoomsController < ApplicationController
     @begin_date = Date.parse(params[:begin_date])
     @end_date = Date.parse(params[:end_date])
     @room = Room.find(params[:id])
-    @events = Event.where("room_id = ? and date >= ? and date <= ? and archive = ?", @room.id, l(@begin_date, format: :db), l(@end_date, format: :db), false).order(:date).order(:begin_time)
+    @events = @room.events_betweeb_date @begin_date, @end_date
     respond_to do |format|
       format.html
       format.pdf do
@@ -25,9 +27,7 @@ class RoomsController < ApplicationController
   end
 
   def new
-    @room = Room.new
-    @room.begin_work_time = Time.parse("9:00")
-    @room.end_work_time = Time.parse("18:00")
+    @room = Room.new(begin_work_time: Time.parse("9:00"), end_work_time: Time.parse("18:00"))
     respond_to do |format|
       format.html { render partial: 'new' }
     end
