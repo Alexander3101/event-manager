@@ -4,6 +4,7 @@ ru:
   btn_cancel: 'Отмена'
 
   layout:
+    email: 'Логин/Емайл'
     expand_menu: 'Раскрыть меню'
     home_nav: 'Главная'
     events_nav: 'События'

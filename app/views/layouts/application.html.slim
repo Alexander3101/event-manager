@@ -23,10 +23,10 @@ html
         #navbar.navbar-collapse.collapse
           - if user_signed_in? and current_user.role == "admin"
             ul.nav.navbar-nav
-              li class="events-nav"
-                a href=personal_current_path =t('layout.events_nav')
-              li class="rooms-nav"
-                a href=admin_index_path =t('layout.rooms_nav')
+              li.events-nav
+                = link_to t('layout.events_nav'), personal_current_path 
+              li.rooms-nav
+                = link_to t('layout.rooms_nav'), admin_index_path
 
           -if user_signed_in?
             = link_to t('layout.user_signed_out'), destroy_user_session_path, :method => :delete, :class =>"btn btn-default navbar-btn navbar-right"
@@ -46,18 +46,19 @@ html
             h4.modal-title =t('layout.sign_in_title')
           .modal-body.sign_in_dialog
             = form_for(:user, url: session_path(:user), remote: true) do |f|
-              div
-                = f.label :email
-                br
-                = f.email_field :email, autofocus: true, class: "form-control", type: :login
-              br
-                = f.label t('layout.sign_in_password')
-                br
-                = f.password_field :password, autocomplete: "off", class: "form-control"
-              br
+              .form-group
+                .input-group
+                  span.input-group-addon
+                    i.glyphicon.glyphicon-user
+                  = f.text_field :email, autofocus: true, class: 'form-control', placeholder: (t :'layout.email')
+              .form-group
+                .input-group
+                  span.input-group-addon
+                    i.glyphicon.glyphicon-lock
+                  = f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: (t :'layout.sign_in_password')
               .modal-footer
-                = f.submit t('layout.user_signed_in'), class: "btn btn-success"
-            end
+                = f.submit (t :'layout.user_signed_in'), :class => 'btn btn-md btn-success btn-block'
+
 
     .container.main-content
       = yield
