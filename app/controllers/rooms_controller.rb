@@ -2,7 +2,7 @@ class RoomsController < ApplicationController
   before_action :user_is_admin, except: [:index, :show, :show_print]
 
   def index
-    @rooms = Room.paginate(page: params[:page])
+    @rooms = Room.all
   end
 
   def show
@@ -10,7 +10,7 @@ class RoomsController < ApplicationController
   end
 
   def admin_index
-    @rooms = Room.paginate(page: params[:page])
+    @rooms = Room.all
   end
 
   def show_print
