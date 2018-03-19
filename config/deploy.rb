@@ -9,7 +9,7 @@ set :group_writable, false
 
 # setup rvm
 set :rvm_type, :user
-set :rvm_ruby_version, '2.3.1'
+set :rvm_ruby_version, '2.4.1'
 
 # setup repo details
 set :scm, :git
@@ -28,7 +28,7 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 # files we want symlinking to specific entries in shared
-set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml config/ldap.yml}
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
