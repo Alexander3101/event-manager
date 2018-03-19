@@ -13,7 +13,7 @@ set :rvm_ruby_version, '2.4.1'
 
 # setup repo details
 set :scm, :git
-set :repo_url, "git@github.com:OCBS/event-manager.git"
+set :repo_url, "git@github.com:AntonKokhanchik/event-manager.git"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
 
