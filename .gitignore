@@ -48,4 +48,5 @@ config/secrets.yml
 
 app/assets/javascripts/i18n/translations\.js
 
-/config/ldap.yml
+config/ldap.yml
+config/deploy/production.rb

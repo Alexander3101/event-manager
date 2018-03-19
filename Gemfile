@@ -56,8 +56,9 @@ gem 'i18n-js'
 gem 'net-ldap'
 
 group :deploy do
-  gem 'capistrano'
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-db-tasks', github: 'sgruhier/capistrano-db-tasks', require: false
+  gem 'capistrano', '= 3.6.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-bundler', '~> 1.2'
+  gem 'capistrano-rvm'
+  gem 'capistrano3-puma'
 end
