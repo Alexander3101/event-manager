@@ -13,6 +13,7 @@ module EventManager
     config.timezone = 'Moscow'
     config.i18n.default_locale = :ru
     config.middleware.use I18n::JS::Middleware
+    config.assets.unknown_asset_fallback = true
 
     config.ldap = config_for :ldap if File.exist?('config/ldap.yml')
     # Settings in config/environments/* take precedence over those specified here.
