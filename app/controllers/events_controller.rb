@@ -41,8 +41,6 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @rooms = Room.all
     respond_to do |format|
-      add_new_organizers_and_lectors
-
       if @event.save
         create_repeatly_events if params.permit(:repeatly).has_key? :repeatly
 
@@ -77,8 +75,6 @@ class EventsController < ApplicationController
     else
       @repeatly = false
     end
-
-    add_new_organizers_and_lectors
 
     old_title = @event.title
 
@@ -118,7 +114,7 @@ class EventsController < ApplicationController
   end
 
   private def event_params
-    params.require(:event).permit(:title, :description, :date, :room_id, :organizer_id, :lector_id, :user_id).merge(event_time_params)
+    params.require(:event).permit(:title, :description, :date, :room_id, :user_id).merge(event_time_params).merge(organizer_and_lector_params)
   end
 
   private def event_time_params
@@ -128,19 +124,30 @@ class EventsController < ApplicationController
     }
   end
 
+  private def organizer_and_lector_params
+    par = params.require(:event).permit(:organizer_id, :lector_id)
+
+    org = if par[:organizer_id] == "0"
+      Organizer.find_or_create_by(name: params.permit(:new_organizer)[:new_organizer]).id
+    else
+      par[:organizer_id]
+    end
+
+    lec = if par[:lector_id] == "0"
+      Lector.find_or_create_by(name: params.permit(:new_lector)[:new_lector]).id
+    else
+      par[:lector_id]
+    end
+    
+    {
+      organizer_id: org,
+      lector_id: lec
+    }
+  end
+
   private def check_user
     unless current_user.role == "admin" || current_user.id == Event.find(params[:id]).user_id
       redirect_to "users/sign_in", :status => 401
-    end
-  end
-
-  private def add_new_organizers_and_lectors
-    if @event.lector_id == 0
-      @event.lector_id = Lector.find_or_create_by(name: params.permit(:new_lector)[:new_lector]).id
-    end
-
-    if @event.organizer_id == 0
-      @event.organizer_id = Organizer.find_or_create_by(name: params.permit(:new_organizer)[:new_organizer]).id
     end
   end
 
