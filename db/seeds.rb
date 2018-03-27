@@ -2,7 +2,7 @@ users_number = 8
 rooms_number = 6
 organizers_number = 5
 lectors_number = 5
-time = Time.parse("8:00")
+time = Time.parse("11:00")
 
 # Пользователи
 users_number.times do
