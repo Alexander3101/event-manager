@@ -4,6 +4,9 @@
       - rooms_slice.each do |room|
         .col-sm-6.col-md-4.room-block
           .well
+            - if user_signed_in? and current_user.role == "admin" 
+              a.btn.btn-xs.btn-danger.btn-margins.room_deleter href=room_path(room) data-method="delete" data-confirm="Внимание! Вы удаляете комнату!"
+                = t('rooms.btn_delete')
             = link_to room_path(room) do
               .card-body
                 h4 = room.title
@@ -12,4 +15,4 @@
               .card-footer
                 = t('rooms.time')
                 = l(room.begin_work_time.localtime)
-                = l(room.end_work_time.localtime, format: :dash)
+                = l(room.end_work_time.localtime, format: :dash)        

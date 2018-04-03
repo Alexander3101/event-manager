@@ -48,6 +48,7 @@ ru:
       delete_this_event: 'Внимание! Вы удаляете событиe!'
 
   rooms:
+    btn_delete: 'Удалить'
     time: 'Время работы: '
     period: 'Список событий на период: '
     title_new: 'Новая комната'
