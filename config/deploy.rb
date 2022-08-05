@@ -9,11 +9,11 @@ set :group_writable, false
 
 # setup rvm
 set :rvm_type, :user
-set :rvm_ruby_version, '2.4.1'
+set :rvm_ruby_version, '3.0.0'
 
 # setup repo details
 set :scm, :git
-set :repo_url, "git@github.com:AntonKokhanchik/event-manager.git"
+set :repo_url, "git@github.com:Alexander3101/event-manager.git"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
 

@@ -5,8 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+ruby '3.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.1'
+gem 'rails', '~> 6.0.2'
 #gem 'sqlite3'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
@@ -22,7 +24,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  # deprecated
+  # gem 'chromedriver-helper' 
+  gem 'webdrivers'
 end
 
 group :development do
@@ -58,7 +62,7 @@ gem 'rubocop', require: false
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'jquery-datatables-rails', '~> 3.4.0'
-gem 'i18n-js'
+gem 'i18n-js', '~> 3.0.0.rc11'
 gem 'net-ldap'
 
 group :deploy do
