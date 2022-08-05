@@ -32,6 +32,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :development, :test do
+  gem "ruby-debug-ide", require: false
+  gem "debase", require: false
+  gem 'solargraph', require: false
+end
+
 # Custom gems
 gem 'slim-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
